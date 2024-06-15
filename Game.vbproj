@@ -177,9 +177,9 @@
       <DependentUpon>Players.mdf</DependentUpon>
     </Content>
     <None Include="packages.config" />
-    <None Include="Resources\Entry_Background.png" />
-    <None Include="Resources\Vertical_Card.jpg" />
-    <None Include="Resources\Horizontal_Card.jpg" />
+    <Resource Include="Resources\Entry_Background.png" />
+    <Resource Include="Resources\Vertical_Card.jpg" />
+    <Resource Include="Resources\Horizontal_Card.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

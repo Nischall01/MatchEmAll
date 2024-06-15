@@ -1,4 +1,5 @@
-﻿Imports Newtonsoft.Json
+﻿Imports Game.My.Resources
+Imports Newtonsoft.Json
 Imports System.IO
 Public Class TheGame
 
@@ -45,7 +46,10 @@ Public Class TheGame
     Private Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
         ' Get a random card from unmatched_cards.json
         Dim randomCard As String = GetRandomCardFromFile("draw_deck.json")
-        MsgBox("Random Card: " & randomCard)
+
+        SetCardImage(randomCard)
+
+        'MsgBox("Random Card: " & randomCard)
 
         ' Example array of cards to check for matches
         Dim cards As String() = {"Ace of Clubs", "Ace of Spades", "Ace of Diamonds", "Ace of Hearts"}
@@ -67,6 +71,17 @@ Public Class TheGame
             MsgBox(randomCard & " added to unmatched_cards.json")
             nomatches = 0
         End If
+    End Sub
+
+    Sub SetCardImage(cardName As String)
+        Try
+            ' Assuming images are stored in a "Deck_of_Cards" directory within the project directory
+            Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards", cardName & ".png")
+            CardDrew.Image = Image.FromFile(imagePath)
+            CardDrew.SizeMode = PictureBoxSizeMode.StretchImage ' Set the image to stretch mode
+        Catch ex As FileNotFoundException
+            MsgBox("Image file not found for " & cardName)
+        End Try
     End Sub
 
     Sub ClearJsonFile(filePath As String)
@@ -183,4 +198,7 @@ Public Class TheGame
         File.WriteAllText(filePath, updatedJson)
     End Sub
 
+    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click, PictureBox12.Click
+
+    End Sub
 End Class
