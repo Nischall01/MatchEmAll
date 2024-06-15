@@ -2,6 +2,8 @@
 
     Public noofplayers As Integer
 
+
+
     Private Function GenerateShuffledNumbers(min As Integer, max As Integer) As List(Of Integer)
         Dim numbers As New List(Of Integer)()
         For i As Integer = min To max
@@ -20,11 +22,19 @@
         Return numbers
     End Function
     Private Function GenerateSingleRandomNumber(min As Integer, max As Integer) As Integer
+
+
         Dim rnd As New Random()
         Return rnd.Next(min, max + 1) ' max + 1 because .Next is exclusive on the upper bound
     End Function
 
     Private Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If noofplayers = 2 Then
+            Player_2.Hide()
+            Player_4.Hide()
+        ElseIf noofplayers = 3 Then
+            Player_4.Hide()
+        End If
         Dim randomNumbers As List(Of Integer) = GenerateShuffledNumbers(1, 52)
         Dim numbersString As String = String.Join(", ", randomNumbers)
         MsgBox(numbersString)
@@ -32,5 +42,9 @@
     Private Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
         Dim randomNumber As Integer = GenerateSingleRandomNumber(1, 52)
         MsgBox(randomNumber.ToString())
+    End Sub
+
+    Private Sub Player_1_Enter(sender As Object, e As EventArgs)
+
     End Sub
 End Class

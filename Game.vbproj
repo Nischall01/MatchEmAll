@@ -173,7 +173,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Players.mdf</DependentUpon>
     </Content>
-    <None Include="Resources\52_Cards.json" />
     <None Include="Resources\Entry_Background.png" />
     <None Include="Resources\Vertical_Card.jpg" />
     <None Include="Resources\Horizontal_Card.jpg" />

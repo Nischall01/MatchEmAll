@@ -211,7 +211,7 @@ Partial Class Entry
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Game.My.Resources.Resources.Entry_Background
+        Me.BackgroundImage = Global.Game.My.Resources.Entry_Background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(804, 461)
         Me.Controls.Add(Me.Clear)
