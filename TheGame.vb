@@ -7,7 +7,7 @@ Public Class TheGame
 
     Private Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ClearJsonFile("draw_decks.json")
+        ClearJsonFile("draw_deck.json")
         ClearJsonFile("unmatched_cards.json")
 
         ' step 1: initialize the deck
