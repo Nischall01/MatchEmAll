@@ -38,6 +38,7 @@ Partial Class Entry
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Clear = New System.Windows.Forms.Button()
+        Me.Test = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -207,13 +208,23 @@ Partial Class Entry
         Me.Clear.Text = "Clear"
         Me.Clear.UseVisualStyleBackColor = True
         '
+        'Test
+        '
+        Me.Test.Location = New System.Drawing.Point(360, 376)
+        Me.Test.Name = "Test"
+        Me.Test.Size = New System.Drawing.Size(75, 23)
+        Me.Test.TabIndex = 21
+        Me.Test.Text = "Test"
+        Me.Test.UseVisualStyleBackColor = True
+        '
         'Entry
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Game.My.Resources.Entry_Background
+        Me.BackgroundImage = Global.Game.My.Resources.Resources.Entry_Background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(804, 461)
+        Me.Controls.Add(Me.Test)
         Me.Controls.Add(Me.Clear)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView1)
@@ -255,4 +266,5 @@ Partial Class Entry
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents Clear As Button
+    Friend WithEvents Test As Button
 End Class

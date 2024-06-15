@@ -91,7 +91,6 @@ Public Class Entry
     Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadScoreBoard()
         AutoCompletePlayerNames()
-        TheGame.Show()
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged
@@ -256,5 +255,9 @@ Public Class Entry
             LoadScoreBoard()
             AutoCompletePlayerNames()
         End If
+    End Sub
+
+    Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
+        TheGame.Show()
     End Sub
 End Class
