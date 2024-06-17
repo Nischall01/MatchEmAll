@@ -1,6 +1,7 @@
 ﻿Imports Game.My.Resources
 Imports Newtonsoft.Json
 Imports System.IO
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox
 Public Class TheGame
 
     Public noofplayers As Integer
@@ -11,18 +12,17 @@ Public Class TheGame
         ClearJsonFile("draw_deck.json")
         ClearJsonFile("unmatched_cards.json")
 
-        ' step 1: initialize the deck
+        ' initialize the deck
         Dim deck As List(Of String) = initializedeck()
 
-        ' step 2: shuffle the deck
+        ' shuffle the deck
         deck = shuffledeck(deck)
 
-        ' step 3: distribute cards to players (5 cards each)
+        ' distribute cards to players (5 cards each)
         Dim numberofplayers As Integer = noofplayers
         Dim cardsperplayer As Integer = 5
         Dim players As List(Of List(Of String)) = distributecards(deck, numberofplayers, cardsperplayer)
 
-        ' step 4: flatten player hands and find remaining deck
         Dim playerhands As New List(Of String)()
         For Each player In players
             playerhands.AddRange(player)
@@ -44,41 +44,40 @@ Public Class TheGame
     End Sub
 
     Private Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
-        ' Get a random card from unmatched_cards.json
+        ' random card from draw_deck.json
         Dim randomCard As String = GetRandomCardFromFile("draw_deck.json")
 
+        ' image for the drawn card
         SetCardImage(randomCard)
 
-        'MsgBox("Random Card: " & randomCard)
-
-        ' Example array of cards to check for matches
         Dim cards As String() = {"Ace of Clubs", "Ace of Spades", "Ace of Diamonds", "Ace of Hearts"}
 
-        ' Check for matches and remove from unmatched_cards.json if matched
+        ' Reset nomatches count
+        nomatches = 0
+
+        ' Check for matches and remove from draw_deck.json if matched
         For Each card In cards
             If randomCard = card Then
-                MsgBox("Match: " & card)
-                RemoveCardFromFile("draw_deck.json", card)
-                Exit For ' Exit loop once a match is found and removed
+                RemoveCardFromFile("draw_deck.json", randomCard)
+                Exit Sub ' Exit sub once a match is found and removed
             Else
                 nomatches += 1
             End If
         Next
-        If nomatches = 4 Then
-            MsgBox("No Match for " & randomCard)
+
+        ' If no matches, add the card to unmatched_cards.json
+        If nomatches = cards.Length Then
             RemoveCardFromFile("draw_deck.json", randomCard)
             AddCardToFile("unmatched_cards.json", randomCard)
-            MsgBox(randomCard & " added to unmatched_cards.json")
-            nomatches = 0
         End If
     End Sub
 
+
     Sub SetCardImage(cardName As String)
         Try
-            ' Assuming images are stored in a "Deck_of_Cards" directory within the project directory
             Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards", cardName & ".png")
             CardDrew.Image = Image.FromFile(imagePath)
-            CardDrew.SizeMode = PictureBoxSizeMode.StretchImage ' Set the image to stretch mode
+            CardDrew.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As FileNotFoundException
             MsgBox("Image file not found for " & cardName)
         End Try
@@ -88,7 +87,6 @@ Public Class TheGame
         ' Serialize an empty array to JSON
         Dim emptyJson As String = "[]"
 
-        ' Write empty JSON back to file
         File.WriteAllText(filePath, emptyJson)
     End Sub
 
@@ -144,25 +142,52 @@ Public Class TheGame
     End Sub
 
     Function GetRandomCardFromFile(filePath As String) As String
-        ' Read all text from JSON file
-        Dim json As String = File.ReadAllText(filePath)
+        Try
+            ' Check if the file exists
+            If Not File.Exists(filePath) Then
+                Throw New FileNotFoundException("The file was not found: " & filePath)
+            End If
 
-        ' Deserialize JSON array to List(Of String)
-        Dim cards As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(json)
+            ' Read all text from JSON file
+            Dim json As String = File.ReadAllText(filePath)
 
-        ' Generate random index
-        Dim rand As New Random()
-        Dim randomIndex As Integer = rand.Next(0, cards.Count)
+            ' Check if the JSON is empty
+            If String.IsNullOrWhiteSpace(json) Then
+                Throw New Exception("The file is empty or contains only whitespace: " & filePath)
+            End If
 
-        ' Return random card
-        Return cards(randomIndex)
+            ' Deserialize JSON array to List(Of String)
+            Dim cards As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(json)
+
+            If cards Is Nothing OrElse cards.Count = 4 Then
+                DeckCard4.Hide()
+            ElseIf cards Is Nothing OrElse cards.Count = 3 Then
+                DeckCard3.Hide()
+            ElseIf cards Is Nothing OrElse cards.Count = 2 Then
+                DeckCard2.Hide()
+            ElseIf cards Is Nothing OrElse cards.Count = 1 Then
+                DeckCard1.Hide()
+                Draw.Hide()
+                Reshuffle.Show()
+            End If
+
+            ' Generate random index
+            Dim rand As New Random()
+            Dim randomIndex As Integer = rand.Next(0, cards.Count)
+
+            ' Return random card
+            Return cards(randomIndex)
+        Catch ex As Exception
+            ' Log the error message (you can replace this with proper logging)
+            MsgBox("Error: " & ex.Message)
+            Return String.Empty
+        End Try
     End Function
 
+
     Sub RemoveCardFromFile(filePath As String, cardToRemove As String)
-        ' Read all text from JSON file
         Dim json As String = File.ReadAllText(filePath)
 
-        ' Deserialize JSON array to List(Of String)
         Dim cards As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(json)
 
         ' Remove the specific card
@@ -176,9 +201,7 @@ Public Class TheGame
         ' Serialize updated list back to JSON
         Dim updatedJson As String = JsonConvert.SerializeObject(cards, Formatting.Indented)
 
-        ' Write updated JSON back to file
         File.WriteAllText(filePath, updatedJson)
-        MsgBox("Removed card: " & cardToRemove)
     End Sub
 
     Sub AddCardToFile(filePath As String, cardToAdd As String)
@@ -198,7 +221,33 @@ Public Class TheGame
         File.WriteAllText(filePath, updatedJson)
     End Sub
 
-    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click, PictureBox12.Click
+    Private Sub Reshuffle_Click(sender As Object, e As EventArgs) Handles Reshuffle.Click
+        Reshuffle.Hide()
 
+        Dim unmatched_cards As String = File.ReadAllText("unmatched_cards.json")
+        Dim draw_deck As String = File.ReadAllText("draw_deck.json")
+
+        Dim cards1 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(unmatched_cards)
+        Dim cards2 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(draw_deck)
+
+        For Each card In cards1
+            cards2.Add(card)
+        Next
+
+        Dim updatedJson As String = JsonConvert.SerializeObject(shuffledeck(cards2), Formatting.Indented)
+
+        File.WriteAllText("draw_deck.json", updatedJson)
+
+        ClearJsonFile("unmatched_cards.json")
+        DeckVisible()
+        Draw.Show()
     End Sub
+
+    Public Sub DeckVisible()
+        DeckCard1.Show()
+        DeckCard2.Show()
+        DeckCard3.Show()
+        DeckCard4.Show()
+    End Sub
+
 End Class

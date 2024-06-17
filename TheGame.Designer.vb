@@ -37,10 +37,10 @@ Partial Class TheGame
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.CardDrew = New System.Windows.Forms.PictureBox()
-        Me.PictureBox23 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox22 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox21 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox25 = New System.Windows.Forms.PictureBox()
+        Me.DeckCard4 = New System.Windows.Forms.PictureBox()
+        Me.DeckCard3 = New System.Windows.Forms.PictureBox()
+        Me.DeckCard2 = New System.Windows.Forms.PictureBox()
+        Me.DeckCard1 = New System.Windows.Forms.PictureBox()
         Me.Player_2 = New System.Windows.Forms.Panel()
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
@@ -53,6 +53,7 @@ Partial Class TheGame
         Me.PictureBox13 = New System.Windows.Forms.PictureBox()
         Me.PictureBox14 = New System.Windows.Forms.PictureBox()
         Me.PictureBox15 = New System.Windows.Forms.PictureBox()
+        Me.Reshuffle = New System.Windows.Forms.Button()
         Me.Player_4.SuspendLayout()
         CType(Me.PictureBox24, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox26, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,10 +67,10 @@ Partial Class TheGame
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CardDrew, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox23, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox22, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox21, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox25, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DeckCard4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DeckCard3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DeckCard2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DeckCard1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Player_2.SuspendLayout()
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -254,57 +255,57 @@ Partial Class TheGame
         Me.CardDrew.TabIndex = 45
         Me.CardDrew.TabStop = False
         '
-        'PictureBox23
+        'DeckCard4
         '
-        Me.PictureBox23.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox23.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PictureBox23.Image = CType(resources.GetObject("PictureBox23.Image"), System.Drawing.Image)
-        Me.PictureBox23.Location = New System.Drawing.Point(408, 216)
-        Me.PictureBox23.Name = "PictureBox23"
-        Me.PictureBox23.Size = New System.Drawing.Size(56, 80)
-        Me.PictureBox23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox23.TabIndex = 30
-        Me.PictureBox23.TabStop = False
+        Me.DeckCard4.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.DeckCard4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.DeckCard4.Cursor = System.Windows.Forms.Cursors.Default
+        Me.DeckCard4.Image = CType(resources.GetObject("DeckCard4.Image"), System.Drawing.Image)
+        Me.DeckCard4.Location = New System.Drawing.Point(408, 216)
+        Me.DeckCard4.Name = "DeckCard4"
+        Me.DeckCard4.Size = New System.Drawing.Size(56, 80)
+        Me.DeckCard4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.DeckCard4.TabIndex = 30
+        Me.DeckCard4.TabStop = False
         '
-        'PictureBox22
+        'DeckCard3
         '
-        Me.PictureBox22.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox22.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox22.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PictureBox22.Image = CType(resources.GetObject("PictureBox22.Image"), System.Drawing.Image)
-        Me.PictureBox22.Location = New System.Drawing.Point(392, 216)
-        Me.PictureBox22.Name = "PictureBox22"
-        Me.PictureBox22.Size = New System.Drawing.Size(56, 80)
-        Me.PictureBox22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox22.TabIndex = 29
-        Me.PictureBox22.TabStop = False
+        Me.DeckCard3.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.DeckCard3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.DeckCard3.Cursor = System.Windows.Forms.Cursors.Default
+        Me.DeckCard3.Image = CType(resources.GetObject("DeckCard3.Image"), System.Drawing.Image)
+        Me.DeckCard3.Location = New System.Drawing.Point(392, 216)
+        Me.DeckCard3.Name = "DeckCard3"
+        Me.DeckCard3.Size = New System.Drawing.Size(56, 80)
+        Me.DeckCard3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.DeckCard3.TabIndex = 29
+        Me.DeckCard3.TabStop = False
         '
-        'PictureBox21
+        'DeckCard2
         '
-        Me.PictureBox21.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox21.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PictureBox21.Image = CType(resources.GetObject("PictureBox21.Image"), System.Drawing.Image)
-        Me.PictureBox21.Location = New System.Drawing.Point(384, 216)
-        Me.PictureBox21.Name = "PictureBox21"
-        Me.PictureBox21.Size = New System.Drawing.Size(56, 80)
-        Me.PictureBox21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox21.TabIndex = 28
-        Me.PictureBox21.TabStop = False
+        Me.DeckCard2.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.DeckCard2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.DeckCard2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.DeckCard2.Image = CType(resources.GetObject("DeckCard2.Image"), System.Drawing.Image)
+        Me.DeckCard2.Location = New System.Drawing.Point(384, 216)
+        Me.DeckCard2.Name = "DeckCard2"
+        Me.DeckCard2.Size = New System.Drawing.Size(56, 80)
+        Me.DeckCard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.DeckCard2.TabIndex = 28
+        Me.DeckCard2.TabStop = False
         '
-        'PictureBox25
+        'DeckCard1
         '
-        Me.PictureBox25.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PictureBox25.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox25.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PictureBox25.Image = CType(resources.GetObject("PictureBox25.Image"), System.Drawing.Image)
-        Me.PictureBox25.Location = New System.Drawing.Point(376, 216)
-        Me.PictureBox25.Name = "PictureBox25"
-        Me.PictureBox25.Size = New System.Drawing.Size(56, 80)
-        Me.PictureBox25.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox25.TabIndex = 2
-        Me.PictureBox25.TabStop = False
+        Me.DeckCard1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.DeckCard1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.DeckCard1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.DeckCard1.Image = CType(resources.GetObject("DeckCard1.Image"), System.Drawing.Image)
+        Me.DeckCard1.Location = New System.Drawing.Point(376, 216)
+        Me.DeckCard1.Name = "DeckCard1"
+        Me.DeckCard1.Size = New System.Drawing.Size(56, 80)
+        Me.DeckCard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.DeckCard1.TabIndex = 2
+        Me.DeckCard1.TabStop = False
         '
         'Player_2
         '
@@ -457,22 +458,34 @@ Partial Class TheGame
         Me.PictureBox15.TabIndex = 33
         Me.PictureBox15.TabStop = False
         '
+        'Reshuffle
+        '
+        Me.Reshuffle.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Reshuffle.Location = New System.Drawing.Point(376, 240)
+        Me.Reshuffle.Name = "Reshuffle"
+        Me.Reshuffle.Size = New System.Drawing.Size(88, 32)
+        Me.Reshuffle.TabIndex = 46
+        Me.Reshuffle.Text = "Reshuffle"
+        Me.Reshuffle.UseVisualStyleBackColor = True
+        Me.Reshuffle.Visible = False
+        '
         'TheGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGreen
         Me.ClientSize = New System.Drawing.Size(834, 561)
+        Me.Controls.Add(Me.Reshuffle)
         Me.Controls.Add(Me.CardDrew)
         Me.Controls.Add(Me.Player_3)
         Me.Controls.Add(Me.Player_1)
         Me.Controls.Add(Me.Player_2)
         Me.Controls.Add(Me.Player_4)
         Me.Controls.Add(Me.Draw)
-        Me.Controls.Add(Me.PictureBox23)
-        Me.Controls.Add(Me.PictureBox22)
-        Me.Controls.Add(Me.PictureBox21)
-        Me.Controls.Add(Me.PictureBox25)
+        Me.Controls.Add(Me.DeckCard4)
+        Me.Controls.Add(Me.DeckCard3)
+        Me.Controls.Add(Me.DeckCard2)
+        Me.Controls.Add(Me.DeckCard1)
         Me.MinimumSize = New System.Drawing.Size(850, 600)
         Me.Name = "TheGame"
         Me.Text = "TheGame"
@@ -489,10 +502,10 @@ Partial Class TheGame
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CardDrew, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox23, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox22, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox21, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox25, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DeckCard4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DeckCard3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DeckCard2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DeckCard1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Player_2.ResumeLayout(False)
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
@@ -510,10 +523,10 @@ Partial Class TheGame
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents PictureBox25 As PictureBox
-    Friend WithEvents PictureBox21 As PictureBox
-    Friend WithEvents PictureBox22 As PictureBox
-    Friend WithEvents PictureBox23 As PictureBox
+    Friend WithEvents DeckCard1 As PictureBox
+    Friend WithEvents DeckCard2 As PictureBox
+    Friend WithEvents DeckCard3 As PictureBox
+    Friend WithEvents DeckCard4 As PictureBox
     Friend WithEvents Draw As Button
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents PictureBox3 As PictureBox
@@ -539,4 +552,5 @@ Partial Class TheGame
     Friend WithEvents PictureBox13 As PictureBox
     Friend WithEvents PictureBox14 As PictureBox
     Friend WithEvents PictureBox15 As PictureBox
+    Friend WithEvents Reshuffle As Button
 End Class
