@@ -74,6 +74,7 @@ Public Class TheGame
 
 
     Sub SetCardImage(cardName As String)
+        CardDrew.Show()
         Try
             Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards", cardName & ".png")
             CardDrew.Image = Image.FromFile(imagePath)
@@ -223,6 +224,7 @@ Public Class TheGame
 
     Private Sub Reshuffle_Click(sender As Object, e As EventArgs) Handles Reshuffle.Click
         Reshuffle.Hide()
+        CardDrew.Hide()
 
         Dim unmatched_cards As String = File.ReadAllText("unmatched_cards.json")
         Dim draw_deck As String = File.ReadAllText("draw_deck.json")
