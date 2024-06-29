@@ -258,6 +258,7 @@ Public Class Entry
     End Sub
 
     Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
+        TheGame.noofplayers = 4
         TheGame.Show()
     End Sub
 End Class

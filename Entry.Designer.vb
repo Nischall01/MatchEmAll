@@ -48,7 +48,7 @@ Partial Class Entry
         Me.Player1_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player1_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.Player1_TextBox.Location = New System.Drawing.Point(381, 192)
+        Me.Player1_TextBox.Location = New System.Drawing.Point(400, 192)
         Me.Player1_TextBox.Name = "Player1_TextBox"
         Me.Player1_TextBox.Size = New System.Drawing.Size(100, 20)
         Me.Player1_TextBox.TabIndex = 0
@@ -58,7 +58,7 @@ Partial Class Entry
         Me.Player2_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player2_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player2_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.Player2_TextBox.Location = New System.Drawing.Point(381, 231)
+        Me.Player2_TextBox.Location = New System.Drawing.Point(400, 231)
         Me.Player2_TextBox.Name = "Player2_TextBox"
         Me.Player2_TextBox.Size = New System.Drawing.Size(100, 20)
         Me.Player2_TextBox.TabIndex = 1
@@ -68,7 +68,7 @@ Partial Class Entry
         Me.Player3_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player3_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.Player3_TextBox.Location = New System.Drawing.Point(381, 269)
+        Me.Player3_TextBox.Location = New System.Drawing.Point(400, 269)
         Me.Player3_TextBox.Name = "Player3_TextBox"
         Me.Player3_TextBox.Size = New System.Drawing.Size(100, 20)
         Me.Player3_TextBox.TabIndex = 2
@@ -77,7 +77,7 @@ Partial Class Entry
         '
         Me.Player1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1.AutoSize = True
-        Me.Player1.Location = New System.Drawing.Point(315, 195)
+        Me.Player1.Location = New System.Drawing.Point(299, 195)
         Me.Player1.Name = "Player1"
         Me.Player1.Size = New System.Drawing.Size(60, 13)
         Me.Player1.TabIndex = 4
@@ -87,7 +87,7 @@ Partial Class Entry
         '
         Me.Player2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player2.AutoSize = True
-        Me.Player2.Location = New System.Drawing.Point(315, 234)
+        Me.Player2.Location = New System.Drawing.Point(299, 234)
         Me.Player2.Name = "Player2"
         Me.Player2.Size = New System.Drawing.Size(60, 13)
         Me.Player2.TabIndex = 12
@@ -97,7 +97,7 @@ Partial Class Entry
         '
         Me.Player3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3.AutoSize = True
-        Me.Player3.Location = New System.Drawing.Point(315, 272)
+        Me.Player3.Location = New System.Drawing.Point(299, 272)
         Me.Player3.Name = "Player3"
         Me.Player3.Size = New System.Drawing.Size(60, 13)
         Me.Player3.TabIndex = 13
@@ -107,7 +107,7 @@ Partial Class Entry
         '
         Me.Player4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player4.AutoSize = True
-        Me.Player4.Location = New System.Drawing.Point(315, 308)
+        Me.Player4.Location = New System.Drawing.Point(299, 308)
         Me.Player4.Name = "Player4"
         Me.Player4.Size = New System.Drawing.Size(60, 13)
         Me.Player4.TabIndex = 14
@@ -173,7 +173,7 @@ Partial Class Entry
         Me.Player4_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player4_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player4_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.Player4_TextBox.Location = New System.Drawing.Point(381, 305)
+        Me.Player4_TextBox.Location = New System.Drawing.Point(400, 305)
         Me.Player4_TextBox.Name = "Player4_TextBox"
         Me.Player4_TextBox.Size = New System.Drawing.Size(100, 20)
         Me.Player4_TextBox.TabIndex = 17
@@ -185,6 +185,7 @@ Partial Class Entry
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(524, 53)
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.RowHeadersWidth = 45
         Me.DataGridView1.Size = New System.Drawing.Size(264, 360)
         Me.DataGridView1.TabIndex = 18
         '
@@ -210,6 +211,7 @@ Partial Class Entry
         '
         'Test
         '
+        Me.Test.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Test.Location = New System.Drawing.Point(360, 376)
         Me.Test.Name = "Test"
         Me.Test.Size = New System.Drawing.Size(75, 23)
