@@ -6,13 +6,10 @@ Imports Newtonsoft.Json
 Public Class TheGame
 
     Public noofplayers As Integer
-    Private nomatches As Integer = 0
-    Private Turn As Integer = 0
 
-    Dim Player1Cards As List(Of String)
-    Dim Player2Cards As List(Of String)
-    Dim Player3Cards As List(Of String)
-    Dim Player4Cards As List(Of String)
+    Public PName As New List(Of String)
+
+    Private nomatches As Integer
 
     Private Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Initialize_Game()
@@ -23,147 +20,178 @@ Public Class TheGame
             ClearJsonFile("draw_deck.json")
             ClearJsonFile("unmatched_cards.json")
 
-            ' Initialize and shuffle the deck
-            Dim deck As List(Of String) = initializedeck()
-            deck = shuffledeck(deck)
+            ' initialize the deck
+            Dim deck As List(Of String) = Initializedeck()
 
-            ' Distribute cards to players (5 cards each)
-            Dim numberofplayers As Integer = noofplayers
+            ' shuffle the deck
+            deck = Shuffledeck(deck)
+
+            ' distribute cards to players (5 cards each)
             Dim cardsperplayer As Integer = 5
-            Dim players As List(Of List(Of String)) = distributecards(deck, numberofplayers, cardsperplayer)
+            Dim players As List(Of List(Of String)) = Distributecards(deck, noofplayers, cardsperplayer)
 
             ' Save each player's hand to a JSON file
             SavePlayerHands(players)
 
-            ' Save remaining cards to draw_deck.json
             Dim playerhands As New List(Of String)()
             For Each player In players
                 playerhands.AddRange(player)
             Next
+
             Dim remainingdeck As List(Of String) = deck.Except(playerhands).ToList()
-            writeremainingcardstojsonfile(remainingdeck, "draw_deck.json")
 
-            ' Hide unnecessary player controls based on the number of players
-            If numberofplayers = 2 Then
-                Player_2.Hide()
-                Player_4.Hide()
-            ElseIf numberofplayers = 3 Then
-                Player_3.Hide()
-            End If
+            Writeremainingcardstojsonfile(remainingdeck, "draw_deck.json")
 
-            ' Load player cards into picture boxes
-            LoadPlayerCardsIntoPictureBoxes()
+            LoadPlayers(noofplayers)
 
-            MsgBox("Game initialization completed. Players are ready to draw.")
+            MsgBox("Game simulation completed. Check JSON files for results.")
+
         Catch ex As Exception
             MsgBox("An error occurred during game initialization: " & ex.Message)
         End Try
     End Sub
 
-
     Private Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
         Try
-            Turn = Turn + 1
-
             ' Random card from draw_deck.json
             Dim randomCard As String = GetRandomCardFromFile("draw_deck.json")
 
-            ' Display the drawn card image
+            ' Image for the drawn card
             DrawnCardImage(randomCard)
 
-            ' Extract cards for all players
-            Player1Cards = ExtractPlayerCards("players_hands.json", "Player1")
-            Player2Cards = ExtractPlayerCards("players_hands.json", "Player2")
-            Player3Cards = ExtractPlayerCards("players_hands.json", "Player3")
-            Player4Cards = ExtractPlayerCards("players_hands.json", "Player4")
+            CheckForMatch(randomCard)
 
-            ' Reset nomatches count
-            nomatches = 0
 
-            ' Check for matches based on the current turn
-            Select Case Turn
-                Case 1
-                    CheckForMatch(Player1Cards, randomCard)
-                Case 2
-                    CheckForMatch(Player2Cards, randomCard)
-                Case 3
-                    CheckForMatch(Player3Cards, randomCard)
-                Case 4
-                    CheckForMatch(Player4Cards, randomCard)
-                Case Else
-                    MsgBox("Error in the turn logic.")
-            End Select
-
-            ' Reset turn if it exceeds the number of players
-            If Turn >= noofplayers Then
-                Turn = 0
+            Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1)
+            If currentPlayer.Cards.Count = 0 Then
+                GameFinished(currentPlayer.Name)
+                Exit Sub
             End If
+
+            ChangeTurn()
+
+            LoadPlayers(noofplayers)
+
         Catch ex As Exception
             MsgBox("An error occurred during card drawing: " & ex.Message)
         End Try
-
-        Player1Cards = ExtractPlayerCards("players_hands.json", "Player1")
-        Player2Cards = ExtractPlayerCards("players_hands.json", "Player2")
-        Player3Cards = ExtractPlayerCards("players_hands.json", "Player3")
-        Player4Cards = ExtractPlayerCards("players_hands.json", "Player4")
-
-        If Player1Cards.Count = 0 Then
-            GameFinished(1)
-            Exit Sub
-        ElseIf Player2Cards.Count = 0 Then
-            GameFinished(2)
-            Exit Sub
-        ElseIf Player3Cards.Count = 0 Then
-            GameFinished(3)
-            Exit Sub
-        ElseIf Player4Cards.Count = 0 Then
-            GameFinished(4)
-            Exit Sub
-        End If
-
-        LoadPlayerCardsIntoPictureBoxes()
-
     End Sub
 
-    Private Sub CheckForMatch(playerCards As List(Of String), drawnCard As String)
 
-        Dim cardsToRemove As New List(Of String)
+    Private Sub LoadPlayers(noofplayers As Integer)
+        If noofplayers = 2 Then
+            PLayer2Name.Enabled = False
+            PLayer2Name.Hide()
+            Player_2.Enabled = False
+            Player_2.Hide()
 
-        For i = 0 To playerCards.Count - 2
-            Dim card1 = playerCards(i)
+            Player4Name.Enabled = False
+            Player4Name.Hide()
+            Player_4.Enabled = False
+            Player_4.Hide()
 
-            ' Check for duplicates starting from the next card in the list
-            For j = i + 1 To playerCards.Count - 1
-                Dim card2 = playerCards(j)
+            LoadPlayer1CardsIntoPictureBoxes(1)
+            LoadPlayer3CardsIntoPictureBoxes(2)
+        ElseIf noofplayers = 3 Then
+            Player3Name.Enabled = False
+            Player3Name.Hide()
 
-                If card1.Substring(0, 1) = card2.Substring(0, 1) Then
-                    ' Found a duplicate, add both cards to remove list
-                    cardsToRemove.Add(card1)
-                    cardsToRemove.Add(card2)
+            Player_3.Enabled = False
+            Player_3.Hide()
+
+            LoadPlayer1CardsIntoPictureBoxes(1)
+            LoadPlayer2CardsIntoPictureBoxes(2)
+            LoadPlayer4CardsIntoPictureBoxes(3)
+        ElseIf noofplayers = 4 Then
+            LoadPlayer1CardsIntoPictureBoxes(1)
+            LoadPlayer2CardsIntoPictureBoxes(2)
+            LoadPlayer3CardsIntoPictureBoxes(3)
+            LoadPlayer4CardsIntoPictureBoxes(4)
+        Else
+            MsgBox("Error in number of players")
+        End If
+    End Sub
+
+    Private Sub ChangeTurn()
+        Dim players As List(Of PlayerInfo) = ReadAllPlayersFromJson("players_hands.json")
+        For Each player In players
+            player.Position -= 1
+            If noofplayers = 2 Then
+                If player.Position = 0 Then
+                    player.Position = 2
                 End If
-            Next
-        Next
-
-        ' Remove duplicate cards from player hands
-        For Each cardToRemove In cardsToRemove
-            RemoveCardFromFile("players_hands.json", cardToRemove)
-        Next
-
-        For Each card In playerCards
-
-            If drawnCard.Substring(0, 1) = card.Substring(0, 1) Then
-                MsgBox("Hit!!")
-                RemoveCardFromFile("draw_deck.json", drawnCard)
-                RemoveCardFromFile("players_hands.json", card)
-                Exit Sub ' Exit sub once a match is found and removed
+            ElseIf noofplayers = 3 Then
+                If player.Position = 0 Then
+                    player.Position = 3
+                End If
             Else
-                nomatches += 1
+                If player.Position = 0 Then
+                    player.Position = 4
+                End If
             End If
         Next
-        ' If no matches, add the card to unmatched_cards.json
-        If nomatches = playerCards.Count Then
-            RemoveCardFromFile("draw_deck.json", drawnCard)
-            AddCardToFile("unmatched_cards.json", drawnCard)
+        Dim updatedTurn As String = JsonConvert.SerializeObject(players, Formatting.Indented)
+        File.WriteAllText("players_hands.json", updatedTurn)
+    End Sub
+
+    Private Async Sub CheckForMatch(drawnCard As String)
+        Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1S)
+        Dim currentPlayerCards As New List(Of String)()
+        Dim cardsToRemove As New List(Of String)
+        ' Reset nomatches count
+        nomatches = 0
+
+        If currentPlayer IsNot Nothing Then
+            For Each card In currentPlayer.Cards
+                currentPlayerCards.Add(card)
+            Next
+
+            For i = 0 To currentPlayerCards.Count - 2
+                Dim card1 = currentPlayerCards(i)
+
+                ' Check for duplicates starting from the next card in the list
+                For j = i + 1 To currentPlayerCards.Count - 1
+                    Dim card2 = currentPlayerCards(j)
+
+                    If card1.Substring(0, 1) = card2.Substring(0, 1) Then
+                        ' Found a duplicate, add both cards to remove list
+                        cardsToRemove.Add(card1)
+                        cardsToRemove.Add(card2)
+                    End If
+                Next
+            Next
+
+            ' Remove duplicate cards from player hands
+            For Each cardToRemove In cardsToRemove
+                RemoveCardFromFile("players_hands.json", cardToRemove)
+            Next
+
+            For Each card In currentPlayerCards
+
+                If drawnCard.Substring(0, 1) = card.Substring(0, 1) Then
+                    MsgBox("Hit!!")
+                    RemoveCardFromFile("draw_deck.json", drawnCard)
+                    RemoveCardFromFile("players_hands.json", card)
+
+                    LoadPlayers(noofplayers)
+                    ' Hold for 2 seconds
+                    Await Task.Delay(1000)
+                    Exit Sub ' Exit sub once a match is found and removed
+                Else
+                    nomatches += 1
+                End If
+            Next
+            ' If no matches, add the card to unmatched_cards.json
+            If nomatches = currentPlayerCards.Count Then
+                RemoveCardFromFile("draw_deck.json", drawnCard)
+                AddCardToFile("unmatched_cards.json", drawnCard)
+            End If
+
+
+        Else
+
+            MsgBox("Error! Current player is empty.")
+
         End If
     End Sub
 
@@ -174,7 +202,7 @@ Public Class TheGame
             CardDrew.Image = Image.FromFile(imagePath)
             CardDrew.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As FileNotFoundException
-            MsgBox("Image file not found for " & cardName)
+            MsgBox("Image file Not found for " & cardName)
         End Try
     End Sub
 
@@ -184,7 +212,7 @@ Public Class TheGame
         File.WriteAllText(filePath, emptyJson)
     End Sub
 
-    Function initializedeck() As List(Of String)
+    Function Initializedeck() As List(Of String)
         Dim suits As String() = {"Hearts", "Diamonds", "Clubs", "Spades"}
         Dim values As String() = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"}
         Dim deck As New List(Of String)()
@@ -198,7 +226,7 @@ Public Class TheGame
         Return deck
     End Function
 
-    Function shuffledeck(deck As List(Of String)) As List(Of String)
+    Function Shuffledeck(deck As List(Of String)) As List(Of String)
         Dim rand As New Random()
         Dim n As Integer = deck.Count
 
@@ -213,7 +241,7 @@ Public Class TheGame
         Return deck
     End Function
 
-    Function distributecards(deck As List(Of String), numberofplayers As Integer, cardsperplayer As Integer) As List(Of List(Of String))
+    Function Distributecards(deck As List(Of String), numberofplayers As Integer, cardsperplayer As Integer) As List(Of List(Of String))
         Dim players As New List(Of List(Of String))()
         Dim totalCards As Integer = numberofplayers * cardsperplayer
 
@@ -237,20 +265,34 @@ Public Class TheGame
         Return players
     End Function
 
-    Sub writeremainingcardstojsonfile(remainingdeck As List(Of String), filepath As String)
+    Sub Writeremainingcardstojsonfile(remainingdeck As List(Of String), filepath As String)
         Dim json As String = JsonConvert.SerializeObject(remainingdeck, Formatting.Indented)
         File.WriteAllText(filepath, json)
         MsgBox("Remaining cards saved to " & filepath)
     End Sub
 
     Sub SavePlayerHands(players As List(Of List(Of String)))
-        Dim playersHands As New Dictionary(Of String, List(Of String))()
-        For i As Integer = 0 To players.Count - 1
-            playersHands.Add("Player" & (i + 1), players(i))
-        Next
+        Try
+            ' Convert list of lists of strings to list of Player objects
+            Dim playersList As New List(Of PlayerInfo)
+            For i As Integer = 0 To players.Count - 1
+                playersList.Add(New PlayerInfo With {
+                    .Position = (i + 1),
+                    .Name = PName(i),
+                    .Cards = players(i)
+                })
+            Next
 
-        Dim json As String = JsonConvert.SerializeObject(playersHands, Formatting.Indented)
-        File.WriteAllText("players_hands.json", json)
+            ' Serialize list of Player objects to JSON
+            Dim json As String = JsonConvert.SerializeObject(playersList, Formatting.Indented)
+
+            ' Write JSON to file
+            File.WriteAllText("players_hands.json", json)
+
+            MsgBox("Player hands saved successfully.")
+        Catch ex As Exception
+            MsgBox($"Error saving player hands:    {ex.Message}")
+        End Try
     End Sub
 
     Function GetRandomCardFromFile(filePath As String) As String
@@ -296,41 +338,6 @@ Public Class TheGame
         End Try
     End Function
 
-    Sub RemoveCardFromFile(filePath As String, cardToRemove As String)
-        Dim json As String = File.ReadAllText(filePath)
-
-        If filePath.Contains("players_hands.json") Then
-            ' Deserialize the JSON into a dictionary
-            Dim playersHands As Dictionary(Of String, List(Of String)) = JsonConvert.DeserializeObject(Of Dictionary(Of String, List(Of String)))(json)
-
-            ' Remove the specific card from each player's hand if it exists
-            For Each player In playersHands.Keys.ToList()
-                If playersHands(player).Contains(cardToRemove) Then
-                    playersHands(player).Remove(cardToRemove)
-                End If
-            Next
-
-            ' Serialize the updated dictionary back to JSON
-            Dim updatedJson As String = JsonConvert.SerializeObject(playersHands, Formatting.Indented)
-            File.WriteAllText(filePath, updatedJson)
-        Else
-            ' Deserialize the JSON into a list
-            Dim cards As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(json)
-
-            ' Remove the specific card
-            If cards.Contains(cardToRemove) Then
-                cards.Remove(cardToRemove)
-            Else
-                MsgBox("Card not found in the file.")
-                Return
-            End If
-
-            ' Serialize updated list back to JSON
-            Dim updatedJson As String = JsonConvert.SerializeObject(cards, Formatting.Indented)
-            File.WriteAllText(filePath, updatedJson)
-        End If
-    End Sub
-
     Sub AddCardToFile(filePath As String, cardToAdd As String)
         ' Read all text from JSON file
         Dim json As String = File.ReadAllText(filePath)
@@ -362,7 +369,7 @@ Public Class TheGame
             cards2.Add(card)
         Next
 
-        Dim updatedJson As String = JsonConvert.SerializeObject(shuffledeck(cards2), Formatting.Indented)
+        Dim updatedJson As String = JsonConvert.SerializeObject(Shuffledeck(cards2), Formatting.Indented)
 
         File.WriteAllText("draw_deck.json", updatedJson)
 
@@ -378,103 +385,277 @@ Public Class TheGame
         DeckCard4.Show()
     End Sub
 
-    Function ExtractPlayerCards(jsonFilePath As String, playerno As String) As List(Of String)
-        Try
-            ' Read the JSON file
-            Dim json As String = File.ReadAllText(jsonFilePath)
+    Private Sub LoadPlayer1CardsIntoPictureBoxes(P1position As Integer)
+        ' Read player information from JSON
+        Dim p1 As PlayerInfo = ReadPlayerInfoFromJson(P1position)
+        Dim noofcards As Integer = p1.Cards.Count
 
-            ' Deserialize the JSON into a dictionary
-            Dim playersHands As Dictionary(Of String, List(Of String)) = JsonConvert.DeserializeObject(Of Dictionary(Of String, List(Of String)))(json)
+        If p1 IsNot Nothing Then
+            Player1Name.Text = p1.Name
+            ' Access player cards and load into picture boxes
+            Dim pictureBoxIndex As Integer = 1
+            For Each card In p1.Cards
+                If pictureBoxIndex <= noofcards Then
+                    Dim pictureBoxName As String = $"Player1Card{pictureBoxIndex}"
+                    Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
-            ' Check if the specified player exists in the dictionary
-            If playersHands.ContainsKey(playerno) Then
-                ' Return the specified player's hand
-                Return playersHands(playerno)
-            Else
-                ' If the specified player is not found, return an empty list
-                Return New List(Of String)()
-            End If
-        Catch ex As Exception
-            ' Handle any errors that occur during the process
-            MsgBox("An error occurred while extracting the player's cards: " & ex.Message)
-            Return New List(Of String)()
-        End Try
-    End Function
+                    If pictureBox IsNot Nothing Then
+                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\{card}.png" ' Adjust file extension as per your setup
 
-    Private Sub LoadPlayerCardsIntoPictureBoxes()
-        Try
-            ' Read the player hands from JSON file
-            Dim json As String = File.ReadAllText("players_hands.json")
-            Dim playersHands As Dictionary(Of String, List(Of String)) = JsonConvert.DeserializeObject(Of Dictionary(Of String, List(Of String)))(json)
+                        If File.Exists(imagePath) Then
+                            pictureBox.Image = Image.FromFile(imagePath)
+                        Else
+                            MsgBox($"Image file not found: {imagePath}")
+                        End If
+                    Else
+                        MsgBox($"PictureBox not found: {pictureBoxName}")
+                    End If
 
-            ' Load Player 1 cards into picture boxes
-            If playersHands.ContainsKey("Player1") Then
-                Dim cards As List(Of String) = playersHands("Player1")
-                For i As Integer = 0 To Math.Min(cards.Count - 1, 4) ' Ensure not to exceed 5 cards
-                    Dim cardName As String = cards(i)
-                    Dim pictureBoxName As String = "Player1Card" & (i + 1)
-                    LoadCardIntoPictureBox(cardName, pictureBoxName)
-                Next
-            End If
+                    pictureBoxIndex += 1
+                Else
+                    Exit For
+                End If
+            Next
 
-            ' Load Player 2 cards into picture boxes
-            If playersHands.ContainsKey("Player2") Then
-                Dim cards As List(Of String) = playersHands("Player2")
-                For i As Integer = 0 To Math.Min(cards.Count - 1, 4) ' Ensure not to exceed 5 cards
-                    Dim cardName As String = cards(i)
-                    Dim pictureBoxName As String = "Player2Card" & (i + 1)
-                    LoadCardIntoPictureBox(cardName, pictureBoxName)
-                Next
-            End If
+            ' Fill remaining picture boxes with default image
+            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Vertical_Card.jpg"
 
-            ' Load Player 3 cards into picture boxes
-            If playersHands.ContainsKey("Player3") Then
-                Dim cards As List(Of String) = playersHands("Player3")
-                For i As Integer = 0 To Math.Min(cards.Count - 1, 4) ' Ensure not to exceed 5 cards
-                    Dim cardName As String = cards(i)
-                    Dim pictureBoxName As String = "Player3Card" & (i + 1)
-                    LoadCardIntoPictureBox(cardName, pictureBoxName)
-                Next
-            End If
+            While pictureBoxIndex <= 5
+                Dim pictureBoxName As String = $"Player1Card{pictureBoxIndex}"
+                Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
-            ' Load Player 4 cards into picture boxes
-            If playersHands.ContainsKey("Player4") Then
-                Dim cards As List(Of String) = playersHands("Player4")
-                For i As Integer = 0 To Math.Min(cards.Count - 1, 4) ' Ensure not to exceed 5 cards
-                    Dim cardName As String = cards(i)
-                    Dim pictureBoxName As String = "Player4Card" & (i + 1)
-                    LoadCardIntoPictureBox(cardName, pictureBoxName)
-                Next
-            End If
+                If pictureBox IsNot Nothing Then
+                    If File.Exists(defaultImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    Else
+                        MsgBox($"Default image file not found: {defaultImagePath}")
+                    End If
+                Else
+                    MsgBox($"PictureBox not found: {pictureBoxName}")
+                End If
 
-        Catch ex As Exception
-            ' Handle any errors that occur during the process
-            MsgBox("An error occurred while loading player cards into picture boxes: " & ex.Message)
-        End Try
+                pictureBoxIndex += 1
+            End While
+        Else
+            MsgBox("Player information not found.")
+        End If
     End Sub
+    Private Sub LoadPlayer2CardsIntoPictureBoxes(P2position As Integer)
+        Dim p2 As PlayerInfo = ReadPlayerInfoFromJson(P2position)
+        Dim noofcards = p2.Cards.Count
+        If p2 IsNot Nothing Then
+            PLayer2Name.Text = p2.Name
+            Dim pictureBoxIndex As Integer = 1
+            For Each card In p2.Cards
+                If pictureBoxIndex <= noofcards Then
+                    Dim pictureBoxName As String = $"Player2Card{pictureBoxIndex}"
+                    Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
-    Private Sub LoadCardIntoPictureBox(cardName As String, pictureBoxName As String)
-        Try
-            Dim pictureBox As PictureBox = DirectCast(Me.Controls.Find(pictureBoxName, True).FirstOrDefault(), PictureBox)
+                    If pictureBox IsNot Nothing Then
+                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\Horizontal\{card}.png"
 
-            If pictureBox IsNot Nothing Then
-                Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards", cardName & ".png")
-                pictureBox.Image = Image.FromFile(imagePath)
-                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage
-            Else
-                MsgBox("PictureBox " & pictureBoxName & " not found.")
-            End If
-        Catch ex As Exception
-            MsgBox("Error loading card into PictureBox " & pictureBoxName & ": " & ex.Message)
-        End Try
+                        If File.Exists(imagePath) Then
+                            pictureBox.Image = Image.FromFile(imagePath)
+                        Else
+                            MsgBox($"Image file not found: {imagePath}")
+                        End If
+                    Else
+                        MsgBox($"PictureBox not found: {pictureBoxName}")
+                    End If
+
+                    pictureBoxIndex += 1
+                Else
+                    Exit For
+                End If
+            Next
+
+            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Horizontal_Card.jpg"
+
+            While pictureBoxIndex <= 5
+                Dim pictureBoxName As String = $"Player2Card{pictureBoxIndex}"
+                Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
+
+                If pictureBox IsNot Nothing Then
+                    If File.Exists(defaultImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    Else
+                        MsgBox($"Default image file not found: {defaultImagePath}")
+                    End If
+                Else
+                    MsgBox($"PictureBox not found: {pictureBoxName}")
+                End If
+
+                pictureBoxIndex += 1
+            End While
+        Else
+            MsgBox("Player information not found.")
+        End If
+    End Sub
+    Private Sub LoadPlayer3CardsIntoPictureBoxes(P3position As Integer)
+        Dim p3 As PlayerInfo = ReadPlayerInfoFromJson(P3position)
+        Dim noofcards = p3.Cards.Count
+        If p3 IsNot Nothing Then
+            Player3Name.Text = p3.Name
+            Dim pictureBoxIndex As Integer = 1
+            For Each card In p3.Cards
+                If pictureBoxIndex <= noofcards Then
+                    Dim pictureBoxName As String = $"Player3Card{pictureBoxIndex}"
+                    Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
+
+                    If pictureBox IsNot Nothing Then
+                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\{card}.png" ' Adjust file extension as per your setup
+
+                        If File.Exists(imagePath) Then
+                            pictureBox.Image = Image.FromFile(imagePath)
+                        Else
+                            MsgBox($"Image file not found: {imagePath}")
+                        End If
+                    Else
+                        MsgBox($"PictureBox not found: {pictureBoxName}")
+                    End If
+
+                    pictureBoxIndex += 1
+                Else
+                    Exit For
+                End If
+            Next
+
+            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Vertical_Card.jpg"
+
+            While pictureBoxIndex <= 5
+                Dim pictureBoxName As String = $"Player3Card{pictureBoxIndex}"
+                Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
+
+                If pictureBox IsNot Nothing Then
+                    If File.Exists(defaultImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    Else
+                        MsgBox($"Default image file not found: {defaultImagePath}")
+                    End If
+                Else
+                    MsgBox($"PictureBox not found: {pictureBoxName}")
+                End If
+
+                pictureBoxIndex += 1
+            End While
+        Else
+            MsgBox("Player information not found.")
+        End If
+    End Sub
+    Private Sub LoadPlayer4CardsIntoPictureBoxes(P4position As Integer)
+        Dim p4 As PlayerInfo = ReadPlayerInfoFromJson(P4position)
+        Dim noofcards = p4.Cards.Count
+        If p4 IsNot Nothing Then
+            Player4Name.Text = p4.Name
+            Dim pictureBoxIndex As Integer = 1
+            For Each card In p4.Cards
+                If pictureBoxIndex <= noofcards Then
+                    Dim pictureBoxName As String = $"Player4Card{pictureBoxIndex}"
+                    Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
+
+                    If pictureBox IsNot Nothing Then
+                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\Horizontal\{card}.png" ' Adjust file extension as per your setup
+
+                        If File.Exists(imagePath) Then
+                            pictureBox.Image = Image.FromFile(imagePath)
+                        Else
+                            MsgBox($"Image file not found: {imagePath}")
+                        End If
+                    Else
+                        MsgBox($"PictureBox not found: {pictureBoxName}")
+                    End If
+
+                    pictureBoxIndex += 1
+                Else
+                    Exit For
+                End If
+            Next
+
+            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Horizontal_Card.jpg"
+
+            While pictureBoxIndex <= 5
+                Dim pictureBoxName As String = $"Player4Card{pictureBoxIndex}"
+                Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
+
+                If pictureBox IsNot Nothing Then
+                    If File.Exists(defaultImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    Else
+                        MsgBox($"Default image file not found: {defaultImagePath}")
+                    End If
+                Else
+                    MsgBox($"PictureBox not found: {pictureBoxName}")
+                End If
+
+                pictureBoxIndex += 1
+            End While
+        Else
+            MsgBox("Player information not found.")
+        End If
     End Sub
 
     Private Sub GameFinished(winner As String)
-        MsgBox("Player " & winner & " is the Winner. W")
+        MsgBox("Player " & winner & " is the Winner. Big W !!!")
         If MessageBox.Show("Do you want to Play Again?", "Play Again or Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Initialize_Game()
         Else
             Me.Close()
         End If
     End Sub
+
+    Sub RemoveCardFromFile(filePath As String, cardToRemove As String)
+        If filePath = "players_hands.json" Then
+            Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1)
+            Dim currentPlayerCards As New List(Of String)(currentPlayer.cards)
+
+            If currentPlayerCards.Contains(cardToRemove) Then
+                currentPlayerCards.Remove(cardToRemove)
+            End If
+
+            ' Update the player's cards
+            currentPlayer.cards = currentPlayerCards
+
+            ' Read the entire file to update the specific player
+            Dim allPlayers As List(Of PlayerInfo) = ReadAllPlayersFromJson(filePath)
+            Dim playerIndex As Integer = allPlayers.FindIndex(Function(p) p.Position = currentPlayer.Position)
+            If playerIndex >= 0 Then
+                allPlayers(playerIndex) = currentPlayer
+            End If
+
+            ' Serialize updated list back to JSON
+            Dim updatedJson As String = JsonConvert.SerializeObject(allPlayers, Formatting.Indented)
+            File.WriteAllText(filePath, updatedJson)
+        Else
+            Dim json As String = File.ReadAllText(filePath)
+            Dim cards As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(json)
+
+            cards.Remove(cardToRemove)
+
+            Dim updatedJson As String = JsonConvert.SerializeObject(cards, Formatting.Indented)
+            File.WriteAllText(filePath, updatedJson)
+        End If
+    End Sub
+
+    ' Method to read player info from JSON file based on position
+    Public Function ReadPlayerInfoFromJson(Pno As Integer) As PlayerInfo
+        Dim players As List(Of PlayerInfo) = ReadAllPlayersFromJson("players_hands.json")
+        Return players.Find(Function(p) p.Position = Pno)
+    End Function
+
+    ' Method to read all players from JSON file
+    Private Function ReadAllPlayersFromJson(filePath As String) As List(Of PlayerInfo)
+        Try
+            Dim json As String = File.ReadAllText(filePath)
+            Return JsonConvert.DeserializeObject(Of List(Of PlayerInfo))(json)
+        Catch ex As Exception
+            MsgBox($"Error reading JSON file: {ex.Message}")
+            Return New List(Of PlayerInfo)
+        End Try
+    End Function
+End Class
+
+Public Class PlayerInfo
+    Public Property Position As Integer
+    Public Property Name As String
+    Public Property Cards As List(Of String)
 End Class

@@ -9,6 +9,11 @@ Public Class Entry
     Dim Player3Name As String
     Dim Player4Name As String
 
+    Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadScoreBoard()
+        AutoCompletePlayerNames()
+    End Sub
+
     Public Sub LoadScoreBoard()
         Dim PlayersTable As String = "SELECT * FROM PlayersInfo"
         Using conn As New SqlConnection(connectionString)
@@ -87,10 +92,6 @@ Public Class Entry
                 MessageBox.Show("An error occurred while clearing the scoreboard: " & ex.Message)
             End Try
         End Using
-    End Sub
-    Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadScoreBoard()
-        AutoCompletePlayerNames()
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged
@@ -201,8 +202,10 @@ Public Class Entry
                     TheGame.noofplayers = 3
 
                 ElseIf FourPlayers.Checked Then
+
                     Player3Name = Player3_TextBox.Text
                     Player4Name = Player4_TextBox.Text
+
                     If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Or String.IsNullOrWhiteSpace(Player4Name) Then
                         MessageBox.Show("All players' names are required.")
                         Return
@@ -237,6 +240,11 @@ Public Class Entry
 
                 End If
 
+                TheGame.PName.Add(Player1Name)
+                TheGame.PName.Add(Player2Name)
+                TheGame.PName.Add(Player3Name)
+                TheGame.PName.Add(Player4Name)
+
             Catch ex As SqlException
                 MessageBox.Show("An error occurred while adding data to the database: " & ex.Message)
             End Try
@@ -259,6 +267,10 @@ Public Class Entry
 
     Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
         TheGame.noofplayers = 4
+        TheGame.PName.Add("p1")
+        TheGame.PName.Add("p2")
+        TheGame.PName.Add("p3")
+        TheGame.PName.Add("p4")
         TheGame.Show()
     End Sub
 End Class

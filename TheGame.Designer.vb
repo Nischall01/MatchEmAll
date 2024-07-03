@@ -54,6 +54,10 @@ Partial Class TheGame
         Me.DeckCard3 = New System.Windows.Forms.PictureBox()
         Me.DeckCard2 = New System.Windows.Forms.PictureBox()
         Me.DeckCard1 = New System.Windows.Forms.PictureBox()
+        Me.PLayer2Name = New System.Windows.Forms.RichTextBox()
+        Me.Player3Name = New System.Windows.Forms.RichTextBox()
+        Me.Player4Name = New System.Windows.Forms.RichTextBox()
+        Me.Player1Name = New System.Windows.Forms.RichTextBox()
         Me.Player_4.SuspendLayout()
         CType(Me.Player4Card1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Player4Card5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,7 +92,7 @@ Partial Class TheGame
         'Draw
         '
         Me.Draw.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Draw.Location = New System.Drawing.Point(376, 312)
+        Me.Draw.Location = New System.Drawing.Point(351, 362)
         Me.Draw.Name = "Draw"
         Me.Draw.Size = New System.Drawing.Size(88, 32)
         Me.Draw.TabIndex = 31
@@ -99,13 +103,13 @@ Partial Class TheGame
         '
         Me.Player_4.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Player_4.Controls.Add(Me.Player4Card1)
-        Me.Player_4.Controls.Add(Me.Player4Card5)
-        Me.Player_4.Controls.Add(Me.Player4Card2)
-        Me.Player_4.Controls.Add(Me.Player4Card4)
         Me.Player_4.Controls.Add(Me.Player4Card3)
-        Me.Player_4.Location = New System.Drawing.Point(682, 106)
+        Me.Player_4.Controls.Add(Me.Player4Card5)
+        Me.Player_4.Controls.Add(Me.Player4Card4)
+        Me.Player_4.Controls.Add(Me.Player4Card2)
+        Me.Player_4.Location = New System.Drawing.Point(608, 152)
         Me.Player_4.Name = "Player_4"
-        Me.Player_4.Size = New System.Drawing.Size(112, 352)
+        Me.Player_4.Size = New System.Drawing.Size(112, 360)
         Me.Player_4.TabIndex = 42
         '
         'Player4Card1
@@ -167,74 +171,79 @@ Partial Class TheGame
         '
         Me.Player_1.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Player_1.Controls.Add(Me.Player1Card1)
-        Me.Player_1.Controls.Add(Me.Player1Card5)
-        Me.Player_1.Controls.Add(Me.Player1Card3)
-        Me.Player_1.Controls.Add(Me.Player1Card4)
         Me.Player_1.Controls.Add(Me.Player1Card2)
-        Me.Player_1.Location = New System.Drawing.Point(157, 444)
+        Me.Player_1.Controls.Add(Me.Player1Card5)
+        Me.Player_1.Controls.Add(Me.Player1Card4)
+        Me.Player_1.Controls.Add(Me.Player1Card3)
+        Me.Player_1.Location = New System.Drawing.Point(214, 494)
         Me.Player_1.Name = "Player_1"
-        Me.Player_1.Size = New System.Drawing.Size(520, 108)
+        Me.Player_1.Size = New System.Drawing.Size(360, 112)
         Me.Player_1.TabIndex = 43
         '
         'Player1Card1
         '
         Me.Player1Card1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1Card1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Player1Card1.Image = Global.Game.My.Resources.DeckOfCards.Queen_of_Hearts
-        Me.Player1Card1.Location = New System.Drawing.Point(104, 16)
+        Me.Player1Card1.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card1.Location = New System.Drawing.Point(24, 16)
         Me.Player1Card1.Name = "Player1Card1"
         Me.Player1Card1.Size = New System.Drawing.Size(56, 80)
         Me.Player1Card1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Player1Card1.TabIndex = 0
         Me.Player1Card1.TabStop = False
+        Me.Player1Card1.WaitOnLoad = True
         '
         'Player1Card5
         '
         Me.Player1Card5.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1Card5.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Player1Card5.Image = Global.Game.My.Resources.DeckOfCards.Ace_of_Clubs
-        Me.Player1Card5.Location = New System.Drawing.Point(360, 16)
+        Me.Player1Card5.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card5.Location = New System.Drawing.Point(280, 16)
         Me.Player1Card5.Name = "Player1Card5"
         Me.Player1Card5.Size = New System.Drawing.Size(56, 80)
         Me.Player1Card5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Player1Card5.TabIndex = 35
         Me.Player1Card5.TabStop = False
+        Me.Player1Card5.WaitOnLoad = True
         '
         'Player1Card3
         '
         Me.Player1Card3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1Card3.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Player1Card3.Image = Global.Game.My.Resources.DeckOfCards.Ace_of_Hearts
-        Me.Player1Card3.Location = New System.Drawing.Point(232, 16)
+        Me.Player1Card3.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card3.Location = New System.Drawing.Point(152, 16)
         Me.Player1Card3.Name = "Player1Card3"
         Me.Player1Card3.Size = New System.Drawing.Size(56, 80)
         Me.Player1Card3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Player1Card3.TabIndex = 32
         Me.Player1Card3.TabStop = False
+        Me.Player1Card3.WaitOnLoad = True
         '
         'Player1Card4
         '
         Me.Player1Card4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1Card4.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Player1Card4.Image = Global.Game.My.Resources.DeckOfCards.Ace_of_Diamonds
-        Me.Player1Card4.Location = New System.Drawing.Point(296, 16)
+        Me.Player1Card4.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card4.Location = New System.Drawing.Point(216, 16)
         Me.Player1Card4.Name = "Player1Card4"
         Me.Player1Card4.Size = New System.Drawing.Size(56, 80)
         Me.Player1Card4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Player1Card4.TabIndex = 34
         Me.Player1Card4.TabStop = False
+        Me.Player1Card4.WaitOnLoad = True
         '
         'Player1Card2
         '
         Me.Player1Card2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1Card2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Player1Card2.Image = Global.Game.My.Resources.DeckOfCards.Ace_of_Spades
-        Me.Player1Card2.Location = New System.Drawing.Point(168, 16)
+        Me.Player1Card2.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card2.Location = New System.Drawing.Point(88, 16)
         Me.Player1Card2.Name = "Player1Card2"
         Me.Player1Card2.Size = New System.Drawing.Size(56, 80)
         Me.Player1Card2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Player1Card2.TabIndex = 33
         Me.Player1Card2.TabStop = False
+        Me.Player1Card2.WaitOnLoad = True
         '
         'Player_2
         '
@@ -244,9 +253,9 @@ Partial Class TheGame
         Me.Player_2.Controls.Add(Me.Player2Card2)
         Me.Player_2.Controls.Add(Me.Player2Card4)
         Me.Player_2.Controls.Add(Me.Player2Card3)
-        Me.Player_2.Location = New System.Drawing.Point(40, 106)
+        Me.Player_2.Location = New System.Drawing.Point(64, 156)
         Me.Player_2.Name = "Player_2"
-        Me.Player_2.Size = New System.Drawing.Size(112, 352)
+        Me.Player_2.Size = New System.Drawing.Size(112, 360)
         Me.Player_2.TabIndex = 42
         '
         'Player2Card1
@@ -309,12 +318,12 @@ Partial Class TheGame
         Me.Player_3.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Player_3.Controls.Add(Me.Player3Card5)
         Me.Player_3.Controls.Add(Me.Player3Card1)
-        Me.Player_3.Controls.Add(Me.Player3Card3)
-        Me.Player_3.Controls.Add(Me.Player3Card2)
         Me.Player_3.Controls.Add(Me.Player3Card4)
-        Me.Player_3.Location = New System.Drawing.Point(157, 8)
+        Me.Player_3.Controls.Add(Me.Player3Card2)
+        Me.Player_3.Controls.Add(Me.Player3Card3)
+        Me.Player_3.Location = New System.Drawing.Point(214, 64)
         Me.Player_3.Name = "Player_3"
-        Me.Player_3.Size = New System.Drawing.Size(520, 112)
+        Me.Player_3.Size = New System.Drawing.Size(360, 112)
         Me.Player_3.TabIndex = 43
         '
         'Player3Card5
@@ -322,7 +331,7 @@ Partial Class TheGame
         Me.Player3Card5.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3Card5.Cursor = System.Windows.Forms.Cursors.Default
         Me.Player3Card5.Image = CType(resources.GetObject("Player3Card5.Image"), System.Drawing.Image)
-        Me.Player3Card5.Location = New System.Drawing.Point(104, 16)
+        Me.Player3Card5.Location = New System.Drawing.Point(24, 16)
         Me.Player3Card5.Name = "Player3Card5"
         Me.Player3Card5.Size = New System.Drawing.Size(56, 80)
         Me.Player3Card5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -334,7 +343,7 @@ Partial Class TheGame
         Me.Player3Card1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3Card1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Player3Card1.Image = CType(resources.GetObject("Player3Card1.Image"), System.Drawing.Image)
-        Me.Player3Card1.Location = New System.Drawing.Point(360, 16)
+        Me.Player3Card1.Location = New System.Drawing.Point(280, 16)
         Me.Player3Card1.Name = "Player3Card1"
         Me.Player3Card1.Size = New System.Drawing.Size(56, 80)
         Me.Player3Card1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -346,7 +355,7 @@ Partial Class TheGame
         Me.Player3Card3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3Card3.Cursor = System.Windows.Forms.Cursors.Default
         Me.Player3Card3.Image = CType(resources.GetObject("Player3Card3.Image"), System.Drawing.Image)
-        Me.Player3Card3.Location = New System.Drawing.Point(232, 16)
+        Me.Player3Card3.Location = New System.Drawing.Point(152, 16)
         Me.Player3Card3.Name = "Player3Card3"
         Me.Player3Card3.Size = New System.Drawing.Size(56, 80)
         Me.Player3Card3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -358,7 +367,7 @@ Partial Class TheGame
         Me.Player3Card2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3Card2.Cursor = System.Windows.Forms.Cursors.Default
         Me.Player3Card2.Image = CType(resources.GetObject("Player3Card2.Image"), System.Drawing.Image)
-        Me.Player3Card2.Location = New System.Drawing.Point(296, 16)
+        Me.Player3Card2.Location = New System.Drawing.Point(216, 16)
         Me.Player3Card2.Name = "Player3Card2"
         Me.Player3Card2.Size = New System.Drawing.Size(56, 80)
         Me.Player3Card2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -370,7 +379,7 @@ Partial Class TheGame
         Me.Player3Card4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3Card4.Cursor = System.Windows.Forms.Cursors.Default
         Me.Player3Card4.Image = CType(resources.GetObject("Player3Card4.Image"), System.Drawing.Image)
-        Me.Player3Card4.Location = New System.Drawing.Point(168, 16)
+        Me.Player3Card4.Location = New System.Drawing.Point(88, 16)
         Me.Player3Card4.Name = "Player3Card4"
         Me.Player3Card4.Size = New System.Drawing.Size(56, 80)
         Me.Player3Card4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -380,7 +389,7 @@ Partial Class TheGame
         'Reshuffle
         '
         Me.Reshuffle.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Reshuffle.Location = New System.Drawing.Point(376, 240)
+        Me.Reshuffle.Location = New System.Drawing.Point(351, 290)
         Me.Reshuffle.Name = "Reshuffle"
         Me.Reshuffle.Size = New System.Drawing.Size(88, 32)
         Me.Reshuffle.TabIndex = 46
@@ -391,7 +400,7 @@ Partial Class TheGame
         'CardDrew
         '
         Me.CardDrew.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.CardDrew.Location = New System.Drawing.Point(392, 360)
+        Me.CardDrew.Location = New System.Drawing.Point(367, 410)
         Me.CardDrew.Name = "CardDrew"
         Me.CardDrew.Size = New System.Drawing.Size(56, 80)
         Me.CardDrew.TabIndex = 45
@@ -402,7 +411,7 @@ Partial Class TheGame
         Me.DeckCard4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.DeckCard4.Cursor = System.Windows.Forms.Cursors.Default
         Me.DeckCard4.Image = CType(resources.GetObject("DeckCard4.Image"), System.Drawing.Image)
-        Me.DeckCard4.Location = New System.Drawing.Point(408, 216)
+        Me.DeckCard4.Location = New System.Drawing.Point(383, 266)
         Me.DeckCard4.Name = "DeckCard4"
         Me.DeckCard4.Size = New System.Drawing.Size(56, 80)
         Me.DeckCard4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -414,7 +423,7 @@ Partial Class TheGame
         Me.DeckCard3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.DeckCard3.Cursor = System.Windows.Forms.Cursors.Default
         Me.DeckCard3.Image = CType(resources.GetObject("DeckCard3.Image"), System.Drawing.Image)
-        Me.DeckCard3.Location = New System.Drawing.Point(392, 216)
+        Me.DeckCard3.Location = New System.Drawing.Point(367, 266)
         Me.DeckCard3.Name = "DeckCard3"
         Me.DeckCard3.Size = New System.Drawing.Size(56, 80)
         Me.DeckCard3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -426,7 +435,7 @@ Partial Class TheGame
         Me.DeckCard2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.DeckCard2.Cursor = System.Windows.Forms.Cursors.Default
         Me.DeckCard2.Image = CType(resources.GetObject("DeckCard2.Image"), System.Drawing.Image)
-        Me.DeckCard2.Location = New System.Drawing.Point(384, 216)
+        Me.DeckCard2.Location = New System.Drawing.Point(359, 266)
         Me.DeckCard2.Name = "DeckCard2"
         Me.DeckCard2.Size = New System.Drawing.Size(56, 80)
         Me.DeckCard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -438,19 +447,63 @@ Partial Class TheGame
         Me.DeckCard1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.DeckCard1.Cursor = System.Windows.Forms.Cursors.Default
         Me.DeckCard1.Image = CType(resources.GetObject("DeckCard1.Image"), System.Drawing.Image)
-        Me.DeckCard1.Location = New System.Drawing.Point(376, 216)
+        Me.DeckCard1.Location = New System.Drawing.Point(351, 266)
         Me.DeckCard1.Name = "DeckCard1"
         Me.DeckCard1.Size = New System.Drawing.Size(56, 80)
         Me.DeckCard1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.DeckCard1.TabIndex = 2
         Me.DeckCard1.TabStop = False
         '
+        'PLayer2Name
+        '
+        Me.PLayer2Name.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.PLayer2Name.Location = New System.Drawing.Point(32, 279)
+        Me.PLayer2Name.Name = "PLayer2Name"
+        Me.PLayer2Name.ReadOnly = True
+        Me.PLayer2Name.Size = New System.Drawing.Size(24, 120)
+        Me.PLayer2Name.TabIndex = 47
+        Me.PLayer2Name.Text = ""
+        '
+        'Player3Name
+        '
+        Me.Player3Name.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Player3Name.Location = New System.Drawing.Point(334, 32)
+        Me.Player3Name.Name = "Player3Name"
+        Me.Player3Name.ReadOnly = True
+        Me.Player3Name.Size = New System.Drawing.Size(120, 24)
+        Me.Player3Name.TabIndex = 48
+        Me.Player3Name.Text = ""
+        '
+        'Player4Name
+        '
+        Me.Player4Name.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Player4Name.Location = New System.Drawing.Point(728, 276)
+        Me.Player4Name.Name = "Player4Name"
+        Me.Player4Name.ReadOnly = True
+        Me.Player4Name.Size = New System.Drawing.Size(24, 120)
+        Me.Player4Name.TabIndex = 49
+        Me.Player4Name.Text = ""
+        '
+        'Player1Name
+        '
+        Me.Player1Name.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Player1Name.Location = New System.Drawing.Point(334, 608)
+        Me.Player1Name.Name = "Player1Name"
+        Me.Player1Name.ReadOnly = True
+        Me.Player1Name.Size = New System.Drawing.Size(120, 24)
+        Me.Player1Name.TabIndex = 50
+        Me.Player1Name.Text = ""
+        '
         'TheGame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGreen
-        Me.ClientSize = New System.Drawing.Size(834, 561)
+        Me.ClientSize = New System.Drawing.Size(784, 661)
+        Me.Controls.Add(Me.Player1Name)
+        Me.Controls.Add(Me.Player4Name)
+        Me.Controls.Add(Me.Player3Name)
+        Me.Controls.Add(Me.PLayer2Name)
         Me.Controls.Add(Me.Reshuffle)
         Me.Controls.Add(Me.CardDrew)
         Me.Controls.Add(Me.Player_3)
@@ -462,7 +515,7 @@ Partial Class TheGame
         Me.Controls.Add(Me.DeckCard3)
         Me.Controls.Add(Me.DeckCard2)
         Me.Controls.Add(Me.DeckCard1)
-        Me.MinimumSize = New System.Drawing.Size(850, 600)
+        Me.MinimumSize = New System.Drawing.Size(800, 600)
         Me.Name = "TheGame"
         Me.Text = "TheGame"
         Me.Player_4.ResumeLayout(False)
@@ -529,4 +582,8 @@ Partial Class TheGame
     Friend WithEvents Player3Card2 As PictureBox
     Friend WithEvents Player3Card4 As PictureBox
     Friend WithEvents Reshuffle As Button
+    Friend WithEvents PLayer2Name As RichTextBox
+    Friend WithEvents Player3Name As RichTextBox
+    Friend WithEvents Player4Name As RichTextBox
+    Friend WithEvents Player1Name As RichTextBox
 End Class
