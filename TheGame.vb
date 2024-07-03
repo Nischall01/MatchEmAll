@@ -13,6 +13,7 @@ Public Class TheGame
 
     Private Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Initialize_Game()
+        MsgBox("Welcome Every-nyan!!!")
     End Sub
 
     Private Sub Initialize_Game()
@@ -44,7 +45,7 @@ Public Class TheGame
 
             LoadPlayers(noofplayers)
 
-            MsgBox("Game simulation completed. Check JSON files for results.")
+            'MsgBox("Game simulation completed. Check JSON files for results.")
 
         Catch ex As Exception
             MsgBox("An error occurred during game initialization: " & ex.Message)
@@ -76,7 +77,6 @@ Public Class TheGame
             MsgBox("An error occurred during card drawing: " & ex.Message)
         End Try
     End Sub
-
 
     Private Sub LoadPlayers(noofplayers As Integer)
         If noofplayers = 2 Then
@@ -198,7 +198,7 @@ Public Class TheGame
     Sub DrawnCardImage(cardName As String)
         CardDrew.Show()
         Try
-            Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards", cardName & ".png")
+            Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards\Vertical", cardName & ".png")
             CardDrew.Image = Image.FromFile(imagePath)
             CardDrew.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As FileNotFoundException
@@ -268,7 +268,7 @@ Public Class TheGame
     Sub Writeremainingcardstojsonfile(remainingdeck As List(Of String), filepath As String)
         Dim json As String = JsonConvert.SerializeObject(remainingdeck, Formatting.Indented)
         File.WriteAllText(filepath, json)
-        MsgBox("Remaining cards saved to " & filepath)
+        'MsgBox("Remaining cards saved to " & filepath)
     End Sub
 
     Sub SavePlayerHands(players As List(Of List(Of String)))
@@ -289,7 +289,7 @@ Public Class TheGame
             ' Write JSON to file
             File.WriteAllText("players_hands.json", json)
 
-            MsgBox("Player hands saved successfully.")
+            'MsgBox("Player hands saved successfully.")
         Catch ex As Exception
             MsgBox($"Error saving player hands:    {ex.Message}")
         End Try
@@ -400,7 +400,7 @@ Public Class TheGame
                     Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                     If pictureBox IsNot Nothing Then
-                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\{card}.png" ' Adjust file extension as per your setup
+                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\Vertical\{card}.png" ' Adjust file extension as per your setup
 
                         If File.Exists(imagePath) Then
                             pictureBox.Image = Image.FromFile(imagePath)
@@ -503,7 +503,7 @@ Public Class TheGame
                     Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                     If pictureBox IsNot Nothing Then
-                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\{card}.png" ' Adjust file extension as per your setup
+                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\bin\Debug\Deck_of_Cards\Vertical\{card}.png" ' Adjust file extension as per your setup
 
                         If File.Exists(imagePath) Then
                             pictureBox.Image = Image.FromFile(imagePath)

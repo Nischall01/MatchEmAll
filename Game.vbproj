@@ -119,11 +119,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DeckOfCards.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DeckOfCards.resx</DependentUpon>
-    </Compile>
     <Compile Include="TheGame.Designer.vb">
       <DependentUpon>TheGame.vb</DependentUpon>
     </Compile>
@@ -160,11 +155,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DeckOfCards.resx">
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeckOfCards.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TheGame.resx">
       <DependentUpon>TheGame.vb</DependentUpon>
@@ -235,6 +225,58 @@
     <None Include="bin\Debug\Deck_of_Cards\Queen of Diamonds.png" />
     <None Include="bin\Debug\Deck_of_Cards\Queen of Hearts.png" />
     <None Include="bin\Debug\Deck_of_Cards\Queen of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\2 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\2 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\2 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\2 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\3 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\3 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\3 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\3 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\4 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\4 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\4 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\4 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\5 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\5 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\5 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\5 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\6 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\6 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\6 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\6 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\7 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\7 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\7 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\7 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\8 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\8 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\8 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\8 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\9 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\9 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\9 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\9 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\10 of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\10 of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\10 of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\10 of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Ace of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Ace of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Ace of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Ace of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Jack of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Jack of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Jack of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Jack of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\King of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\King of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\King of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\King of Spades.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Queen of Clubs.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Queen of Diamonds.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Queen of Hearts.png" />
+    <None Include="bin\Debug\Deck_of_Cards\Horizontal\Queen of Spades.png" />
     <Content Include="Players.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
