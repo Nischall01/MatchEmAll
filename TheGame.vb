@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Drawing.Drawing2D
+Imports System.IO
 Imports System.Security.Cryptography.X509Certificates
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox
 Imports Newtonsoft.Json
@@ -11,72 +12,109 @@ Public Class TheGame
 
     Private nomatches As Integer
 
+    Private angle As Integer = 0
+
     Private Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Initialize_Game()
+        Timer1.Interval = 50 ' Adjust timer interval for smoother animation
         MsgBox("Welcome Every-nyan!!!")
+        Draw.Focus() ' Set initial focus on Draw button
+    End Sub
+
+    Private Sub TheGame_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        ' Check if Space key is pressed
+        If e.KeyCode = Keys.Space Then
+            ' Simulate a click on the Draw button
+            Draw_Click(sender, e)
+        End If
     End Sub
 
     Private Sub Initialize_Game()
         Try
+            ' Clear existing JSON files
             ClearJsonFile("draw_deck.json")
             ClearJsonFile("unmatched_cards.json")
 
-            ' initialize the deck
+            ' Initialize the deck
             Dim deck As List(Of String) = Initializedeck()
 
-            ' shuffle the deck
+            ' Shuffle the deck
             deck = Shuffledeck(deck)
 
-            ' distribute cards to players (5 cards each)
-            Dim cardsperplayer As Integer = 5
-            Dim players As List(Of List(Of String)) = Distributecards(deck, noofplayers, cardsperplayer)
+            ' Distribute cards to players (5 cards each)
+            Dim cardsPerPlayer As Integer = 5
+            Dim players As List(Of List(Of String)) = Distributecards(deck, noofplayers, cardsPerPlayer)
 
             ' Save each player's hand to a JSON file
             SavePlayerHands(players)
 
-            Dim playerhands As New List(Of String)()
+            ' Save remaining cards to draw_deck.json
+            Dim playerHands As New List(Of String)()
             For Each player In players
-                playerhands.AddRange(player)
+                playerHands.AddRange(player)
             Next
+            Dim remainingDeck As List(Of String) = deck.Except(playerHands).ToList()
+            Writeremainingcardstojsonfile(remainingDeck, "draw_deck.json")
 
-            Dim remainingdeck As List(Of String) = deck.Except(playerhands).ToList()
-
-            Writeremainingcardstojsonfile(remainingdeck, "draw_deck.json")
-
+            ' Load player information
             LoadPlayers(noofplayers)
 
-            'MsgBox("Game simulation completed. Check JSON files for results.")
-
+            ' MsgBox("Game initialization completed.")
         Catch ex As Exception
             MsgBox("An error occurred during game initialization: " & ex.Message)
         End Try
     End Sub
 
-    Private Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
+    Private Async Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
         Try
-            ' Random card from draw_deck.json
+            ' Draw a random card from draw_deck.json
             Dim randomCard As String = GetRandomCardFromFile("draw_deck.json")
 
-            ' Image for the drawn card
+            ' Display the drawn card image
             DrawnCardImage(randomCard)
 
+            ' Check for matches with the drawn card
             CheckForMatch(randomCard)
 
-
+            ' Check if current player has no more cards
             Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1)
             If currentPlayer.Cards.Count = 0 Then
                 GameFinished(currentPlayer.Name)
                 Exit Sub
             End If
 
-            ChangeTurn()
+            ' Disable Draw button temporarily
+            Draw.Enabled = False
 
+            ' Show the drawn card image
+            CardDrew.Show()
+
+            ' Delay before hiding the drawn card image
+            Await Task.Delay(900)
+            CardDrew.Hide()
+
+            ' Rotate turn to the next player
+            Turn_rotate()
+
+            ' Delay before changing turn and reloading player info
+            Await Task.Delay(900)
+            ChangeTurn()
             LoadPlayers(noofplayers)
+
+            ' Set focus back to Draw button
+            Player1Name.TabIndex = -1
+            PLayer2Name.TabIndex = -1
+            Player3Name.TabIndex = -1
+            Player4Name.TabIndex = -1
+
+            Draw.TabIndex = 0
+            Draw.Focus()
 
         Catch ex As Exception
             MsgBox("An error occurred during card drawing: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub LoadPlayers(noofplayers As Integer)
         If noofplayers = 2 Then
@@ -174,7 +212,7 @@ Public Class TheGame
                     RemoveCardFromFile("players_hands.json", card)
 
                     LoadPlayers(noofplayers)
-                    ' Hold for 2 seconds
+                    ' Hold for 1 second
                     Await Task.Delay(1000)
                     Exit Sub ' Exit sub once a match is found and removed
                 Else
@@ -186,8 +224,6 @@ Public Class TheGame
                 RemoveCardFromFile("draw_deck.json", drawnCard)
                 AddCardToFile("unmatched_cards.json", drawnCard)
             End If
-
-
         Else
 
             MsgBox("Error! Current player is empty.")
@@ -358,6 +394,7 @@ Public Class TheGame
     Private Sub Reshuffle_Click(sender As Object, e As EventArgs) Handles Reshuffle.Click
         Reshuffle.Hide()
         CardDrew.Hide()
+        DeckVisible()
 
         Dim unmatched_cards As String = File.ReadAllText("unmatched_cards.json")
         Dim draw_deck As String = File.ReadAllText("draw_deck.json")
@@ -606,7 +643,7 @@ Public Class TheGame
     Sub RemoveCardFromFile(filePath As String, cardToRemove As String)
         If filePath = "players_hands.json" Then
             Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1)
-            Dim currentPlayerCards As New List(Of String)(currentPlayer.cards)
+            Dim currentPlayerCards As New List(Of String)(currentPlayer.Cards)
 
             If currentPlayerCards.Contains(cardToRemove) Then
                 currentPlayerCards.Remove(cardToRemove)
@@ -652,6 +689,75 @@ Public Class TheGame
             Return New List(Of PlayerInfo)
         End Try
     End Function
+
+    Private Async Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        ' Incrementally rotate the image
+        angle += 13
+        If angle >= 180 Then
+            angle = 0 ' Reset angle after one full rotation
+            Timer1.Stop()
+            Turn.Invalidate()
+            ' Hold for 0.5 seconds
+            Await Task.Delay(500)
+            Turn.Hide()
+            Draw.Enabled = True
+        Else
+            ' Redraw the PictureBox with the rotated image
+            Turn.Invalidate()
+        End If
+    End Sub
+
+    Private Sub Turn_rotate()
+        Try
+            ' Load your image into the PictureBox
+            Turn.Image = My.Resources.Turn_rotate
+            Turn.SizeMode = PictureBoxSizeMode.StretchImage
+        Catch ex As Exception
+            MessageBox.Show("Image not found: " & ex.Message)
+        End Try
+
+        ' Start the rotation animation
+        Turn.Show()
+
+        Timer1.Start()
+    End Sub
+
+    Private Sub CardDrew_Paint(sender As Object, e As PaintEventArgs) Handles Turn.Paint
+        If Turn.Image IsNot Nothing Then
+            Dim g As Graphics = e.Graphics
+            g.Clear(Turn.BackColor)
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic
+
+            ' Calculate the aspect ratio of the original image
+            Dim aspectRatio As Single = Turn.Image.Width / Turn.Image.Height
+
+            ' Calculate the dimensions to fit the PictureBox
+            Dim drawWidth As Integer = Turn.Width
+            Dim drawHeight As Integer = Turn.Height
+
+            ' Adjust width or height to maintain aspect ratio
+            If drawWidth / aspectRatio > drawHeight Then
+                drawWidth = CInt(drawHeight * aspectRatio)
+            Else
+                drawHeight = CInt(drawWidth / aspectRatio)
+            End If
+
+            ' Calculate position to center the image
+            Dim drawX As Integer = (Turn.Width - drawWidth) \ 2
+            Dim drawY As Integer = (Turn.Height - drawHeight) \ 2
+
+            ' Set the rotation point to the center of the PictureBox
+            g.TranslateTransform(Turn.Width / 2, Turn.Height / 2)
+            g.RotateTransform(angle)
+
+            ' Draw the scaled and rotated image
+            g.DrawImage(Turn.Image, New Rectangle(-drawWidth \ 2, -drawHeight \ 2, drawWidth, drawHeight))
+
+            ' Reset transformations
+            g.ResetTransform()
+        End If
+    End Sub
+
 End Class
 
 Public Class PlayerInfo
