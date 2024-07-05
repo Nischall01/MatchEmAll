@@ -532,6 +532,7 @@ Partial Class TheGame
         Me.Controls.Add(Me.DeckCard2)
         Me.Controls.Add(Me.DeckCard1)
         Me.Controls.Add(Me.Turn)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(700, 700)
         Me.Name = "TheGame"
         Me.Text = "TheGame"
