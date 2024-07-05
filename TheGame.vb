@@ -14,19 +14,22 @@ Public Class TheGame
 
     Private angle As Integer = 0
 
-    Private Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Dim p1 As PlayerInfo
+    Dim p2 As PlayerInfo
+    Dim p3 As PlayerInfo
+    Dim p4 As PlayerInfo
+
+    Private Async Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Timer1.Interval = 45 ' Animation speed/Adjust timer interval for smoother animation
         Initialize_Game()
-        Timer1.Interval = 50 ' Adjust timer interval for smoother animation
         MsgBox("Welcome Every-nyan!!!")
-        Draw.Focus() ' Set initial focus on Draw button
+        Await Task.Delay(1000)
     End Sub
 
-    Private Sub TheGame_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        ' Check if Space key is pressed
-        If e.KeyCode = Keys.Space Then
-            ' Simulate a click on the Draw button
-            Draw_Click(sender, e)
-        End If
+    Private Sub TheGame_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Entry.Clear.Enabled = True
+        Entry.Clear.Show()
+        Entry.Show()
     End Sub
 
     Private Sub Initialize_Game()
@@ -101,13 +104,6 @@ Public Class TheGame
             ChangeTurn()
             LoadPlayers(noofplayers)
 
-            ' Set focus back to Draw button
-            Player1Name.TabIndex = -1
-            PLayer2Name.TabIndex = -1
-            Player3Name.TabIndex = -1
-            Player4Name.TabIndex = -1
-
-            Draw.TabIndex = 0
             Draw.Focus()
 
         Catch ex As Exception
@@ -115,36 +111,37 @@ Public Class TheGame
         End Try
     End Sub
 
-
     Private Sub LoadPlayers(noofplayers As Integer)
         If noofplayers = 2 Then
-            PLayer2Name.Enabled = False
-            PLayer2Name.Hide()
             Player_2.Enabled = False
             Player_2.Hide()
 
-            Player4Name.Enabled = False
-            Player4Name.Hide()
             Player_4.Enabled = False
             Player_4.Hide()
 
             LoadPlayer1CardsIntoPictureBoxes(1)
+            Player1.Invalidate()
             LoadPlayer3CardsIntoPictureBoxes(2)
+            Player3.Invalidate()
         ElseIf noofplayers = 3 Then
-            Player3Name.Enabled = False
-            Player3Name.Hide()
-
             Player_3.Enabled = False
             Player_3.Hide()
 
             LoadPlayer1CardsIntoPictureBoxes(1)
+            Player1.Invalidate()
             LoadPlayer2CardsIntoPictureBoxes(2)
+            Player2.Invalidate()
             LoadPlayer4CardsIntoPictureBoxes(3)
+            Player4.Invalidate()
         ElseIf noofplayers = 4 Then
             LoadPlayer1CardsIntoPictureBoxes(1)
+            Player1.Invalidate()
             LoadPlayer2CardsIntoPictureBoxes(2)
+            Player2.Invalidate()
             LoadPlayer3CardsIntoPictureBoxes(3)
+            Player3.Invalidate()
             LoadPlayer4CardsIntoPictureBoxes(4)
+            Player4.Invalidate()
         Else
             MsgBox("Error in number of players")
         End If
@@ -424,11 +421,11 @@ Public Class TheGame
 
     Private Sub LoadPlayer1CardsIntoPictureBoxes(P1position As Integer)
         ' Read player information from JSON
-        Dim p1 As PlayerInfo = ReadPlayerInfoFromJson(P1position)
+        p1 = ReadPlayerInfoFromJson(P1position)
         Dim noofcards As Integer = p1.Cards.Count
 
         If p1 IsNot Nothing Then
-            Player1Name.Text = p1.Name
+
             ' Access player cards and load into picture boxes
             Dim pictureBoxIndex As Integer = 1
             For Each card In p1.Cards
@@ -478,10 +475,12 @@ Public Class TheGame
         End If
     End Sub
     Private Sub LoadPlayer2CardsIntoPictureBoxes(P2position As Integer)
-        Dim p2 As PlayerInfo = ReadPlayerInfoFromJson(P2position)
+
+        p2 = ReadPlayerInfoFromJson(P2position)
         Dim noofcards = p2.Cards.Count
+
         If p2 IsNot Nothing Then
-            PLayer2Name.Text = p2.Name
+
             Dim pictureBoxIndex As Integer = 1
             For Each card In p2.Cards
                 If pictureBoxIndex <= noofcards Then
@@ -529,10 +528,11 @@ Public Class TheGame
         End If
     End Sub
     Private Sub LoadPlayer3CardsIntoPictureBoxes(P3position As Integer)
-        Dim p3 As PlayerInfo = ReadPlayerInfoFromJson(P3position)
+
+        p3 = ReadPlayerInfoFromJson(P3position)
         Dim noofcards = p3.Cards.Count
         If p3 IsNot Nothing Then
-            Player3Name.Text = p3.Name
+
             Dim pictureBoxIndex As Integer = 1
             For Each card In p3.Cards
                 If pictureBoxIndex <= noofcards Then
@@ -580,10 +580,10 @@ Public Class TheGame
         End If
     End Sub
     Private Sub LoadPlayer4CardsIntoPictureBoxes(P4position As Integer)
-        Dim p4 As PlayerInfo = ReadPlayerInfoFromJson(P4position)
+        p4 = ReadPlayerInfoFromJson(P4position)
         Dim noofcards = p4.Cards.Count
         If p4 IsNot Nothing Then
-            Player4Name.Text = p4.Name
+
             Dim pictureBoxIndex As Integer = 1
             For Each card In p4.Cards
                 If pictureBoxIndex <= noofcards Then
@@ -631,15 +631,6 @@ Public Class TheGame
         End If
     End Sub
 
-    Private Sub GameFinished(winner As String)
-        MsgBox("Player " & winner & " is the Winner. Big W !!!")
-        If MessageBox.Show("Do you want to Play Again?", "Play Again or Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Initialize_Game()
-        Else
-            Me.Close()
-        End If
-    End Sub
-
     Sub RemoveCardFromFile(filePath As String, cardToRemove As String)
         If filePath = "players_hands.json" Then
             Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1)
@@ -650,7 +641,7 @@ Public Class TheGame
             End If
 
             ' Update the player's cards
-            currentPlayer.cards = currentPlayerCards
+            currentPlayer.Cards = currentPlayerCards
 
             ' Read the entire file to update the specific player
             Dim allPlayers As List(Of PlayerInfo) = ReadAllPlayersFromJson(filePath)
@@ -710,7 +701,7 @@ Public Class TheGame
     Private Sub Turn_rotate()
         Try
             ' Load your image into the PictureBox
-            Turn.Image = My.Resources.Turn_rotate
+            Turn.Image = My.Resources.Turn_Rotate
             Turn.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As Exception
             MessageBox.Show("Image not found: " & ex.Message)
@@ -748,7 +739,7 @@ Public Class TheGame
 
             ' Set the rotation point to the center of the PictureBox
             g.TranslateTransform(Turn.Width / 2, Turn.Height / 2)
-            g.RotateTransform(angle)
+            g.RotateTransform(-angle) '     - for anti-clockwise
 
             ' Draw the scaled and rotated image
             g.DrawImage(Turn.Image, New Rectangle(-drawWidth \ 2, -drawHeight \ 2, drawWidth, drawHeight))
@@ -758,6 +749,106 @@ Public Class TheGame
         End If
     End Sub
 
+    Private Sub Player1_Paint(sender As Object, e As PaintEventArgs) Handles Player1.Paint
+
+        Dim g As Graphics = e.Graphics
+
+        If p1 IsNot Nothing Then
+            Dim text As String = p1.Name
+            Dim font As Font = Player1.Font
+            Dim brush As Brush = New SolidBrush(Player1.ForeColor)
+
+            Dim stringSize As SizeF = g.MeasureString(text, font)
+            Dim centerPoint As PointF = New PointF(Player1.Width / 2 - stringSize.Width / 2, Player1.Height / 2 - stringSize.Height / 2)
+
+            g.DrawString(text, font, brush, centerPoint)
+        Else
+            Player1.Enabled = False
+            Player1.Hide()
+        End If
+    End Sub
+    Private Sub Player2_Paint(sender As Object, e As PaintEventArgs) Handles Player2.Paint
+        Dim g As Graphics = e.Graphics
+
+        If p2 IsNot Nothing Then
+            Dim text As String = p2.Name
+            Dim font As Font = Player2.Font
+            Dim brush As Brush = New SolidBrush(Player2.ForeColor)
+
+            ' Measure the text size
+            Dim stringSize As SizeF = g.MeasureString(text, font)
+
+            ' Calculate the center point for vertical and horizontal alignment
+            Dim centerPoint As PointF = New PointF(Player2.Width / 2 - stringSize.Width / 2, Player2.Height / 2 - stringSize.Height / 2)
+
+            ' Draw the text vertically if p2 exists
+            g.TranslateTransform(centerPoint.X + stringSize.Width / 2, centerPoint.Y + stringSize.Height / 2)
+            g.RotateTransform(90) ' Rotate clockwise 90 degrees
+            g.DrawString(text, font, brush, -stringSize.Width / 2, -stringSize.Height / 2)
+            g.ResetTransform()
+        Else
+            ' Disable and hide Player2 if p2 is null
+            Player2.Enabled = False
+            Player2.Hide()
+        End If
+    End Sub
+    Private Sub Player3_Paint(sender As Object, e As PaintEventArgs) Handles Player3.Paint
+
+        Dim g As Graphics = e.Graphics
+
+        If p3 IsNot Nothing Then
+            Dim text As String = p3.Name
+            Dim font As Font = Player3.Font
+            Dim brush As Brush = New SolidBrush(Player1.ForeColor)
+            ' For Player 3, flip upside down
+            Dim stringSize As SizeF = g.MeasureString(Text, Font)
+            Dim centerPoint As PointF = New PointF(Player1.Width / 2 - stringSize.Width / 2, Player1.Height / 2 - stringSize.Height / 2)
+
+            g.TranslateTransform(centerPoint.X + stringSize.Width / 2, centerPoint.Y + stringSize.Height / 2)
+            g.RotateTransform(180) ' Rotate 180 degrees
+            g.DrawString(Text, Font, Brush, -stringSize.Width / 2, -stringSize.Height / 2)
+            g.ResetTransform()
+        Else
+            Player3.Enabled = False
+            Player3.Hide()
+        End If
+    End Sub
+    Private Sub Player4_Paint(sender As Object, e As PaintEventArgs) Handles Player4.Paint
+        Dim g As Graphics = e.Graphics
+
+        If p4 IsNot Nothing Then
+            Dim text As String = p4.Name
+            Dim font As Font = Player4.Font
+            Dim brush As Brush = New SolidBrush(Player4.ForeColor)
+
+            ' Measure the text size
+            Dim stringSize As SizeF = g.MeasureString(text, font)
+
+            ' Calculate the center point for vertical and horizontal alignment
+            Dim centerPoint As PointF = New PointF(Player4.Width / 2 - stringSize.Width / 2, Player4.Height / 2 - stringSize.Height / 2)
+
+            ' Draw the text vertically if p4 exists
+            g.TranslateTransform(centerPoint.X + stringSize.Width / 2, centerPoint.Y + stringSize.Height / 2)
+            g.RotateTransform(-90) ' Rotate counter-clockwise 90 degrees
+            g.DrawString(text, font, brush, -stringSize.Width / 2, -stringSize.Height / 2)
+            g.ResetTransform()
+        Else
+            ' Disable and hide Player4 if p4 is null
+            Player4.Enabled = False
+            Player4.Hide()
+        End If
+    End Sub
+
+
+    Private Sub GameFinished(Winner As String)
+        Entry.UpdateScore(Winner)
+        MsgBox("Player " & Winner & " is the Winner. Big W !!!")
+        If MessageBox.Show("Do you want to Play Again?", "Play Again or Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Initialize_Game()
+        Else
+            Me.Close()
+        End If
+    End Sub
 End Class
 
 Public Class PlayerInfo

@@ -1,7 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Entry
-
     Dim connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\_Programs\_Visual_Studio_Workspace\Game\Players.mdf;Integrated Security=True"
 
     Dim Player1Name As String
@@ -10,8 +9,161 @@ Public Class Entry
     Dim Player4Name As String
 
     Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         LoadScoreBoard()
         AutoCompletePlayerNames()
+        ' Enable Test Mode / Remove or comment it out for the final product
+        Enable_DevMode()
+    End Sub
+
+    Private Sub Enable_DevMode()
+        Test.Enabled = True
+        Test.Show()
+    End Sub
+
+    Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
+        If TwoPlayers.Checked Then
+            Player1_TextBox.Text = "p1"
+            Player2_TextBox.Text = "p2"
+
+        ElseIf ThreePlayers.Checked Then
+            Player1_TextBox.Text = "p1"
+            Player2_TextBox.Text = "p2"
+            Player3_TextBox.Text = "p3"
+        Else
+            Player1_TextBox.Text = "p1"
+            Player2_TextBox.Text = "p2"
+            Player3_TextBox.Text = "p3"
+            Player4_TextBox.Text = "p4"
+        End If
+        EnterTheGame.PerformClick()
+    End Sub
+
+    Private Sub EnterTheGame_Click(sender As Object, e As EventArgs) Handles EnterTheGame.Click
+        Player1Name = Player1_TextBox.Text
+        Player2Name = Player2_TextBox.Text
+
+        Using conn As New SqlConnection(connectionString)
+            Try
+                conn.Open()
+
+                ' Validate player names
+                If TwoPlayers.Checked Then
+                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Then
+                        MessageBox.Show("Atleast two players are requried to play the game.")
+                        Return
+                    End If
+                    If Player1Name = Player2Name Then
+                        MessageBox.Show("Duplicate player names are not allowed.")
+                        ClearTextBoxes()
+                        Return
+                    End If
+
+                    If IsDuplicate(Player1Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player1Name, conn)
+                    End If
+                    If IsDuplicate(Player2Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player2Name, conn)
+                    End If
+
+                    TheGame.noofplayers = 2
+                    TheGame.PName.Add(Player1Name)
+                    TheGame.PName.Add(Player2Name)
+
+                ElseIf ThreePlayers.Checked Then
+                    Player3Name = Player3_TextBox.Text
+                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Then
+                        MessageBox.Show("All players' names are required.")
+                        Return
+                    End If
+                    If Player1Name = Player2Name Or Player1Name = Player3Name Or Player2Name = Player3Name Then
+                        MessageBox.Show("Duplicate player names are not allowed.")
+                        ClearTextBoxes()
+                        Return
+                    End If
+
+                    If IsDuplicate(Player1Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player1Name, conn)
+                    End If
+                    If IsDuplicate(Player2Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player2Name, conn)
+                    End If
+                    If IsDuplicate(Player3Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player3Name, conn)
+                    End If
+
+                    TheGame.noofplayers = 3
+                    TheGame.PName.Add(Player1Name)
+                    TheGame.PName.Add(Player2Name)
+                    TheGame.PName.Add(Player3Name)
+
+                ElseIf FourPlayers.Checked Then
+
+                    Player3Name = Player3_TextBox.Text
+                    Player4Name = Player4_TextBox.Text
+
+                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Or String.IsNullOrWhiteSpace(Player4Name) Then
+                        MessageBox.Show("All players' names are required.")
+                        Return
+                    End If
+                    If Player1Name = Player2Name Or Player1Name = Player3Name Or Player1Name = Player4Name Or Player2Name = Player3Name Or Player2Name = Player4Name Or Player3Name = Player4Name Then
+                        MessageBox.Show("Duplicate player names are not allowed.")
+                        ClearTextBoxes()
+                        Return
+                    End If
+
+                    If IsDuplicate(Player1Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player1Name, conn)
+                    End If
+                    If IsDuplicate(Player2Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player2Name, conn)
+                    End If
+                    If IsDuplicate(Player3Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player3Name, conn)
+                    End If
+                    If IsDuplicate(Player4Name, conn) Then
+
+                    Else
+                        InsertPlayer(Player4Name, conn)
+                    End If
+
+                    TheGame.noofplayers = 4
+                    TheGame.PName.Add(Player1Name)
+                    TheGame.PName.Add(Player2Name)
+                    TheGame.PName.Add(Player3Name)
+                    TheGame.PName.Add(Player4Name)
+                End If
+
+            Catch ex As SqlException
+                MessageBox.Show("An error occurred while adding data to the database: " & ex.Message)
+            End Try
+        End Using
+
+        ' Load scoreboard and clear text boxes
+        LoadScoreBoard()
+        AutoCompletePlayerNames()
+        ClearTextBoxes()
+        Clear.Enabled = False
+        Clear.Hide()
+
+        MyBase.Hide()
+        TheGame.Show()
     End Sub
 
     Public Sub LoadScoreBoard()
@@ -94,7 +246,7 @@ Public Class Entry
         End Using
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged
+    Private Sub TwoPlayers_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged
         Player3.Hide()
         Player3_TextBox.Hide()
         Player4.Hide()
@@ -125,9 +277,10 @@ Public Class Entry
     End Function
 
     Private Sub InsertPlayer(name As String, conn As SqlConnection)
-        Dim addPlayer As String = "INSERT INTO PlayersInfo (Name) VALUES (@Name)"
+        Dim addPlayer As String = "INSERT INTO PlayersInfo (Name, Score) VALUES (@Name, 0)"
         Using cmd As New SqlCommand(addPlayer, conn)
             cmd.Parameters.AddWithValue("@Name", name)
+            'cmd.Parameters.AddWithValue("@Initial_Score", 0)
             cmd.ExecuteNonQuery()
         End Using
     End Sub
@@ -139,124 +292,6 @@ Public Class Entry
         Player4_TextBox.Clear()
     End Sub
 
-    Private Sub EnterTheGame_Click(sender As Object, e As EventArgs) Handles EnterTheGame.Click
-
-        Player1Name = Player1_TextBox.Text
-        Player2Name = Player2_TextBox.Text
-
-        Using conn As New SqlConnection(connectionString)
-            Try
-                conn.Open()
-
-                ' Validate player names
-                If TwoPlayers.Checked Then
-                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Then
-                        MessageBox.Show("Atleast two players are requried to play the game.")
-                        Return
-                    End If
-                    If Player1Name = Player2Name Then
-                        MessageBox.Show("Duplicate player names are not allowed.")
-                        ClearTextBoxes()
-                        Return
-                    End If
-
-                    If IsDuplicate(Player1Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player1Name, conn)
-                    End If
-                    If IsDuplicate(Player2Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player2Name, conn)
-                    End If
-                    TheGame.noofplayers = 2
-
-                ElseIf ThreePlayers.Checked Then
-                    Player3Name = Player3_TextBox.Text
-                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Then
-                        MessageBox.Show("All players' names are required.")
-                        Return
-                    End If
-                    If Player1Name = Player2Name Or Player1Name = Player3Name Or Player2Name = Player3Name Then
-                        MessageBox.Show("Duplicate player names are not allowed.")
-                        ClearTextBoxes()
-                        Return
-                    End If
-
-                    If IsDuplicate(Player1Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player1Name, conn)
-                    End If
-                    If IsDuplicate(Player2Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player2Name, conn)
-                    End If
-                    If IsDuplicate(Player3Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player3Name, conn)
-                    End If
-                    TheGame.noofplayers = 3
-
-                ElseIf FourPlayers.Checked Then
-
-                    Player3Name = Player3_TextBox.Text
-                    Player4Name = Player4_TextBox.Text
-
-                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Or String.IsNullOrWhiteSpace(Player4Name) Then
-                        MessageBox.Show("All players' names are required.")
-                        Return
-                    End If
-                    If Player1Name = Player2Name Or Player1Name = Player3Name Or Player1Name = Player4Name Or Player2Name = Player3Name Or Player2Name = Player4Name Or Player3Name = Player4Name Then
-                        MessageBox.Show("Duplicate player names are not allowed.")
-                        ClearTextBoxes()
-                        Return
-                    End If
-
-                    If IsDuplicate(Player1Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player1Name, conn)
-                    End If
-                    If IsDuplicate(Player2Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player2Name, conn)
-                    End If
-                    If IsDuplicate(Player3Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player3Name, conn)
-                    End If
-                    If IsDuplicate(Player4Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player4Name, conn)
-                    End If
-                    TheGame.noofplayers = 4
-
-                End If
-
-                TheGame.PName.Add(Player1Name)
-                TheGame.PName.Add(Player2Name)
-                TheGame.PName.Add(Player3Name)
-                TheGame.PName.Add(Player4Name)
-
-            Catch ex As SqlException
-                MessageBox.Show("An error occurred while adding data to the database: " & ex.Message)
-            End Try
-        End Using
-
-        ' Load scoreboard and clear text boxes
-        LoadScoreBoard()
-        AutoCompletePlayerNames()
-        ClearTextBoxes()
-        TheGame.Show()
-    End Sub
-
     Private Sub Clear_Click(sender As Object, e As EventArgs) Handles Clear.Click
         If MessageBox.Show("Are you sure you want to clear the scoreboard?", "Confirm Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             ClearScoreBoard()
@@ -265,12 +300,25 @@ Public Class Entry
         End If
     End Sub
 
-    Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
-        TheGame.noofplayers = 4
-        TheGame.PName.Add("p1")
-        TheGame.PName.Add("p2")
-        TheGame.PName.Add("p3")
-        TheGame.PName.Add("p4")
-        TheGame.Show()
+    Public Sub UpdateScore(Winner As String)
+        Dim updateScore As String = "UPDATE PlayersInfo SET Score = Score + @ScoreToAdd WHERE Name = @Winner"
+
+        Using conn As New SqlConnection(connectionString)
+            Using Command As New SqlCommand(updateScore, conn)
+
+                Command.Parameters.AddWithValue("@ScoreToAdd", 10)
+                Command.Parameters.AddWithValue("@Winner", Winner)
+
+                conn.Open()
+                Dim rowsAffected As Integer = Command.ExecuteNonQuery()
+                If rowsAffected > 0 Then
+                    ' MessageBox.Show("Score updated successfully.")
+                Else
+                    MessageBox.Show("Player not found.")
+                End If
+
+            End Using
+        End Using
+        LoadScoreBoard()
     End Sub
 End Class

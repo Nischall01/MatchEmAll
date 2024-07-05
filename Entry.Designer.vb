@@ -30,7 +30,7 @@ Partial Class Entry
         Me.Player3 = New System.Windows.Forms.Label()
         Me.Player4 = New System.Windows.Forms.Label()
         Me.EnterTheGame = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.NumberOfPlayers = New System.Windows.Forms.GroupBox()
         Me.FourPlayers = New System.Windows.Forms.RadioButton()
         Me.ThreePlayers = New System.Windows.Forms.RadioButton()
         Me.TwoPlayers = New System.Windows.Forms.RadioButton()
@@ -39,7 +39,7 @@ Partial Class Entry
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Clear = New System.Windows.Forms.Button()
         Me.Test = New System.Windows.Forms.Button()
-        Me.GroupBox1.SuspendLayout()
+        Me.NumberOfPlayers.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -48,6 +48,8 @@ Partial Class Entry
         Me.Player1_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player1_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.Player1_TextBox.BackColor = System.Drawing.Color.White
+        Me.Player1_TextBox.ForeColor = System.Drawing.Color.Black
         Me.Player1_TextBox.Location = New System.Drawing.Point(400, 192)
         Me.Player1_TextBox.Name = "Player1_TextBox"
         Me.Player1_TextBox.Size = New System.Drawing.Size(100, 20)
@@ -58,6 +60,8 @@ Partial Class Entry
         Me.Player2_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player2_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player2_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.Player2_TextBox.BackColor = System.Drawing.Color.White
+        Me.Player2_TextBox.ForeColor = System.Drawing.Color.Black
         Me.Player2_TextBox.Location = New System.Drawing.Point(400, 231)
         Me.Player2_TextBox.Name = "Player2_TextBox"
         Me.Player2_TextBox.Size = New System.Drawing.Size(100, 20)
@@ -68,6 +72,8 @@ Partial Class Entry
         Me.Player3_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player3_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.Player3_TextBox.BackColor = System.Drawing.Color.White
+        Me.Player3_TextBox.ForeColor = System.Drawing.Color.Black
         Me.Player3_TextBox.Location = New System.Drawing.Point(400, 269)
         Me.Player3_TextBox.Name = "Player3_TextBox"
         Me.Player3_TextBox.Size = New System.Drawing.Size(100, 20)
@@ -77,6 +83,8 @@ Partial Class Entry
         '
         Me.Player1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1.AutoSize = True
+        Me.Player1.BackColor = System.Drawing.Color.White
+        Me.Player1.ForeColor = System.Drawing.Color.Black
         Me.Player1.Location = New System.Drawing.Point(299, 195)
         Me.Player1.Name = "Player1"
         Me.Player1.Size = New System.Drawing.Size(60, 13)
@@ -87,6 +95,8 @@ Partial Class Entry
         '
         Me.Player2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player2.AutoSize = True
+        Me.Player2.BackColor = System.Drawing.Color.White
+        Me.Player2.ForeColor = System.Drawing.Color.Black
         Me.Player2.Location = New System.Drawing.Point(299, 234)
         Me.Player2.Name = "Player2"
         Me.Player2.Size = New System.Drawing.Size(60, 13)
@@ -97,6 +107,8 @@ Partial Class Entry
         '
         Me.Player3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3.AutoSize = True
+        Me.Player3.BackColor = System.Drawing.Color.White
+        Me.Player3.ForeColor = System.Drawing.Color.Black
         Me.Player3.Location = New System.Drawing.Point(299, 272)
         Me.Player3.Name = "Player3"
         Me.Player3.Size = New System.Drawing.Size(60, 13)
@@ -107,6 +119,8 @@ Partial Class Entry
         '
         Me.Player4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player4.AutoSize = True
+        Me.Player4.BackColor = System.Drawing.Color.White
+        Me.Player4.ForeColor = System.Drawing.Color.Black
         Me.Player4.Location = New System.Drawing.Point(299, 308)
         Me.Player4.Name = "Player4"
         Me.Player4.Size = New System.Drawing.Size(60, 13)
@@ -116,25 +130,29 @@ Partial Class Entry
         'EnterTheGame
         '
         Me.EnterTheGame.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.EnterTheGame.BackColor = System.Drawing.Color.Black
+        Me.EnterTheGame.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.EnterTheGame.Location = New System.Drawing.Point(360, 342)
         Me.EnterTheGame.Name = "EnterTheGame"
         Me.EnterTheGame.Size = New System.Drawing.Size(75, 23)
         Me.EnterTheGame.TabIndex = 15
         Me.EnterTheGame.Text = "Enter"
-        Me.EnterTheGame.UseVisualStyleBackColor = True
+        Me.EnterTheGame.UseVisualStyleBackColor = False
         '
-        'GroupBox1
+        'NumberOfPlayers
         '
-        Me.GroupBox1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupBox1.Controls.Add(Me.FourPlayers)
-        Me.GroupBox1.Controls.Add(Me.ThreePlayers)
-        Me.GroupBox1.Controls.Add(Me.TwoPlayers)
-        Me.GroupBox1.Location = New System.Drawing.Point(300, 72)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(200, 102)
-        Me.GroupBox1.TabIndex = 16
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Enter the Number of Players:"
+        Me.NumberOfPlayers.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.NumberOfPlayers.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.NumberOfPlayers.Controls.Add(Me.FourPlayers)
+        Me.NumberOfPlayers.Controls.Add(Me.ThreePlayers)
+        Me.NumberOfPlayers.Controls.Add(Me.TwoPlayers)
+        Me.NumberOfPlayers.ForeColor = System.Drawing.SystemColors.Control
+        Me.NumberOfPlayers.Location = New System.Drawing.Point(300, 72)
+        Me.NumberOfPlayers.Name = "NumberOfPlayers"
+        Me.NumberOfPlayers.Size = New System.Drawing.Size(200, 102)
+        Me.NumberOfPlayers.TabIndex = 16
+        Me.NumberOfPlayers.TabStop = False
+        Me.NumberOfPlayers.Text = "Enter the Number of Players:"
         '
         'FourPlayers
         '
@@ -173,6 +191,8 @@ Partial Class Entry
         Me.Player4_TextBox.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player4_TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Player4_TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.Player4_TextBox.BackColor = System.Drawing.Color.White
+        Me.Player4_TextBox.ForeColor = System.Drawing.Color.Black
         Me.Player4_TextBox.Location = New System.Drawing.Point(400, 305)
         Me.Player4_TextBox.Name = "Player4_TextBox"
         Me.Player4_TextBox.Size = New System.Drawing.Size(100, 20)
@@ -193,6 +213,8 @@ Partial Class Entry
         '
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label1.ForeColor = System.Drawing.SystemColors.Control
         Me.Label1.Location = New System.Drawing.Point(620, 37)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(66, 13)
@@ -212,12 +234,16 @@ Partial Class Entry
         'Test
         '
         Me.Test.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Test.BackColor = System.Drawing.Color.Black
+        Me.Test.Enabled = False
+        Me.Test.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.Test.Location = New System.Drawing.Point(360, 376)
         Me.Test.Name = "Test"
         Me.Test.Size = New System.Drawing.Size(75, 23)
         Me.Test.TabIndex = 21
         Me.Test.Text = "Test"
-        Me.Test.UseVisualStyleBackColor = True
+        Me.Test.UseVisualStyleBackColor = False
+        Me.Test.Visible = False
         '
         'Entry
         '
@@ -231,7 +257,7 @@ Partial Class Entry
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Player4_TextBox)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.NumberOfPlayers)
         Me.Controls.Add(Me.EnterTheGame)
         Me.Controls.Add(Me.Player4)
         Me.Controls.Add(Me.Player3)
@@ -244,8 +270,8 @@ Partial Class Entry
         Me.MinimumSize = New System.Drawing.Size(820, 500)
         Me.Name = "Entry"
         Me.Text = "Entry"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.NumberOfPlayers.ResumeLayout(False)
+        Me.NumberOfPlayers.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -260,7 +286,7 @@ Partial Class Entry
     Friend WithEvents Player3 As Label
     Friend WithEvents Player4 As Label
     Friend WithEvents EnterTheGame As Button
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents NumberOfPlayers As GroupBox
     Friend WithEvents FourPlayers As RadioButton
     Friend WithEvents ThreePlayers As RadioButton
     Friend WithEvents TwoPlayers As RadioButton
