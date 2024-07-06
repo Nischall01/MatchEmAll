@@ -1,0 +1,31 @@
+[
+  {
+    "Position": 3,
+    "Name": "p1",
+    "Cards": [
+      "2 of Clubs",
+      "Ace of Hearts",
+      "5 of Hearts",
+      "8 of Clubs"
+    ]
+  },
+  {
+    "Position": 1,
+    "Name": "p2",
+    "Cards": [
+      "Queen of Clubs",
+      "4 of Diamonds"
+    ]
+  },
+  {
+    "Position": 2,
+    "Name": "p3",
+    "Cards": [
+      "Queen of Diamonds",
+      "6 of Clubs",
+      "7 of Diamonds",
+      "Jack of Hearts",
+      "10 of Diamonds"
+    ]
+  }
+]
