@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing.Drawing2D
 Imports System.IO
 Imports System.Security.Cryptography.X509Certificates
+Imports System.Windows.Forms.VisualStyles
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox
 Imports Newtonsoft.Json
 
@@ -21,9 +22,9 @@ Public Class TheGame
 
     Private Async Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer1.Interval = 45 ' Animation speed/Adjust timer interval for smoother animation
-        Initialize_Game()
         MsgBox("Welcome Every-nyan!!!")
         Await Task.Delay(1000)
+        Initialize_Game()
     End Sub
 
     Private Sub TheGame_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -37,6 +38,10 @@ Public Class TheGame
             ' Clear existing JSON files
             ClearJsonFile("draw_deck.json")
             ClearJsonFile("unmatched_cards.json")
+
+            Reshuffle.Hide()
+            CenterDeck.Show()
+            DeckVisible()
 
             ' Initialize the deck
             Dim deck As List(Of String) = Initializedeck()
@@ -70,14 +75,22 @@ Public Class TheGame
 
     Private Async Sub Draw_Click(sender As Object, e As EventArgs) Handles Draw.Click
         Try
+            Draw.Hide()
+
             ' Draw a random card from draw_deck.json
             Dim randomCard As String = GetRandomCardFromFile("draw_deck.json")
 
-            ' Display the drawn card image
+            ' Display the drawn card image and hide the draw button
+            CardDrew.Show()
             DrawnCardImage(randomCard)
+
+            ' Hold the Card image for a second
+            Await Task.Delay(1000)
 
             ' Check for matches with the drawn card
             CheckForMatch(randomCard)
+
+            CardDrew.Hide()
 
             ' Check if current player has no more cards
             Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1)
@@ -86,15 +99,9 @@ Public Class TheGame
                 Exit Sub
             End If
 
-            ' Disable Draw button temporarily
-            Draw.Enabled = False
-
-            ' Show the drawn card image
-            CardDrew.Show()
-
-            ' Delay before hiding the drawn card image
-            Await Task.Delay(900)
-            CardDrew.Hide()
+            ' Delay before hiding center elements
+            Await Task.Delay(500)
+            CenterDeck.Hide()
 
             ' Rotate turn to the next player
             Turn_rotate()
@@ -104,6 +111,12 @@ Public Class TheGame
             ChangeTurn()
             LoadPlayers(noofplayers)
 
+            If IsJsonEmpty("draw_deck.json") Then
+                Reshuffle.Show()
+                Exit Sub
+            End If
+
+            Draw.Show()
             Draw.Focus()
 
         Catch ex As Exception
@@ -169,7 +182,7 @@ Public Class TheGame
         File.WriteAllText("players_hands.json", updatedTurn)
     End Sub
 
-    Private Async Sub CheckForMatch(drawnCard As String)
+    Private Sub CheckForMatch(drawnCard As String)
         Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1S)
         Dim currentPlayerCards As New List(Of String)()
         Dim cardsToRemove As New List(Of String)
@@ -209,8 +222,6 @@ Public Class TheGame
                     RemoveCardFromFile("players_hands.json", card)
 
                     LoadPlayers(noofplayers)
-                    ' Hold for 1 second
-                    Await Task.Delay(1000)
                     Exit Sub ' Exit sub once a match is found and removed
                 Else
                     nomatches += 1
@@ -226,10 +237,10 @@ Public Class TheGame
             MsgBox("Error! Current player is empty.")
 
         End If
+
     End Sub
 
     Sub DrawnCardImage(cardName As String)
-        CardDrew.Show()
         Try
             Dim imagePath As String = Path.Combine(Application.StartupPath, "Deck_of_Cards\Vertical", cardName & ".png")
             CardDrew.Image = Image.FromFile(imagePath)
@@ -273,6 +284,28 @@ Public Class TheGame
 
         Return deck
     End Function
+
+    Private Sub Reshuffle_Click(sender As Object, e As EventArgs) Handles Reshuffle.Click
+        Reshuffle.Hide()
+        CardDrew.Hide()
+        DeckVisible()
+
+        Dim unmatched_cards As String = File.ReadAllText("unmatched_cards.json")
+        Dim draw_deck As String = File.ReadAllText("draw_deck.json")
+
+        Dim cards1 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(unmatched_cards)
+        Dim cards2 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(draw_deck)
+
+        For Each card In cards1
+            cards2.Add(card)
+        Next
+
+        Dim updatedJson As String = JsonConvert.SerializeObject(Shuffledeck(cards2), Formatting.Indented)
+
+        File.WriteAllText("draw_deck.json", updatedJson)
+
+        ClearJsonFile("unmatched_cards.json")
+    End Sub
 
     Function Distributecards(deck As List(Of String), numberofplayers As Integer, cardsperplayer As Integer) As List(Of List(Of String))
         Dim players As New List(Of List(Of String))()
@@ -349,13 +382,17 @@ Public Class TheGame
             If cards Is Nothing OrElse cards.Count = 4 Then
                 DeckCard4.Hide()
             ElseIf cards Is Nothing OrElse cards.Count = 3 Then
+                DeckCard4.Hide()
                 DeckCard3.Hide()
             ElseIf cards Is Nothing OrElse cards.Count = 2 Then
+                DeckCard4.Hide()
+                DeckCard3.Hide()
                 DeckCard2.Hide()
             ElseIf cards Is Nothing OrElse cards.Count = 1 Then
+                DeckCard4.Hide()
+                DeckCard3.Hide()
+                DeckCard2.Hide()
                 DeckCard1.Hide()
-                Draw.Hide()
-                Reshuffle.Show()
             End If
 
             ' Generate random index
@@ -388,35 +425,22 @@ Public Class TheGame
         File.WriteAllText(filePath, updatedJson)
     End Sub
 
-    Private Sub Reshuffle_Click(sender As Object, e As EventArgs) Handles Reshuffle.Click
-        Reshuffle.Hide()
-        CardDrew.Hide()
-        DeckVisible()
-
-        Dim unmatched_cards As String = File.ReadAllText("unmatched_cards.json")
-        Dim draw_deck As String = File.ReadAllText("draw_deck.json")
-
-        Dim cards1 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(unmatched_cards)
-        Dim cards2 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(draw_deck)
-
-        For Each card In cards1
-            cards2.Add(card)
-        Next
-
-        Dim updatedJson As String = JsonConvert.SerializeObject(Shuffledeck(cards2), Formatting.Indented)
-
-        File.WriteAllText("draw_deck.json", updatedJson)
-
-        ClearJsonFile("unmatched_cards.json")
-        DeckVisible()
-        Draw.Show()
-    End Sub
-
-    Public Sub DeckVisible()
-        DeckCard1.Show()
-        DeckCard2.Show()
-        DeckCard3.Show()
+    Public Async Sub DeckVisible()
+        Draw.Hide()
+        DeckCard4.Hide()
+        Await Task.Delay(100)
         DeckCard4.Show()
+        DeckCard3.Hide()
+        Await Task.Delay(100)
+        DeckCard3.Show()
+        DeckCard2.Hide()
+        Await Task.Delay(100)
+        DeckCard2.Show()
+        DeckCard1.Hide()
+        Await Task.Delay(100)
+        DeckCard1.Show()
+        Await Task.Delay(300)
+        Draw.Show()
     End Sub
 
     Private Sub LoadPlayer1CardsIntoPictureBoxes(P1position As Integer)
@@ -691,6 +715,7 @@ Public Class TheGame
             ' Hold for 0.5 seconds
             Await Task.Delay(500)
             Turn.Hide()
+            CenterDeck.Show()
             Draw.Enabled = True
         Else
             ' Redraw the PictureBox with the rotated image
@@ -839,12 +864,21 @@ Public Class TheGame
         End If
     End Sub
 
+    Private Function IsJsonEmpty(JsonFile As String) As Boolean
+        Dim json As String = File.ReadAllText(JsonFile).Trim()
+        If String.IsNullOrEmpty(json) OrElse json = "{}" OrElse json = "[]" Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     Private Sub GameFinished(Winner As String)
         Entry.UpdateScore(Winner)
         MsgBox("Player " & Winner & " is the Winner. Big W !!!")
         If MessageBox.Show("Do you want to Play Again?", "Play Again or Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Initialize_Game()
+
         Else
             Me.Close()
         End If
