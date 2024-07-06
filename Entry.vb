@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Entry
-    Dim connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\_Programs\_Visual_Studio_Workspace\Game\Players.mdf;Integrated Security=True"
+    Dim connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\_Programs\_Visual_Studio_Workspace\Game\Resources\PlayersData\Players.mdf;Integrated Security=True"
 
     Dim Player1Name As String
     Dim Player2Name As String
