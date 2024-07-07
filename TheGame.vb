@@ -131,10 +131,6 @@ Public Class TheGame
             Await Task.Delay(500)
             CenterDeck.Hide()
 
-            ' Delay before hiding center elements
-            Await Task.Delay(500)
-            CenterDeck.Hide()
-
             ' Rotate turn to the next player
             Turn_rotate()
 
@@ -144,12 +140,6 @@ Public Class TheGame
             LoadPlayers(noofplayers)
 
             If IsJsonEmpty(draw_deck_JSON_FilePath) Then
-                Reshuffle.Show()
-                Exit Sub
-            End If
-
-            Draw.Show()
-            If IsJsonEmpty("draw_deck.json") Then
                 Reshuffle.Show()
                 Exit Sub
             End If
@@ -288,65 +278,6 @@ Public Class TheGame
         Next
         Dim updatedTurn As String = JsonConvert.SerializeObject(players, Formatting.Indented)
         File.WriteAllText(players_hands_JSON_FilePath, updatedTurn)
-        File.WriteAllText("players_hands.json", updatedTurn)
-    End Sub
-
-    Private Sub CheckForMatch(drawnCard As String)
-        Dim currentPlayer As PlayerInfo = ReadPlayerInfoFromJson(1S)
-        Dim currentPlayerCards As New List(Of String)()
-        Dim cardsToRemove As New List(Of String)
-        ' Reset nomatches count
-        nomatches = 0
-
-        If currentPlayer IsNot Nothing Then
-            For Each card In currentPlayer.Cards
-                currentPlayerCards.Add(card)
-            Next
-
-            For i = 0 To currentPlayerCards.Count - 2
-                Dim card1 = currentPlayerCards(i)
-
-                ' Check for duplicates starting from the next card in the list
-                For j = i + 1 To currentPlayerCards.Count - 1
-                    Dim card2 = currentPlayerCards(j)
-
-                    If card1.Substring(0, 1) = card2.Substring(0, 1) Then
-                        ' Found a duplicate, add both cards to remove list
-                        cardsToRemove.Add(card1)
-                        cardsToRemove.Add(card2)
-                    End If
-                Next
-            Next
-
-            ' Remove duplicate cards from player hands
-            For Each cardToRemove In cardsToRemove
-                RemoveCardFromFile("players_hands.json", cardToRemove)
-            Next
-
-            For Each card In currentPlayerCards
-
-                If drawnCard.Substring(0, 1) = card.Substring(0, 1) Then
-                    MsgBox("Hit!!")
-                    RemoveCardFromFile("draw_deck.json", drawnCard)
-                    RemoveCardFromFile("players_hands.json", card)
-
-                    LoadPlayers(noofplayers)
-                    Exit Sub ' Exit sub once a match is found and removed
-                Else
-                    nomatches += 1
-                End If
-            Next
-            ' If no matches, add the card to unmatched_cards.json
-            If nomatches = currentPlayerCards.Count Then
-                RemoveCardFromFile("draw_deck.json", drawnCard)
-                AddCardToFile("unmatched_cards.json", drawnCard)
-            End If
-        Else
-
-            MsgBox("Error! Current player is empty.")
-
-        End If
-
     End Sub
 
     Sub DrawnCardImage(cardName As String)
@@ -414,28 +345,6 @@ Public Class TheGame
         File.WriteAllText(draw_deck_JSON_FilePath, updatedJson)
 
         ClearJsonFile(unmatched_Cards_JSON_FilePath)
-    End Sub
-
-    Private Sub Reshuffle_Click(sender As Object, e As EventArgs) Handles Reshuffle.Click
-        Reshuffle.Hide()
-        CardDrew.Hide()
-        DeckVisible()
-
-        Dim unmatched_cards As String = File.ReadAllText("unmatched_cards.json")
-        Dim draw_deck As String = File.ReadAllText("draw_deck.json")
-
-        Dim cards1 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(unmatched_cards)
-        Dim cards2 As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(draw_deck)
-
-        For Each card In cards1
-            cards2.Add(card)
-        Next
-
-        Dim updatedJson As String = JsonConvert.SerializeObject(Shuffledeck(cards2), Formatting.Indented)
-
-        File.WriteAllText("draw_deck.json", updatedJson)
-
-        ClearJsonFile("unmatched_cards.json")
     End Sub
 
     Function Distributecards(deck As List(Of String), numberofplayers As Integer, cardsperplayer As Integer) As List(Of List(Of String))
