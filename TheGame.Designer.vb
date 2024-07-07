@@ -179,6 +179,10 @@ Partial Class TheGame
         'Player1Card1
         '
         Me.Player1Card1.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player1Card1.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player1Card1.Image = Global.Game.My.Resources.Resources.Vertical_Card
         Me.Player1Card1.Location = New System.Drawing.Point(32, 16)
         Me.Player1Card1.Name = "Player1Card1"
@@ -191,6 +195,10 @@ Partial Class TheGame
         'Player1Card5
         '
         Me.Player1Card5.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player1Card5.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player1Card5.Image = Global.Game.My.Resources.Resources.Vertical_Card
         Me.Player1Card5.Location = New System.Drawing.Point(320, 16)
         Me.Player1Card5.Name = "Player1Card5"
@@ -203,6 +211,10 @@ Partial Class TheGame
         'Player1Card3
         '
         Me.Player1Card3.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player1Card3.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player1Card3.Image = Global.Game.My.Resources.Resources.Vertical_Card
         Me.Player1Card3.Location = New System.Drawing.Point(176, 16)
         Me.Player1Card3.Name = "Player1Card3"
@@ -215,6 +227,10 @@ Partial Class TheGame
         'Player1Card2
         '
         Me.Player1Card2.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player1Card2.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player1Card2.Image = Global.Game.My.Resources.Resources.Vertical_Card
         Me.Player1Card2.Location = New System.Drawing.Point(104, 16)
         Me.Player1Card2.Name = "Player1Card2"
@@ -227,6 +243,10 @@ Partial Class TheGame
         'Player1Card4
         '
         Me.Player1Card4.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player1Card4.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player1Card4.Image = Global.Game.My.Resources.Resources.Vertical_Card
         Me.Player1Card4.Location = New System.Drawing.Point(248, 16)
         Me.Player1Card4.Name = "Player1Card4"
@@ -320,6 +340,10 @@ Partial Class TheGame
         'Player3Card5
         '
         Me.Player3Card5.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player3Card5.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player3Card5.Image = CType(resources.GetObject("Player3Card5.Image"), System.Drawing.Image)
         Me.Player3Card5.Location = New System.Drawing.Point(32, 16)
         Me.Player3Card5.Name = "Player3Card5"
@@ -331,6 +355,10 @@ Partial Class TheGame
         'Player3Card1
         '
         Me.Player3Card1.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player3Card1.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player3Card1.Image = CType(resources.GetObject("Player3Card1.Image"), System.Drawing.Image)
         Me.Player3Card1.Location = New System.Drawing.Point(320, 16)
         Me.Player3Card1.Name = "Player3Card1"
@@ -342,6 +370,10 @@ Partial Class TheGame
         'Player3Card4
         '
         Me.Player3Card4.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player3Card4.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player3Card4.Image = CType(resources.GetObject("Player3Card4.Image"), System.Drawing.Image)
         Me.Player3Card4.Location = New System.Drawing.Point(104, 16)
         Me.Player3Card4.Name = "Player3Card4"
@@ -353,6 +385,10 @@ Partial Class TheGame
         'Player3Card2
         '
         Me.Player3Card2.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player3Card2.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player3Card2.Image = CType(resources.GetObject("Player3Card2.Image"), System.Drawing.Image)
         Me.Player3Card2.Location = New System.Drawing.Point(248, 16)
         Me.Player3Card2.Name = "Player3Card2"
@@ -364,6 +400,10 @@ Partial Class TheGame
         'Player3Card3
         '
         Me.Player3Card3.Anchor = System.Windows.Forms.AnchorStyles.None
+<<<<<<< HEAD
+=======
+        Me.Player3Card3.Cursor = System.Windows.Forms.Cursors.Default
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Me.Player3Card3.Image = CType(resources.GetObject("Player3Card3.Image"), System.Drawing.Image)
         Me.Player3Card3.Location = New System.Drawing.Point(176, 16)
         Me.Player3Card3.Name = "Player3Card3"
@@ -372,6 +412,12 @@ Partial Class TheGame
         Me.Player3Card3.TabIndex = 32
         Me.Player3Card3.TabStop = False
         '
+<<<<<<< HEAD
+=======
+        'Timer1
+        '
+        '
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         'Player2
         '
         Me.Player2.Anchor = System.Windows.Forms.AnchorStyles.Left
@@ -381,8 +427,11 @@ Partial Class TheGame
         Me.Player2.Name = "Player2"
         Me.Player2.Size = New System.Drawing.Size(27, 120)
         Me.Player2.TabIndex = 52
+<<<<<<< HEAD
         Me.Player2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         AddHandler Me.Player2.Paint, AddressOf Me.Player2_Paint
+=======
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         '
         'Player4
         '
@@ -393,8 +442,11 @@ Partial Class TheGame
         Me.Player4.Name = "Player4"
         Me.Player4.Size = New System.Drawing.Size(27, 120)
         Me.Player4.TabIndex = 53
+<<<<<<< HEAD
         Me.Player4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         AddHandler Me.Player4.Paint, AddressOf Me.Player4_Paint
+=======
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         '
         'Player3
         '
@@ -405,8 +457,11 @@ Partial Class TheGame
         Me.Player3.Name = "Player3"
         Me.Player3.Size = New System.Drawing.Size(120, 27)
         Me.Player3.TabIndex = 54
+<<<<<<< HEAD
         Me.Player3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         AddHandler Me.Player3.Paint, AddressOf Me.Player3_Paint
+=======
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         '
         'Player1
         '
@@ -417,8 +472,11 @@ Partial Class TheGame
         Me.Player1.Name = "Player1"
         Me.Player1.Size = New System.Drawing.Size(120, 27)
         Me.Player1.TabIndex = 55
+<<<<<<< HEAD
         Me.Player1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         AddHandler Me.Player1.Paint, AddressOf Me.Player1_Paint
+=======
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         '
         'CardDrew
         '
