@@ -1,55 +1,23 @@
 [
   {
-<<<<<<< HEAD
-    "Position": 3,
+    "Position": 2,
     "Name": "p1",
     "Cards": [
-      "2 of Clubs",
-      "Ace of Hearts",
-      "5 of Hearts",
-      "8 of Clubs"
-=======
-    "Position": 4,
-    "Name": "p1",
-    "Cards": [
-      "7 of Hearts",
-      "Queen of Spades",
-      "Ace of Spades"
->>>>>>> 8de9a1a60b75f5625987e7ce25fcf6c07121f275
+      "9 of Spades",
+      "Queen of Hearts",
+      "5 of Clubs",
+      "Jack of Diamonds"
     ]
   },
   {
     "Position": 1,
     "Name": "p2",
-<<<<<<< HEAD
     "Cards": [
-      "Queen of Clubs",
-      "4 of Diamonds"
-    ]
-=======
-    "Cards": []
->>>>>>> 8de9a1a60b75f5625987e7ce25fcf6c07121f275
-  },
-  {
-    "Position": 2,
-    "Name": "p3",
-    "Cards": [
-<<<<<<< HEAD
-      "Queen of Diamonds",
-      "6 of Clubs",
+      "4 of Spades",
+      "10 of Spades",
+      "6 of Spades",
       "7 of Diamonds",
-      "Jack of Hearts",
-      "10 of Diamonds"
-=======
-      "7 of Diamonds"
-    ]
-  },
-  {
-    "Position": 3,
-    "Name": "p4",
-    "Cards": [
-      "7 of Clubs"
->>>>>>> 8de9a1a60b75f5625987e7ce25fcf6c07121f275
+      "4 of Clubs"
     ]
   }
 ]
