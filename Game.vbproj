@@ -168,6 +168,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1.jpg" />
     <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Clubs_Hrtl.png" />
     <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Diamonds_Hrtl.png" />
     <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Hearts_Hrtl.png" />
