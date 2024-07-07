@@ -27,6 +27,10 @@ Public Class TheGame
     Dim players_hands_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\players_hands.json")
     Dim unmatched_Cards_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\unmatched_cards.json")
 
+    Dim defaultVerticalCardImagePath As String = Path.Combine(Application.StartupPath, "Resources\Vertical_Card.jpg")
+    Dim defaultHorizontalCardImagePath As String = Path.Combine(Application.StartupPath, "Resources\Horizontal_Card.jpg")
+    Dim turn_rotateImagePath = Path.Combine(Application.StartupPath, "Resources\Turn_Rotate.png")
+
     Dim soundFilePath As String = Path.Combine(Application.StartupPath, "Resources\Sfx\Explosion_FX.wav")
     'Dim horizontalDeck_of_Cards_FilePath As String = "Resources\Deck_of_Cards\Horizontal\"
     'Dim verticalDeck_of_Cards_FilePath As String = "Resources\Deck_of_Cards\Vertical\"
@@ -106,17 +110,17 @@ Public Class TheGame
             Draw.Hide()
 
             ' Draw a random card from draw_deck.json
-            Dim randomCard As String = GetRandomCardFromFile(draw_deck_JSON_FilePath)
+            Dim topCard As String = GetCardFromTheDeck(draw_deck_JSON_FilePath, "Top")
 
             ' Display the drawn card image and hide the draw button
             CardDrew.Show()
-            DrawnCardImage(randomCard)
+            DrawnCardImage(topCard)
 
             ' Hold the Card image for a second
             Await Task.Delay(1000)
 
             ' Check for matches with the drawn card
-            CheckForMatch(randomCard)
+            CheckForMatch(topCard)
 
             CardDrew.Hide()
 
@@ -401,7 +405,7 @@ Public Class TheGame
         End Try
     End Sub
 
-    Function GetRandomCardFromFile(filePath As String) As String
+    Function GetCardFromTheDeck(filePath As String, Type As String) As String
         Try
             ' Check if the file exists
             If Not File.Exists(filePath) Then
@@ -419,34 +423,50 @@ Public Class TheGame
             ' Deserialize JSON array to List(Of String)
             Dim cards As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(json)
 
-            If cards Is Nothing OrElse cards.Count = 4 Then
-                DeckCard4.Hide()
-            ElseIf cards Is Nothing OrElse cards.Count = 3 Then
-                DeckCard4.Hide()
-                DeckCard3.Hide()
-            ElseIf cards Is Nothing OrElse cards.Count = 2 Then
-                DeckCard4.Hide()
-                DeckCard3.Hide()
-                DeckCard2.Hide()
-            ElseIf cards Is Nothing OrElse cards.Count = 1 Then
-                DeckCard4.Hide()
-                DeckCard3.Hide()
-                DeckCard2.Hide()
-                DeckCard1.Hide()
-            End If
+            ' Hide deck cards based on the count
+            Select Case cards.Count
+                Case 4
+                    DeckCard4.Hide()
+                Case 3
+                    DeckCard4.Hide()
+                    DeckCard3.Hide()
+                Case 2
+                    DeckCard4.Hide()
+                    DeckCard3.Hide()
+                    DeckCard2.Hide()
+                Case 1
+                    DeckCard4.Hide()
+                    DeckCard3.Hide()
+                    DeckCard2.Hide()
+                    DeckCard1.Hide()
+            End Select
 
-            ' Generate random index
-            Dim rand As New Random()
-            Dim randomIndex As Integer = rand.Next(0, cards.Count)
+            ' Determine which type of card to return
+            Select Case Type
+                Case "random"
+                    ' Generate random index
+                    Dim rand As New Random()
+                    Dim randomIndex As Integer = rand.Next(0, cards.Count)
+                    ' Return random card
+                    Return cards(randomIndex)
+                Case "Top"
+                    ' Return the topmost card from the shuffled draw deck
+                    If cards.Count > 0 Then
+                        Return cards(0)
+                    Else
+                        Throw New Exception("No cards available in the deck.")
+                    End If
+                Case Else
+                    Throw New Exception("Invalid card type requested: " & Type)
+            End Select
 
-            ' Return random card
-            Return cards(randomIndex)
         Catch ex As Exception
-            ' Log the error message (you can replace this with proper logging)
+            ' Log the error message (replace with proper logging)
             MsgBox("Error: " & ex.Message)
-            Return String.Empty
+            Return String.Empty ' Return a default value or handle the error as needed
         End Try
     End Function
+
 
     Sub AddCardToFile(filePath As String, cardToAdd As String)
         ' Read all text from JSON file
@@ -516,17 +536,16 @@ Public Class TheGame
             Next
 
             ' Fill remaining picture boxes with default image
-            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Vertical_Card.jpg")
 
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player1Card{pictureBoxIndex}"
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    If File.Exists(defaultVerticalCardImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultVerticalCardImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultImagePath}")
+                        MsgBox($"Default image file not found: {defaultVerticalCardImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -569,17 +588,15 @@ Public Class TheGame
                 End If
             Next
 
-            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Horizontal_Card.jpg")
-
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player2Card{pictureBoxIndex}"
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    If File.Exists(defaultHorizontalCardImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultHorizontalCardImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultImagePath}")
+                        MsgBox($"Default image file not found: {defaultHorizontalCardImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -621,17 +638,15 @@ Public Class TheGame
                 End If
             Next
 
-            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Vertical_Card.jpg")
-
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player3Card{pictureBoxIndex}"
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    If File.Exists(defaultVerticalCardImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultVerticalCardImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultImagePath}")
+                        MsgBox($"Default image file not found: {defaultVerticalCardImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -672,17 +687,17 @@ Public Class TheGame
                 End If
             Next
 
-            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Horizontal_Card.jpg")
+
 
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player4Card{pictureBoxIndex}"
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultImagePath)
+                    If File.Exists(defaultHorizontalCardImagePath) Then
+                        pictureBox.Image = Image.FromFile(defaultHorizontalCardImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultImagePath}")
+                        MsgBox($"Default image file not found: {defaultHorizontalCardImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -766,7 +781,7 @@ Public Class TheGame
     Private Sub Turn_rotate()
         Try
             ' Load your image into the PictureBox
-            Turn.Image = My.Resources.Turn_Rotate
+            Turn.Image = Image.FromFile(turn_rotateImagePath)
             Turn.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As Exception
             MessageBox.Show("Image not found: " & ex.Message)

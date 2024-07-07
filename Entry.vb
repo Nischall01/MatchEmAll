@@ -2,19 +2,12 @@
 Imports System.IO
 
 Public Class Entry
-    Dim connectionString As String = DatabaseHelper.GetConnectionString()
-
-    Dim Player1Name As String
-    Dim Player2Name As String
-    Dim Player3Name As String
-    Dim Player4Name As String
+    Private ReadOnly connectionString As String = DatabaseHelper.GetConnectionString()
 
     Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         LoadScoreBoard()
         AutoCompletePlayerNames()
-        ' Enable Test Mode / Remove or comment it out for the final product
-        Enable_DevMode()
+        Enable_DevMode() ' Enable test mode for development purposes
     End Sub
 
     Private Sub Enable_DevMode()
@@ -23,193 +16,119 @@ Public Class Entry
     End Sub
 
     Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
-        If TwoPlayers.Checked Then
-            Player1_TextBox.Text = "p1"
-            Player2_TextBox.Text = "p2"
-
-        ElseIf ThreePlayers.Checked Then
-            Player1_TextBox.Text = "p1"
-            Player2_TextBox.Text = "p2"
-            Player3_TextBox.Text = "p3"
-        Else
-            Player1_TextBox.Text = "p1"
-            Player2_TextBox.Text = "p2"
-            Player3_TextBox.Text = "p3"
-            Player4_TextBox.Text = "p4"
-        End If
+        Select Case True
+            Case TwoPlayers.Checked
+                Player1_TextBox.Text = "p1"
+                Player2_TextBox.Text = "p2"
+            Case ThreePlayers.Checked
+                Player1_TextBox.Text = "p1"
+                Player2_TextBox.Text = "p2"
+                Player3_TextBox.Text = "p3"
+            Case FourPlayers.Checked
+                Player1_TextBox.Text = "p1"
+                Player2_TextBox.Text = "p2"
+                Player3_TextBox.Text = "p3"
+                Player4_TextBox.Text = "p4"
+        End Select
         EnterTheGame.PerformClick()
     End Sub
 
     Private Sub EnterTheGame_Click(sender As Object, e As EventArgs) Handles EnterTheGame.Click
-        Player1Name = Player1_TextBox.Text
-        Player2Name = Player2_TextBox.Text
+        Dim playerNames As New List(Of String)
 
-        Using conn As New SqlConnection(connectionString)
-            Try
+        If String.IsNullOrEmpty(Player1_TextBox.Text) OrElse String.IsNullOrEmpty(Player2_TextBox.Text) Then
+            MessageBox.Show("At least two players are required to play the game.")
+            Return
+        End If
+
+        playerNames.Add(Player1_TextBox.Text)
+        playerNames.Add(Player2_TextBox.Text)
+
+        If ThreePlayers.Checked Then
+            If String.IsNullOrEmpty(Player3_TextBox.Text) Then
+                MessageBox.Show("All players' names are required.")
+                Return
+            End If
+            playerNames.Add(Player3_TextBox.Text)
+        ElseIf FourPlayers.Checked Then
+            If String.IsNullOrEmpty(Player3_TextBox.Text) OrElse String.IsNullOrEmpty(Player4_TextBox.Text) Then
+                MessageBox.Show("All players' names are required.")
+                Return
+            End If
+            playerNames.Add(Player3_TextBox.Text)
+            playerNames.Add(Player4_TextBox.Text)
+        End If
+
+        If playerNames.Distinct().Count() <> playerNames.Count() Then
+            MessageBox.Show("Duplicate player names are not allowed.")
+            ClearTextBoxes()
+            Return
+        End If
+
+        Try
+            Using conn As New SqlConnection(connectionString)
                 conn.Open()
 
-                ' Validate player names
-                If TwoPlayers.Checked Then
-                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Then
-                        MessageBox.Show("Atleast two players are requried to play the game.")
-                        Return
+                For Each playerName As String In playerNames
+                    If Not IsDuplicate(playerName, conn) Then
+                        InsertPlayer(playerName, conn)
                     End If
-                    If Player1Name = Player2Name Then
-                        MessageBox.Show("Duplicate player names are not allowed.")
-                        ClearTextBoxes()
-                        Return
-                    End If
+                Next
 
-                    If IsDuplicate(Player1Name, conn) Then
+                TheGame.noofplayers = playerNames.Count
+                TheGame.PName.AddRange(playerNames)
+            End Using
+        Catch ex As SqlException
+            MessageBox.Show("An error occurred while adding data to the database: " & ex.Message)
+        End Try
 
-                    Else
-                        InsertPlayer(Player1Name, conn)
-                    End If
-                    If IsDuplicate(Player2Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player2Name, conn)
-                    End If
-
-                    TheGame.noofplayers = 2
-                    TheGame.PName.Add(Player1Name)
-                    TheGame.PName.Add(Player2Name)
-
-                ElseIf ThreePlayers.Checked Then
-                    Player3Name = Player3_TextBox.Text
-                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Then
-                        MessageBox.Show("All players' names are required.")
-                        Return
-                    End If
-                    If Player1Name = Player2Name Or Player1Name = Player3Name Or Player2Name = Player3Name Then
-                        MessageBox.Show("Duplicate player names are not allowed.")
-                        ClearTextBoxes()
-                        Return
-                    End If
-
-                    If IsDuplicate(Player1Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player1Name, conn)
-                    End If
-                    If IsDuplicate(Player2Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player2Name, conn)
-                    End If
-                    If IsDuplicate(Player3Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player3Name, conn)
-                    End If
-
-                    TheGame.noofplayers = 3
-                    TheGame.PName.Add(Player1Name)
-                    TheGame.PName.Add(Player2Name)
-                    TheGame.PName.Add(Player3Name)
-
-                ElseIf FourPlayers.Checked Then
-
-                    Player3Name = Player3_TextBox.Text
-                    Player4Name = Player4_TextBox.Text
-
-                    If String.IsNullOrWhiteSpace(Player1Name) Or String.IsNullOrWhiteSpace(Player2Name) Or String.IsNullOrWhiteSpace(Player3Name) Or String.IsNullOrWhiteSpace(Player4Name) Then
-                        MessageBox.Show("All players' names are required.")
-                        Return
-                    End If
-                    If Player1Name = Player2Name Or Player1Name = Player3Name Or Player1Name = Player4Name Or Player2Name = Player3Name Or Player2Name = Player4Name Or Player3Name = Player4Name Then
-                        MessageBox.Show("Duplicate player names are not allowed.")
-                        ClearTextBoxes()
-                        Return
-                    End If
-
-                    If IsDuplicate(Player1Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player1Name, conn)
-                    End If
-                    If IsDuplicate(Player2Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player2Name, conn)
-                    End If
-                    If IsDuplicate(Player3Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player3Name, conn)
-                    End If
-                    If IsDuplicate(Player4Name, conn) Then
-
-                    Else
-                        InsertPlayer(Player4Name, conn)
-                    End If
-
-                    TheGame.noofplayers = 4
-                    TheGame.PName.Add(Player1Name)
-                    TheGame.PName.Add(Player2Name)
-                    TheGame.PName.Add(Player3Name)
-                    TheGame.PName.Add(Player4Name)
-                End If
-
-            Catch ex As SqlException
-                MessageBox.Show("An error occurred while adding data to the database: " & ex.Message)
-            End Try
-        End Using
-
-        ' Load scoreboard and clear text boxes
         LoadScoreBoard()
         AutoCompletePlayerNames()
         ClearTextBoxes()
         Clear.Enabled = False
         Clear.Hide()
 
-        MyBase.Hide()
+        Me.Hide()
         TheGame.Show()
     End Sub
 
-    Public Sub LoadScoreBoard()
-        Dim PlayersTable As String = "SELECT * FROM PlayersInfo"
-        Using conn As New SqlConnection(connectionString)
-            Try
+    Private Sub LoadScoreBoard()
+        Dim query As String = "SELECT * FROM PlayersInfo"
+        Try
+            Using conn As New SqlConnection(connectionString)
                 conn.Open()
-
-                ' Create a SqlDataAdapter to fetch data
-                Dim adapter1 As New SqlDataAdapter(PlayersTable, conn)
-
-                ' Create a DataTable to hold the fetched data
-                Dim dt1 As New DataTable()
-
-                ' Fill the DataTable with data
-                adapter1.Fill(dt1)
-
-                ' Bind the DataTable to the DataGridView
-                DataGridView1.DataSource = dt1
-
-            Catch ex As SqlException
-                MessageBox.Show("An error occurred while connecting to the database: " & ex.Message)
-            End Try
-        End Using
-    End Sub
-
-    Public Function GetNamesFromDatabase(connectionString As String) As List(Of String)
-        Dim names As New List(Of String)()
-        Dim query As String = "SELECT Name FROM PlayersInfo"
-
-        Using conn As New SqlConnection(connectionString)
-            conn.Open()
-            Using cmd As New SqlCommand(query, conn)
-                Using reader As SqlDataReader = cmd.ExecuteReader()
-                    While reader.Read()
-                        names.Add(reader("Name").ToString())
-                    End While
+                Using adapter As New SqlDataAdapter(query, conn)
+                    Dim dt As New DataTable()
+                    adapter.Fill(dt)
+                    DataGridView1.DataSource = dt
                 End Using
             End Using
-        End Using
+        Catch ex As SqlException
+            MessageBox.Show("An error occurred while connecting to the database: " & ex.Message)
+        End Try
+    End Sub
 
+    Private Function GetNamesFromDatabase() As List(Of String)
+        Dim names As New List(Of String)()
+        Dim query As String = "SELECT Name FROM PlayersInfo"
+        Try
+            Using conn As New SqlConnection(connectionString)
+                conn.Open()
+                Using cmd As New SqlCommand(query, conn)
+                    Using reader As SqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            names.Add(reader("Name").ToString())
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As SqlException
+            MessageBox.Show("An error occurred while fetching player names: " & ex.Message)
+        End Try
         Return names
     End Function
 
-    Public Sub SetupAutoCompleteTextBox(textBox As TextBox, names As List(Of String))
+    Private Sub SetupAutoCompleteTextBox(textBox As TextBox, names As List(Of String))
         Dim autoComplete As New AutoCompleteStringCollection()
         autoComplete.AddRange(names.ToArray())
 
@@ -218,33 +137,68 @@ Public Class Entry
         textBox.AutoCompleteSource = AutoCompleteSource.CustomSource
     End Sub
 
-    Public Sub AutoCompletePlayerNames()
-        Dim names As List(Of String) = GetNamesFromDatabase(connectionString)
+    Private Sub AutoCompletePlayerNames()
+        Dim names As List(Of String) = GetNamesFromDatabase()
         SetupAutoCompleteTextBox(Player1_TextBox, names)
         SetupAutoCompleteTextBox(Player2_TextBox, names)
         SetupAutoCompleteTextBox(Player3_TextBox, names)
         SetupAutoCompleteTextBox(Player4_TextBox, names)
     End Sub
 
-    Public Sub ClearScoreBoard()
-        Dim clearPlayersTable As String = "DELETE FROM PlayersInfo"
-        Using conn As New SqlConnection(connectionString)
-            Try
+    Private Sub ClearScoreBoard()
+        Dim query As String = "DELETE FROM PlayersInfo"
+        Try
+            Using conn As New SqlConnection(connectionString)
                 conn.Open()
-
-                ' Execute the DELETE command
-                Using cmd As New SqlCommand(clearPlayersTable, conn)
+                Using cmd As New SqlCommand(query, conn)
                     cmd.ExecuteNonQuery()
                 End Using
-
-                ' Clear the DataGridView
                 DataGridView1.DataSource = Nothing
-                DataGridView1.Rows.Clear()
+            End Using
+        Catch ex As SqlException
+            MessageBox.Show("An error occurred while clearing the scoreboard: " & ex.Message)
+        End Try
+    End Sub
 
-            Catch ex As SqlException
-                MessageBox.Show("An error occurred while clearing the scoreboard: " & ex.Message)
-            End Try
-        End Using
+    Private Sub Clear_Click(sender As Object, e As EventArgs) Handles Clear.Click
+        If MessageBox.Show("Are you sure you want to clear the scoreboard?", "Confirm Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            ClearScoreBoard()
+            LoadScoreBoard()
+            AutoCompletePlayerNames()
+        End If
+    End Sub
+
+    Private Function IsDuplicate(name As String, conn As SqlConnection) As Boolean
+        Dim query As String = "SELECT COUNT(*) FROM PlayersInfo WHERE Name = @Name"
+        Try
+            Using cmd As New SqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@Name", name)
+                Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+                Return count > 0
+            End Using
+        Catch ex As SqlException
+            MessageBox.Show("An error occurred while checking for duplicate player names: " & ex.Message)
+            Return True ' Assume duplicate to prevent unintended data modification
+        End Try
+    End Function
+
+    Private Sub InsertPlayer(name As String, conn As SqlConnection)
+        Dim query As String = "INSERT INTO PlayersInfo (Name, Score) VALUES (@Name, 0)"
+        Try
+            Using cmd As New SqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@Name", name)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As SqlException
+            MessageBox.Show("An error occurred while adding player to the database: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ClearTextBoxes()
+        Player1_TextBox.Clear()
+        Player2_TextBox.Clear()
+        Player3_TextBox.Clear()
+        Player4_TextBox.Clear()
     End Sub
 
     Private Sub TwoPlayers_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged
@@ -266,39 +220,6 @@ Public Class Entry
         Player3_TextBox.Show()
         Player4.Show()
         Player4_TextBox.Show()
-    End Sub
-
-    Private Function IsDuplicate(name As String, conn As SqlConnection) As Boolean
-        Dim checkDuplicate As String = "SELECT COUNT(*) FROM PlayersInfo WHERE Name = @Name"
-        Using cmd As New SqlCommand(checkDuplicate, conn)
-            cmd.Parameters.AddWithValue("@Name", name)
-            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-            Return count > 0
-        End Using
-    End Function
-
-    Private Sub InsertPlayer(name As String, conn As SqlConnection)
-        Dim addPlayer As String = "INSERT INTO PlayersInfo (Name, Score) VALUES (@Name, 0)"
-        Using cmd As New SqlCommand(addPlayer, conn)
-            cmd.Parameters.AddWithValue("@Name", name)
-            'cmd.Parameters.AddWithValue("@Initial_Score", 0)
-            cmd.ExecuteNonQuery()
-        End Using
-    End Sub
-
-    Private Sub ClearTextBoxes()
-        Player1_TextBox.Clear()
-        Player2_TextBox.Clear()
-        Player3_TextBox.Clear()
-        Player4_TextBox.Clear()
-    End Sub
-
-    Private Sub Clear_Click(sender As Object, e As EventArgs) Handles Clear.Click
-        If MessageBox.Show("Are you sure you want to clear the scoreboard?", "Confirm Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            ClearScoreBoard()
-            LoadScoreBoard()
-            AutoCompletePlayerNames()
-        End If
     End Sub
 
     Public Sub UpdateScore(Winner As String)
@@ -326,12 +247,7 @@ End Class
 
 Public Class DatabaseHelper
     Public Shared Function GetConnectionString() As String
-        ' Construct the path to the .mdf file in the output directory
         Dim databaseFilePath As String = Path.Combine(Application.StartupPath, "Resources\PlayersData\Players.mdf")
-
-        ' Create the connection string
-        Dim connectionString As String = $"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=25"
-
-        Return connectionString
+        Return $"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=25"
     End Function
 End Class

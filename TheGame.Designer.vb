@@ -179,7 +179,7 @@ Partial Class TheGame
         'Player1Card1
         '
         Me.Player1Card1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card1.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card1.Image = CType(resources.GetObject("Player1Card1.Image"), System.Drawing.Image)
         Me.Player1Card1.Location = New System.Drawing.Point(32, 16)
         Me.Player1Card1.Name = "Player1Card1"
         Me.Player1Card1.Size = New System.Drawing.Size(63, 80)
@@ -191,7 +191,7 @@ Partial Class TheGame
         'Player1Card5
         '
         Me.Player1Card5.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card5.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card5.Image = CType(resources.GetObject("Player1Card5.Image"), System.Drawing.Image)
         Me.Player1Card5.Location = New System.Drawing.Point(320, 16)
         Me.Player1Card5.Name = "Player1Card5"
         Me.Player1Card5.Size = New System.Drawing.Size(63, 80)
@@ -203,7 +203,7 @@ Partial Class TheGame
         'Player1Card3
         '
         Me.Player1Card3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card3.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card3.Image = CType(resources.GetObject("Player1Card3.Image"), System.Drawing.Image)
         Me.Player1Card3.Location = New System.Drawing.Point(176, 16)
         Me.Player1Card3.Name = "Player1Card3"
         Me.Player1Card3.Size = New System.Drawing.Size(63, 80)
@@ -215,7 +215,7 @@ Partial Class TheGame
         'Player1Card2
         '
         Me.Player1Card2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card2.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card2.Image = CType(resources.GetObject("Player1Card2.Image"), System.Drawing.Image)
         Me.Player1Card2.Location = New System.Drawing.Point(104, 16)
         Me.Player1Card2.Name = "Player1Card2"
         Me.Player1Card2.Size = New System.Drawing.Size(63, 80)
@@ -227,7 +227,7 @@ Partial Class TheGame
         'Player1Card4
         '
         Me.Player1Card4.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card4.Image = Global.Game.My.Resources.Resources.Vertical_Card
+        Me.Player1Card4.Image = CType(resources.GetObject("Player1Card4.Image"), System.Drawing.Image)
         Me.Player1Card4.Location = New System.Drawing.Point(248, 16)
         Me.Player1Card4.Name = "Player1Card4"
         Me.Player1Card4.Size = New System.Drawing.Size(63, 80)
@@ -372,6 +372,9 @@ Partial Class TheGame
         Me.Player3Card3.TabIndex = 32
         Me.Player3Card3.TabStop = False
         '
+        'Timer1
+        '
+        '
         'Player2
         '
         Me.Player2.Anchor = System.Windows.Forms.AnchorStyles.Left
@@ -382,7 +385,6 @@ Partial Class TheGame
         Me.Player2.Size = New System.Drawing.Size(27, 120)
         Me.Player2.TabIndex = 52
         Me.Player2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        AddHandler Me.Player2.Paint, AddressOf Me.Player2_Paint
         '
         'Player4
         '
@@ -394,7 +396,6 @@ Partial Class TheGame
         Me.Player4.Size = New System.Drawing.Size(27, 120)
         Me.Player4.TabIndex = 53
         Me.Player4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        AddHandler Me.Player4.Paint, AddressOf Me.Player4_Paint
         '
         'Player3
         '
@@ -406,7 +407,6 @@ Partial Class TheGame
         Me.Player3.Size = New System.Drawing.Size(120, 27)
         Me.Player3.TabIndex = 54
         Me.Player3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        AddHandler Me.Player3.Paint, AddressOf Me.Player3_Paint
         '
         'Player1
         '
@@ -418,7 +418,6 @@ Partial Class TheGame
         Me.Player1.Size = New System.Drawing.Size(120, 27)
         Me.Player1.TabIndex = 55
         Me.Player1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        AddHandler Me.Player1.Paint, AddressOf Me.Player1_Paint
         '
         'CardDrew
         '
@@ -534,6 +533,7 @@ Partial Class TheGame
         Me.Controls.Add(Me.Player_4)
         Me.Controls.Add(Me.CenterDeck)
         Me.Controls.Add(Me.Turn)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(700, 700)
         Me.Name = "TheGame"
         Me.Text = "TheGame"

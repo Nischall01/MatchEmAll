@@ -162,9 +162,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\TempGameData\draw_deck.json" />
-    <None Include="Resources\TempGameData\players_hands.json" />
-    <None Include="Resources\TempGameData\unmatched_cards.json" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -172,120 +169,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Clubs_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Diamonds_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Hearts_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Spades_Hrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\King of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\King of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\King of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\King of Spades_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Clubs_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Diamonds_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Hearts_Vrtl.png" />
-    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Spades_Vrtl.png" />
-    <Content Include="Resources\Icons\Entry.ico" />
-    <Content Include="Resources\Icons\TheGame.ico" />
-    <None Include="Resources\PlayersData\Players.mdf" />
-    <None Include="Resources\PlayersData\Players_log.ldf" />
-    <None Include="Resources\Sfx\Explosion_FX.wav" />
-    <None Include="Resources\Turn_Rotate.png" />
     <None Include="packages.config" />
-    <Resource Include="Resources\Entry_Background.png" />
-    <Resource Include="Resources\Vertical_Card.jpg" />
-    <Resource Include="Resources\Horizontal_Card.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
@@ -300,7 +184,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Debug\" />
+    <None Include="bin\Debug\Resources\Icons\Entry.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\Entry_Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\Horizontal_Card.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\Turn_rotate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\Vertical_Card.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\Icons\TheGame.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
