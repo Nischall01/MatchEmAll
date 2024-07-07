@@ -61,22 +61,44 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''  Looks up a localized resource of type System.Byte[].
         '''</summary>
-        Friend ReadOnly Property _9() As System.Drawing.Bitmap
+<<<<<<< HEAD
+        Friend ReadOnly Property draw_deck() As Byte()
             Get
-                Dim obj As Object = ResourceManager.GetObject("_9", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Dim obj As Object = ResourceManager.GetObject("draw_deck", resourceCulture)
+                Return CType(obj,Byte())
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property Entry() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Entry", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+=======
+>>>>>>> a19f941365a05ce161df963a314e8f15833db309
         Friend ReadOnly Property Entry_Background() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Entry_Background", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        '''</summary>
+        Friend ReadOnly Property Explosion_FX() As System.IO.UnmanagedMemoryStream
+            Get
+                Return ResourceManager.GetStream("Explosion_FX", resourceCulture)
             End Get
         End Property
         
@@ -91,12 +113,42 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend ReadOnly Property players_hands() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("players_hands", resourceCulture)
+                Return CType(obj,Byte())
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property TheGame() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("TheGame", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Turn_Rotate() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Turn_Rotate", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend ReadOnly Property unmatched_cards() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("unmatched_cards", resourceCulture)
+                Return CType(obj,Byte())
             End Get
         End Property
         

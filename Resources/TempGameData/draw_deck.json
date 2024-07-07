@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
   "7 of Hearts",
   "2 of Diamonds",
   "4 of Hearts",
@@ -32,4 +33,16 @@
   "3 of Diamonds",
   "9 of Clubs",
   "5 of Clubs"
+=======
+  "2 of Hearts",
+  "9 of Diamonds",
+  "2 of Diamonds",
+  "Queen of Diamonds",
+  "6 of Hearts",
+  "6 of Diamonds",
+  "Jack of Diamonds",
+  "6 of Clubs",
+  "3 of Diamonds",
+  "Ace of Hearts"
+>>>>>>> 8de9a1a60b75f5625987e7ce25fcf6c07121f275
 ]
