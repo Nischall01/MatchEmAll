@@ -67,7 +67,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Entry.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>02D7409BD724944A4107C7A7A28FE930EC50372F</ManifestCertificateThumbprint>
@@ -280,9 +281,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\Sfx\Explosion_FX.wav" />
-    <Content Include="TheGame.ico" />
     <None Include="Resources\Turn_Rotate.png" />
-    <Content Include="Entry.ico" />
     <None Include="packages.config" />
     <Resource Include="Resources\Entry_Background.png" />
     <Resource Include="Resources\Vertical_Card.jpg" />
