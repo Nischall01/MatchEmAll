@@ -23,11 +23,11 @@ Public Class TheGame
 
     Private SFXplayer As SoundPlayer
 
-    Dim draw_deck_JSON_FilePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\TempGameData\draw_deck.json"
-    Dim players_hands_JSON_FilePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\TempGameData\players_hands.json"
-    Dim unmatched_Cards_JSON_FilePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\TempGameData\unmatched_cards.json"
+    Dim draw_deck_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\draw_deck.json")
+    Dim players_hands_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\players_hands.json")
+    Dim unmatched_Cards_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\unmatched_cards.json")
 
-    Dim soundFilePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Sfx\Explosion_FX.wav"
+    Dim soundFilePath As String = Path.Combine(Application.StartupPath, "Resources\Sfx\Explosion_FX.wav")
     'Dim horizontalDeck_of_Cards_FilePath As String = "Resources\Deck_of_Cards\Horizontal\"
     'Dim verticalDeck_of_Cards_FilePath As String = "Resources\Deck_of_Cards\Vertical\"
 
@@ -282,7 +282,7 @@ Public Class TheGame
 
     Sub DrawnCardImage(cardName As String)
         Try
-            Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Deck_of_Cards\Vertical\{cardName}_Vrtl.png"
+            Dim imagePath As String = Path.Combine(Application.StartupPath, $"Resources\Deck_of_Cards\Vertical\{cardName}_Vrtl.png")
             CardDrew.Image = Image.FromFile(imagePath)
             CardDrew.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As FileNotFoundException
@@ -498,7 +498,7 @@ Public Class TheGame
                     Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                     If pictureBox IsNot Nothing Then
-                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Deck_of_Cards\Vertical\{card}_Vrtl.png" ' Adjust file extension as per your setup
+                        Dim imagePath As String = Path.Combine(Application.StartupPath, $"Resources\Deck_of_Cards\Vertical\{card}_Vrtl.png") ' Adjust file extension as per your setup
 
                         If File.Exists(imagePath) Then
                             pictureBox.Image = Image.FromFile(imagePath)
@@ -516,7 +516,7 @@ Public Class TheGame
             Next
 
             ' Fill remaining picture boxes with default image
-            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Vertical_Card.jpg"
+            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Vertical_Card.jpg")
 
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player1Card{pictureBoxIndex}"
@@ -552,7 +552,7 @@ Public Class TheGame
                     Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                     If pictureBox IsNot Nothing Then
-                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Deck_of_Cards\Horizontal\{card}_Hrtl.png"
+                        Dim imagePath As String = Path.Combine(Application.StartupPath, $"Resources\Deck_of_Cards\Horizontal\{card}_Hrtl.png")
 
                         If File.Exists(imagePath) Then
                             pictureBox.Image = Image.FromFile(imagePath)
@@ -569,7 +569,7 @@ Public Class TheGame
                 End If
             Next
 
-            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Horizontal_Card.jpg"
+            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Horizontal_Card.jpg")
 
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player2Card{pictureBoxIndex}"
@@ -604,7 +604,7 @@ Public Class TheGame
                     Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                     If pictureBox IsNot Nothing Then
-                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Deck_of_Cards\Vertical\{card}_Vrtl.png"
+                        Dim imagePath As String = Path.Combine(Application.StartupPath, $"Resources\Deck_of_Cards\Vertical\{card}_Vrtl.png")
 
                         If File.Exists(imagePath) Then
                             pictureBox.Image = Image.FromFile(imagePath)
@@ -621,7 +621,7 @@ Public Class TheGame
                 End If
             Next
 
-            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Vertical_Card.jpg"
+            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Vertical_Card.jpg")
 
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player3Card{pictureBoxIndex}"
@@ -655,7 +655,7 @@ Public Class TheGame
                     Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                     If pictureBox IsNot Nothing Then
-                        Dim imagePath As String = $"D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Deck_of_Cards\Horizontal\{card}_Hrtl.png" ' Adjust file extension as per your setup
+                        Dim imagePath As String = Path.Combine(Application.StartupPath, $"Resources\Deck_of_Cards\Horizontal\{card}_Hrtl.png") ' Adjust file extension as per your setup
 
                         If File.Exists(imagePath) Then
                             pictureBox.Image = Image.FromFile(imagePath)
@@ -672,7 +672,7 @@ Public Class TheGame
                 End If
             Next
 
-            Dim defaultImagePath As String = "D:\_Programs\_Visual_Studio_Workspace\Game\Resources\Horizontal_Card.jpg"
+            Dim defaultImagePath As String = Path.Combine(Application.StartupPath, "Resources\Horizontal_Card.jpg")
 
             While pictureBoxIndex <= 5
                 Dim pictureBoxName As String = $"Player4Card{pictureBoxIndex}"

@@ -1,7 +1,8 @@
 ﻿Imports System.Data.SqlClient
+Imports System.IO
 
 Public Class Entry
-    Dim connectionString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\_Programs\_Visual_Studio_Workspace\Game\Resources\PlayersData\Players.mdf;Integrated Security=True"
+    Dim connectionString As String = DatabaseHelper.GetConnectionString()
 
     Dim Player1Name As String
     Dim Player2Name As String
@@ -321,4 +322,16 @@ Public Class Entry
         End Using
         LoadScoreBoard()
     End Sub
+End Class
+
+Public Class DatabaseHelper
+    Public Shared Function GetConnectionString() As String
+        ' Construct the path to the .mdf file in the output directory
+        Dim databaseFilePath As String = Path.Combine(Application.StartupPath, "Resources\PlayersData\Players.mdf")
+
+        ' Create the connection string
+        Dim connectionString As String = $"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=25"
+
+        Return connectionString
+    End Function
 End Class

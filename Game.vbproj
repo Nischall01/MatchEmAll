@@ -278,12 +278,8 @@
     <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Spades_Vrtl.png" />
     <Content Include="Resources\Icons\Entry.ico" />
     <Content Include="Resources\Icons\TheGame.ico" />
-    <Content Include="Resources\PlayersData\Players.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\PlayersData\Players_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Resources\PlayersData\Players.mdf" />
+    <None Include="Resources\PlayersData\Players_log.ldf" />
     <None Include="Resources\Sfx\Explosion_FX.wav" />
     <None Include="Resources\Turn_Rotate.png" />
     <None Include="packages.config" />

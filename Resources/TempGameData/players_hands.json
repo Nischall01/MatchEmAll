@@ -1,23 +1,16 @@
 [
   {
-    "Position": 2,
+    "Position": 1,
     "Name": "p1",
-    "Cards": [
-      "9 of Spades",
-      "Queen of Hearts",
-      "5 of Clubs",
-      "Jack of Diamonds"
-    ]
+    "Cards": []
   },
   {
-    "Position": 1,
+    "Position": 2,
     "Name": "p2",
     "Cards": [
-      "4 of Spades",
-      "10 of Spades",
-      "6 of Spades",
-      "7 of Diamonds",
-      "4 of Clubs"
+      "3 of Clubs",
+      "King of Hearts",
+      "Jack of Diamonds"
     ]
   }
 ]
