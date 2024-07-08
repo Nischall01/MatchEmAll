@@ -25,11 +25,9 @@ Download the game from [latest release](https://github.com/Nischall01/MatchEmAll
 
 Download the Source Code.zip & Resources.7z from the [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract both and place the Resources folder in Source Code Folder. Now you have a replica of my Project Folder for Visual studio.
 
-## <ins> Note:</ins> Have fun playing and coding and May the RNG God be with you. ##
+## Download & Installation
 
-## Installation
-
-Download the game from [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract and play. 
+Download the game from [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract and play. No installation needed. 
 
 ## Project Replication
 
