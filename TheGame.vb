@@ -21,29 +21,79 @@ Public Class TheGame
     Dim p3 As PlayerInfo
     Dim p4 As PlayerInfo
 
+    ' Dim IconPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Icons", "TheGame.ico")
+
+    Dim draw_deck_JSON_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "TempGameData", "draw_deck.json")
+    Dim players_hands_JSON_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "TempGameData", "players_hands.json")
+    Dim unmatched_Cards_JSON_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "TempGameData", "unmatched_cards.json")
+
+    Dim VerticalCardBack_ImagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Vertical_CardBack.jpg")
+    Dim HorizontalCardBack_ImagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Horizontal_CardBack.jpg")
+    Dim Turn_rotate_ImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Turn_Rotate.png")
+
     Private SFXplayer As SoundPlayer
-
-    Dim draw_deck_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\draw_deck.json")
-    Dim players_hands_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\players_hands.json")
-    Dim unmatched_Cards_JSON_FilePath As String = Path.Combine(Application.StartupPath, "Resources\TempGameData\unmatched_cards.json")
-
-    Dim defaultVerticalCardImagePath As String = Path.Combine(Application.StartupPath, "Resources\Vertical_Card.jpg")
-    Dim defaultHorizontalCardImagePath As String = Path.Combine(Application.StartupPath, "Resources\Horizontal_Card.jpg")
-    Dim turn_rotateImagePath = Path.Combine(Application.StartupPath, "Resources\Turn_Rotate.png")
-
-    Dim soundFilePath As String = Path.Combine(Application.StartupPath, "Resources\Sfx\Explosion_FX.wav")
-    'Dim horizontalDeck_of_Cards_FilePath As String = "Resources\Deck_of_Cards\Horizontal\"
-    'Dim verticalDeck_of_Cards_FilePath As String = "Resources\Deck_of_Cards\Vertical\"
+    Dim sound_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Sfx", "Explosion_FX.wav")
 
     Private Async Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        If My.Settings.IsBackgroundAnImage_TheGame = True Then
+            SetBackgroundImage()
+        Else
+            If My.Settings.IsTheGameBackgroundDefault = True Then
+                SetBackgroundColor("Default")
+            Else
+                SetBackgroundColor("Selected")
+            End If
+        End If
+
         Timer1.Interval = 45 ' Animation speed/Adjust timer interval for smoother animation
 
-        SFXplayer = New SoundPlayer(soundFilePath)
+        SFXplayer = New SoundPlayer(sound_FilePath)
 
         MsgBox("Welcome Every-nyan!!!")
-        Draw.Hide()
-        Await Task.Delay(1000)
+
+        EmptyTable()
+
+        Await Task.Delay(500)
+
         Initialize_Game()
+    End Sub
+
+    ' For Changeable/dynamic app icon
+
+    'Private Sub SetIcon()
+    '    If File.Exists(IconPath) Then
+    '        Me.Icon = New Icon(IconPath)
+    '    Else
+    '        Me.Icon = Nothing
+    '    End If
+    'End Sub
+
+
+    ' For Changeable/dynamic background
+    Public Sub SetBackgroundImage()
+        If File.Exists(My.Settings.TheGame_BackgroundImage) Then
+            Me.BackgroundImage = Image.FromFile(My.Settings.TheGame_BackgroundImage)
+            Me.BackColor = SystemColors.Control
+        Else
+            MsgBox($"TheGame_BackgroundImage Is Missing:{My.Settings.TheGame_BackgroundImage}")
+            Me.BackgroundImage = Nothing
+            Me.BackColor = Color.DarkGreen
+        End If
+    End Sub
+
+    Public Sub SetBackgroundColor(Type As String)
+        Select Case Type
+            Case "Default"
+                Me.BackgroundImage = Nothing
+                Me.BackColor = Color.DarkGreen
+
+            Case "Selected"
+                Me.BackgroundImage = Nothing
+                Me.BackColor = My.Settings.TheGame_BackgroundColor
+            Case Else
+                MsgBox($"Invalid background color type: {Type}. Please use 'Default' or 'Selected'.")
+        End Select
     End Sub
 
     Private Sub PlaySound()
@@ -68,9 +118,8 @@ Public Class TheGame
             ClearJsonFile(draw_deck_JSON_FilePath)
             ClearJsonFile(unmatched_Cards_JSON_FilePath)
 
-            Reshuffle.Hide()
-            CenterDeck.Show()
-            DeckVisible()
+            ' Initialize the players
+            Initialize_PlayingTable()
 
             ' Initialize the deck
             Dim deck As List(Of String) = Initializedeck()
@@ -93,8 +142,7 @@ Public Class TheGame
             Dim remainingDeck As List(Of String) = deck.Except(playerHands).ToList()
             Writeremainingcardstojsonfile(remainingDeck, draw_deck_JSON_FilePath)
 
-            ' Initialize the players
-            Initialize_PlayingTable()
+
 
             ' Load player information
             LoadPlayers(noofplayers)
@@ -215,25 +263,137 @@ Public Class TheGame
 
     End Sub
 
-    Private Sub Initialize_PlayingTable()
-        If noofplayers = 2 Then
-            Player_2.Enabled = False
-            Player_2.Hide()
-            Player2.Enabled = False
-            Player2.Hide()
+    Private Sub EmptyTable()
+        CenterDeck.Hide()
 
-            Player_4.Enabled = False
-            Player_4.Hide()
-            Player4.Enabled = False
-            Player4.Hide()
+        Player1.Hide()
+        Player1Card1.Hide()
+        Player1Card2.Hide()
+        Player1Card3.Hide()
+        Player1Card4.Hide()
+        Player1Card5.Hide()
 
-        ElseIf noofplayers = 3 Then
-            Player_3.Enabled = False
-            Player_3.Hide()
-            Player3.Enabled = False
-            Player3.Hide()
-        End If
+        Player2.Hide()
+        Player2Card1.Hide()
+        Player2Card2.Hide()
+        Player2Card3.Hide()
+        Player2Card4.Hide()
+        Player2Card5.Hide()
+
+        Player3.Hide()
+        Player3Card1.Hide()
+        Player3Card2.Hide()
+        Player3Card3.Hide()
+        Player3Card4.Hide()
+        Player3Card5.Hide()
+
+        Player4.Hide()
+        Player4Card1.Hide()
+        Player4Card2.Hide()
+        Player4Card3.Hide()
+        Player4Card4.Hide()
+        Player4Card5.Hide()
     End Sub
+
+    Private Async Sub Initialize_PlayingTable()
+        Draw.Enabled = False
+        Draw.Hide()
+        CenterDeck.Show()
+        'DeckVisible()
+
+        Await Task.Delay(500)
+
+        Select Case noofplayers
+            Case 2
+                Player1.Show()
+                Player3.Show()
+
+                Await DistributionAnimationAsync(Player1Card1)
+                Await DistributionAnimationAsync(Player3Card1)
+
+                Await DistributionAnimationAsync(Player1Card2)
+                Await DistributionAnimationAsync(Player3Card2)
+
+                Await DistributionAnimationAsync(Player1Card3)
+                Await DistributionAnimationAsync(Player3Card3)
+
+                Await DistributionAnimationAsync(Player1Card4)
+                Await DistributionAnimationAsync(Player3Card4)
+
+                Await DistributionAnimationAsync(Player1Card5)
+                Await DistributionAnimationAsync(Player3Card5)
+
+            Case 3
+                Player1.Show()
+                Player2.Show()
+                Player4.Show()
+
+                Await DistributionAnimationAsync(Player1Card1)
+                Await DistributionAnimationAsync(Player2Card1)
+                Await DistributionAnimationAsync(Player4Card1)
+
+                Await DistributionAnimationAsync(Player1Card2)
+                Await DistributionAnimationAsync(Player2Card2)
+                Await DistributionAnimationAsync(Player4Card2)
+
+                Await DistributionAnimationAsync(Player1Card3)
+                Await DistributionAnimationAsync(Player2Card3)
+                Await DistributionAnimationAsync(Player4Card3)
+
+                Await DistributionAnimationAsync(Player1Card4)
+                Await DistributionAnimationAsync(Player2Card4)
+                Await DistributionAnimationAsync(Player4Card4)
+
+                Await DistributionAnimationAsync(Player1Card5)
+                Await DistributionAnimationAsync(Player2Card5)
+                Await DistributionAnimationAsync(Player4Card5)
+
+            Case 4
+                Player1.Show()
+                Player2.Show()
+                Player3.Show()
+                Player4.Show()
+
+                Await DistributionAnimationAsync(Player1Card1)
+                Await DistributionAnimationAsync(Player2Card1)
+                Await DistributionAnimationAsync(Player3Card1)
+                Await DistributionAnimationAsync(Player4Card1)
+
+                Await DistributionAnimationAsync(Player1Card2)
+                Await DistributionAnimationAsync(Player2Card2)
+                Await DistributionAnimationAsync(Player3Card2)
+                Await DistributionAnimationAsync(Player4Card2)
+
+                Await DistributionAnimationAsync(Player1Card3)
+                Await DistributionAnimationAsync(Player2Card3)
+                Await DistributionAnimationAsync(Player3Card3)
+                Await DistributionAnimationAsync(Player4Card3)
+
+                Await DistributionAnimationAsync(Player1Card4)
+                Await DistributionAnimationAsync(Player2Card4)
+                Await DistributionAnimationAsync(Player3Card4)
+                Await DistributionAnimationAsync(Player4Card4)
+
+                Await DistributionAnimationAsync(Player1Card5)
+                Await DistributionAnimationAsync(Player2Card5)
+                Await DistributionAnimationAsync(Player3Card5)
+                Await DistributionAnimationAsync(Player4Card5)
+        End Select
+
+        Await Task.Delay(500)
+        Draw.Show()
+        Draw.Enabled = True
+    End Sub
+
+    Private Async Function DistributionAnimationAsync(cardControl As Control) As Task
+        DeckCard4.Hide()
+        DeckCard3.Hide()
+        Await Task.Delay(150)
+        cardControl.Show()
+        DeckCard3.Show()
+        DeckCard4.Show()
+        Await Task.Delay(150)
+    End Function
 
     Private Sub LoadPlayers(noofplayers As Integer)
         If noofplayers = 2 Then
@@ -486,7 +646,7 @@ Public Class TheGame
     End Sub
 
     Public Async Sub DeckVisible()
-        Draw.Hide()
+
         DeckCard4.Hide()
         Await Task.Delay(100)
         DeckCard4.Show()
@@ -500,7 +660,7 @@ Public Class TheGame
         Await Task.Delay(100)
         DeckCard1.Show()
         Await Task.Delay(300)
-        Draw.Show()
+
     End Sub
 
     Private Sub LoadPlayer1CardsIntoPictureBoxes(P1position As Integer)
@@ -542,10 +702,10 @@ Public Class TheGame
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultVerticalCardImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultVerticalCardImagePath)
+                    If File.Exists(VerticalCardBack_ImagePath) Then
+                        pictureBox.Image = Image.FromFile(VerticalCardBack_ImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultVerticalCardImagePath}")
+                        MsgBox($"Default image file not found: {VerticalCardBack_ImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -593,10 +753,10 @@ Public Class TheGame
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultHorizontalCardImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultHorizontalCardImagePath)
+                    If File.Exists(HorizontalCardBack_ImagePath) Then
+                        pictureBox.Image = Image.FromFile(HorizontalCardBack_ImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultHorizontalCardImagePath}")
+                        MsgBox($"Default image file not found: {HorizontalCardBack_ImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -643,10 +803,10 @@ Public Class TheGame
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultVerticalCardImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultVerticalCardImagePath)
+                    If File.Exists(VerticalCardBack_ImagePath) Then
+                        pictureBox.Image = Image.FromFile(VerticalCardBack_ImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultVerticalCardImagePath}")
+                        MsgBox($"Default image file not found: {VerticalCardBack_ImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -694,10 +854,10 @@ Public Class TheGame
                 Dim pictureBox As PictureBox = Me.Controls.Find(pictureBoxName, True).FirstOrDefault()
 
                 If pictureBox IsNot Nothing Then
-                    If File.Exists(defaultHorizontalCardImagePath) Then
-                        pictureBox.Image = Image.FromFile(defaultHorizontalCardImagePath)
+                    If File.Exists(HorizontalCardBack_ImagePath) Then
+                        pictureBox.Image = Image.FromFile(HorizontalCardBack_ImagePath)
                     Else
-                        MsgBox($"Default image file not found: {defaultHorizontalCardImagePath}")
+                        MsgBox($"Default image file not found: {HorizontalCardBack_ImagePath}")
                     End If
                 Else
                     MsgBox($"PictureBox not found: {pictureBoxName}")
@@ -781,7 +941,7 @@ Public Class TheGame
     Private Sub Turn_rotate()
         Try
             ' Load your image into the PictureBox
-            Turn.Image = Image.FromFile(turn_rotateImagePath)
+            Turn.Image = Image.FromFile(Turn_rotate_ImagePath)
             Turn.SizeMode = PictureBoxSizeMode.StretchImage
         Catch ex As Exception
             MessageBox.Show("Image not found: " & ex.Message)

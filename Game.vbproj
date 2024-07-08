@@ -72,8 +72,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Entry.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>02D7409BD724944A4107C7A7A28FE930EC50372F</ManifestCertificateThumbprint>
@@ -134,6 +133,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="AppSettings.Designer.vb">
+      <DependentUpon>AppSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AppSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TheGame.Designer.vb">
       <DependentUpon>TheGame.vb</DependentUpon>
     </Compile>
@@ -157,6 +167,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="AppSettings.resx">
+      <DependentUpon>AppSettings.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TheGame.resx">
       <DependentUpon>TheGame.vb</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +180,21 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <Content Include="Entry.ico" />
+    <Content Include="Resources\TempGameData\draw_deck.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TempGameData\players_hands.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TempGameData\unmatched_cards.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -200,6 +228,343 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\Resources\Icons\TheGame.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\10 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\2 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\3 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\4 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\5 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\6 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\7 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\8 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\9 of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Ace of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Jack of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\King of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Clubs_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Diamonds_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Hearts_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Horizontal\Queen of Spades_Hrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\10 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\2 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\3 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\4 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\5 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\6 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\7 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\8 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\9 of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Ace of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Jack of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\King of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\King of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\King of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\King of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Clubs_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Diamonds_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Hearts_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Spades_Vrtl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Others\Entry_BackgroundImage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Others\Horizontal_CardBack.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Others\Turn_rotate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Others\Vertical_CardBack.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PlayersData\Players.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PlayersData\Players_log.ldf">
+      <DependentUpon>Players.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sfx\Explosion_FX.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

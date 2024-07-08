@@ -2,9 +2,23 @@
 Imports System.IO
 
 Public Class Entry
+
+    ' Dim IconPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Icons", "Entry.ico")
+
+    Dim DefaultBackgroundImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Entry_BackgroundImage.png")
+
     Private ReadOnly connectionString As String = DatabaseHelper.GetConnectionString()
 
     Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If My.Settings.IsBackgroundAnImage_Entry = True Then
+            If My.Settings.IsEntryBackgroundDefault = True Then
+                SetBackgroundImage("Default")
+            Else
+                SetBackgroundImage("Selected")
+            End If
+        Else
+            SetBackgroundColor()
+        End If
         LoadScoreBoard()
         AutoCompletePlayerNames()
         Enable_DevMode() ' Enable test mode for development purposes
@@ -13,6 +27,48 @@ Public Class Entry
     Private Sub Enable_DevMode()
         Test.Enabled = True
         Test.Show()
+    End Sub
+
+    ' For Changeable/dynamic app icon
+
+    'Private Sub SetIcon()
+    '    If File.Exists(IconPath) Then
+    '        Me.Icon = New Icon(IconPath)
+    '    Else
+    '        Me.Icon = Nothing
+    '    End If
+    'End Sub
+
+    ' For Changeable/dynamic background
+    Public Sub SetBackgroundImage(Type As String)
+        Select Case Type
+            Case "Default"
+                If File.Exists(DefaultBackgroundImagePath) Then
+                    Me.BackgroundImage = Image.FromFile(DefaultBackgroundImagePath)
+                    Me.BackColor = SystemColors.Control
+                Else
+                    MsgBox($"DefaultBackgroundImage Is Missing:{DefaultBackgroundImagePath}")
+                    Me.BackgroundImage = Nothing
+                    Me.BackColor = Color.DarkGreen
+                End If
+
+            Case "Selected"
+                If File.Exists(My.Settings.Entry_BackgroundImage) Then
+                    Me.BackgroundImage = Image.FromFile(My.Settings.Entry_BackgroundImage)
+                    Me.BackColor = SystemColors.Control
+                Else
+                    MsgBox($"BackgroundImage is Missing:{My.Settings.Entry_BackgroundImage}")
+                    Me.BackgroundImage = Nothing
+                    Me.BackColor = Color.DarkGreen
+                End If
+            Case Else
+                MsgBox($"Invalid background type: {Type}. Please use 'Default' or 'Selected'.")
+        End Select
+    End Sub
+
+    Public Sub SetBackgroundColor()
+        Me.BackgroundImage = Nothing
+        Me.BackColor = My.Settings.Entry_BackgroundColor
     End Sub
 
     Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click
@@ -201,25 +257,24 @@ Public Class Entry
         Player4_TextBox.Clear()
     End Sub
 
-    Private Sub TwoPlayers_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged
-        Player3.Hide()
-        Player3_TextBox.Hide()
-        Player4.Hide()
-        Player4_TextBox.Hide()
-    End Sub
+    Private Sub SelectPlayerNumber_CheckedChanged(sender As Object, e As EventArgs) Handles TwoPlayers.CheckedChanged, ThreePlayers.CheckedChanged, FourPlayers.CheckedChanged
+        If TwoPlayers.Checked Then
+            Player3.Hide()
+            Player3_TextBox.Hide()
+            Player4.Hide()
+            Player4_TextBox.Hide()
+        ElseIf ThreePlayers.Checked Then
+            Player3.Show()
+            Player3_TextBox.Show()
+            Player4.Hide()
+            Player4_TextBox.Hide()
+        Else
+            Player3.Show()
+            Player3_TextBox.Show()
+            Player4.Show()
+            Player4_TextBox.Show()
+        End If
 
-    Private Sub ThreePlayers_CheckedChanged(sender As Object, e As EventArgs) Handles ThreePlayers.CheckedChanged
-        Player3.Show()
-        Player3_TextBox.Show()
-        Player4.Hide()
-        Player4_TextBox.Hide()
-    End Sub
-
-    Private Sub FourPlayers_CheckedChanged(sender As Object, e As EventArgs) Handles FourPlayers.CheckedChanged
-        Player3.Show()
-        Player3_TextBox.Show()
-        Player4.Show()
-        Player4_TextBox.Show()
     End Sub
 
     Public Sub UpdateScore(Winner As String)
@@ -243,11 +298,15 @@ Public Class Entry
         End Using
         LoadScoreBoard()
     End Sub
+
+    Private Sub Settings_Click(sender As Object, e As EventArgs) Handles Settings.Click
+        AppSettings.Show()
+    End Sub
 End Class
 
 Public Class DatabaseHelper
     Public Shared Function GetConnectionString() As String
-        Dim databaseFilePath As String = Path.Combine(Application.StartupPath, "Resources\PlayersData\Players.mdf")
+        Dim databaseFilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "PlayersData", "Players.mdf")
         Return $"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={databaseFilePath};Integrated Security=True;Connect Timeout=25"
     End Function
 End Class

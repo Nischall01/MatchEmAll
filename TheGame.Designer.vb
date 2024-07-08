@@ -111,7 +111,6 @@ Partial Class TheGame
         'Player4Card1
         '
         Me.Player4Card1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player4Card1.Image = CType(resources.GetObject("Player4Card1.Image"), System.Drawing.Image)
         Me.Player4Card1.Location = New System.Drawing.Point(16, 280)
         Me.Player4Card1.Name = "Player4Card1"
         Me.Player4Card1.Size = New System.Drawing.Size(87, 56)
@@ -122,7 +121,6 @@ Partial Class TheGame
         'Player4Card3
         '
         Me.Player4Card3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player4Card3.Image = CType(resources.GetObject("Player4Card3.Image"), System.Drawing.Image)
         Me.Player4Card3.Location = New System.Drawing.Point(16, 152)
         Me.Player4Card3.Name = "Player4Card3"
         Me.Player4Card3.Size = New System.Drawing.Size(87, 56)
@@ -133,7 +131,6 @@ Partial Class TheGame
         'Player4Card5
         '
         Me.Player4Card5.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player4Card5.Image = CType(resources.GetObject("Player4Card5.Image"), System.Drawing.Image)
         Me.Player4Card5.Location = New System.Drawing.Point(16, 24)
         Me.Player4Card5.Name = "Player4Card5"
         Me.Player4Card5.Size = New System.Drawing.Size(87, 56)
@@ -144,7 +141,6 @@ Partial Class TheGame
         'Player4Card4
         '
         Me.Player4Card4.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player4Card4.Image = CType(resources.GetObject("Player4Card4.Image"), System.Drawing.Image)
         Me.Player4Card4.Location = New System.Drawing.Point(16, 88)
         Me.Player4Card4.Name = "Player4Card4"
         Me.Player4Card4.Size = New System.Drawing.Size(87, 56)
@@ -155,7 +151,6 @@ Partial Class TheGame
         'Player4Card2
         '
         Me.Player4Card2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player4Card2.Image = CType(resources.GetObject("Player4Card2.Image"), System.Drawing.Image)
         Me.Player4Card2.Location = New System.Drawing.Point(16, 216)
         Me.Player4Card2.Name = "Player4Card2"
         Me.Player4Card2.Size = New System.Drawing.Size(87, 56)
@@ -179,7 +174,6 @@ Partial Class TheGame
         'Player1Card1
         '
         Me.Player1Card1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card1.Image = CType(resources.GetObject("Player1Card1.Image"), System.Drawing.Image)
         Me.Player1Card1.Location = New System.Drawing.Point(32, 16)
         Me.Player1Card1.Name = "Player1Card1"
         Me.Player1Card1.Size = New System.Drawing.Size(63, 80)
@@ -191,7 +185,6 @@ Partial Class TheGame
         'Player1Card5
         '
         Me.Player1Card5.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card5.Image = CType(resources.GetObject("Player1Card5.Image"), System.Drawing.Image)
         Me.Player1Card5.Location = New System.Drawing.Point(320, 16)
         Me.Player1Card5.Name = "Player1Card5"
         Me.Player1Card5.Size = New System.Drawing.Size(63, 80)
@@ -203,7 +196,6 @@ Partial Class TheGame
         'Player1Card3
         '
         Me.Player1Card3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card3.Image = CType(resources.GetObject("Player1Card3.Image"), System.Drawing.Image)
         Me.Player1Card3.Location = New System.Drawing.Point(176, 16)
         Me.Player1Card3.Name = "Player1Card3"
         Me.Player1Card3.Size = New System.Drawing.Size(63, 80)
@@ -215,7 +207,6 @@ Partial Class TheGame
         'Player1Card2
         '
         Me.Player1Card2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card2.Image = CType(resources.GetObject("Player1Card2.Image"), System.Drawing.Image)
         Me.Player1Card2.Location = New System.Drawing.Point(104, 16)
         Me.Player1Card2.Name = "Player1Card2"
         Me.Player1Card2.Size = New System.Drawing.Size(63, 80)
@@ -227,7 +218,6 @@ Partial Class TheGame
         'Player1Card4
         '
         Me.Player1Card4.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player1Card4.Image = CType(resources.GetObject("Player1Card4.Image"), System.Drawing.Image)
         Me.Player1Card4.Location = New System.Drawing.Point(248, 16)
         Me.Player1Card4.Name = "Player1Card4"
         Me.Player1Card4.Size = New System.Drawing.Size(63, 80)
@@ -252,7 +242,6 @@ Partial Class TheGame
         'Player2Card1
         '
         Me.Player2Card1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player2Card1.Image = CType(resources.GetObject("Player2Card1.Image"), System.Drawing.Image)
         Me.Player2Card1.Location = New System.Drawing.Point(20, 280)
         Me.Player2Card1.Name = "Player2Card1"
         Me.Player2Card1.Size = New System.Drawing.Size(87, 56)
@@ -263,7 +252,6 @@ Partial Class TheGame
         'Player2Card5
         '
         Me.Player2Card5.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player2Card5.Image = CType(resources.GetObject("Player2Card5.Image"), System.Drawing.Image)
         Me.Player2Card5.Location = New System.Drawing.Point(20, 24)
         Me.Player2Card5.Name = "Player2Card5"
         Me.Player2Card5.Size = New System.Drawing.Size(87, 56)
@@ -274,7 +262,6 @@ Partial Class TheGame
         'Player2Card2
         '
         Me.Player2Card2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player2Card2.Image = CType(resources.GetObject("Player2Card2.Image"), System.Drawing.Image)
         Me.Player2Card2.Location = New System.Drawing.Point(20, 216)
         Me.Player2Card2.Name = "Player2Card2"
         Me.Player2Card2.Size = New System.Drawing.Size(87, 56)
@@ -285,7 +272,6 @@ Partial Class TheGame
         'Player2Card4
         '
         Me.Player2Card4.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player2Card4.Image = CType(resources.GetObject("Player2Card4.Image"), System.Drawing.Image)
         Me.Player2Card4.Location = New System.Drawing.Point(20, 88)
         Me.Player2Card4.Name = "Player2Card4"
         Me.Player2Card4.Size = New System.Drawing.Size(87, 56)
@@ -296,7 +282,6 @@ Partial Class TheGame
         'Player2Card3
         '
         Me.Player2Card3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player2Card3.Image = CType(resources.GetObject("Player2Card3.Image"), System.Drawing.Image)
         Me.Player2Card3.Location = New System.Drawing.Point(20, 152)
         Me.Player2Card3.Name = "Player2Card3"
         Me.Player2Card3.Size = New System.Drawing.Size(87, 56)
@@ -320,7 +305,6 @@ Partial Class TheGame
         'Player3Card5
         '
         Me.Player3Card5.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player3Card5.Image = CType(resources.GetObject("Player3Card5.Image"), System.Drawing.Image)
         Me.Player3Card5.Location = New System.Drawing.Point(32, 16)
         Me.Player3Card5.Name = "Player3Card5"
         Me.Player3Card5.Size = New System.Drawing.Size(63, 80)
@@ -331,7 +315,6 @@ Partial Class TheGame
         'Player3Card1
         '
         Me.Player3Card1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player3Card1.Image = CType(resources.GetObject("Player3Card1.Image"), System.Drawing.Image)
         Me.Player3Card1.Location = New System.Drawing.Point(320, 16)
         Me.Player3Card1.Name = "Player3Card1"
         Me.Player3Card1.Size = New System.Drawing.Size(63, 80)
@@ -342,7 +325,6 @@ Partial Class TheGame
         'Player3Card4
         '
         Me.Player3Card4.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player3Card4.Image = CType(resources.GetObject("Player3Card4.Image"), System.Drawing.Image)
         Me.Player3Card4.Location = New System.Drawing.Point(104, 16)
         Me.Player3Card4.Name = "Player3Card4"
         Me.Player3Card4.Size = New System.Drawing.Size(63, 80)
@@ -353,7 +335,6 @@ Partial Class TheGame
         'Player3Card2
         '
         Me.Player3Card2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player3Card2.Image = CType(resources.GetObject("Player3Card2.Image"), System.Drawing.Image)
         Me.Player3Card2.Location = New System.Drawing.Point(248, 16)
         Me.Player3Card2.Name = "Player3Card2"
         Me.Player3Card2.Size = New System.Drawing.Size(63, 80)
@@ -364,7 +345,6 @@ Partial Class TheGame
         'Player3Card3
         '
         Me.Player3Card3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Player3Card3.Image = CType(resources.GetObject("Player3Card3.Image"), System.Drawing.Image)
         Me.Player3Card3.Location = New System.Drawing.Point(176, 16)
         Me.Player3Card3.Name = "Player3Card3"
         Me.Player3Card3.Size = New System.Drawing.Size(63, 80)

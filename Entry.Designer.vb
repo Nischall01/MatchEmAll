@@ -40,6 +40,7 @@ Partial Class Entry
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Clear = New System.Windows.Forms.Button()
         Me.Test = New System.Windows.Forms.Button()
+        Me.Settings = New System.Windows.Forms.Button()
         Me.NumberOfPlayers.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -246,13 +247,22 @@ Partial Class Entry
         Me.Test.UseVisualStyleBackColor = False
         Me.Test.Visible = False
         '
+        'Settings
+        '
+        Me.Settings.Image = CType(resources.GetObject("Settings.Image"), System.Drawing.Image)
+        Me.Settings.Location = New System.Drawing.Point(0, 0)
+        Me.Settings.Name = "Settings"
+        Me.Settings.Size = New System.Drawing.Size(32, 32)
+        Me.Settings.TabIndex = 22
+        Me.Settings.UseVisualStyleBackColor = True
+        '
         'Entry
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(804, 461)
+        Me.Controls.Add(Me.Settings)
         Me.Controls.Add(Me.Test)
         Me.Controls.Add(Me.Clear)
         Me.Controls.Add(Me.Label1)
@@ -297,4 +307,5 @@ Partial Class Entry
     Friend WithEvents Label1 As Label
     Friend WithEvents Clear As Button
     Friend WithEvents Test As Button
+    Friend WithEvents Settings As Button
 End Class

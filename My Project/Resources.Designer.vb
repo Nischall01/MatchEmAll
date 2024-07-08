@@ -59,45 +59,5 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Entry_Background() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Entry_Background", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Horizontal_Card() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Horizontal_Card", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Turn_rotate() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Turn_rotate", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Vertical_Card() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Vertical_Card", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
     End Module
 End Namespace
