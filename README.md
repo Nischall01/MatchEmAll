@@ -1,4 +1,4 @@
-## A Simple Card Matching Game ##
+## MatchEmAll:  A Simple Card Matching Game 
 
 This game is a multiplayer card matching game.
 
