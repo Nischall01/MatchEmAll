@@ -17,4 +17,8 @@ For each win 10pts are added to the player's score.
 * Multiplayer: Play with friends (from two up to four players).
 * Leaderboards: Track scores and see who ranks the highest.
 
+## Installation
+
+Download the [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract and play. 
+
 ## <ins> Note:</ins> Have fun playing and May the RNG God be with you. ##
