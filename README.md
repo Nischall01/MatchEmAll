@@ -19,6 +19,10 @@ For each win 10pts are added to the player's score.
 
 ## Installation
 
-Download the [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract and play. 
+Download the game from [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract and play. 
+
+## Project Replication
+
+Download the Sourcres.zip & Resources.7z from the [latest release](https://github.com/Nischall01/MatchEmAll/releases/latest) then extract and place the Resources folder in Sources Folder. Now you have a Fuctional Project Folder for Visual studio.
 
 ## <ins> Note:</ins> Have fun playing and May the RNG God be with you. ##
