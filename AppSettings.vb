@@ -196,8 +196,13 @@ Public Class AppSettings
         End Try
     End Sub
 
-    Private Sub About_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles About.LinkClicked, Update.LinkClicked
-        Dim url As String = "https://www.example.com"
+    Private Sub About_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles About_link.LinkClicked
+        Dim url As String = "https://github.com/Nischall01/DGame?tab=readme-ov-file#readme"
+        OpenLink(url)
+    End Sub
+
+    Private Sub Update_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Update_link.LinkClicked
+        Dim url As String = "https://github.com/Nischall01/DGame/releases/"
         OpenLink(url)
     End Sub
 End Class

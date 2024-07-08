@@ -38,8 +38,8 @@ Partial Class AppSettings
         Me.Save_Settings = New System.Windows.Forms.Button()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.ColorDialog = New System.Windows.Forms.ColorDialog()
-        Me.About = New System.Windows.Forms.LinkLabel()
-        Me.Update = New System.Windows.Forms.LinkLabel()
+        Me.About_link = New System.Windows.Forms.LinkLabel()
+        Me.Update_link = New System.Windows.Forms.LinkLabel()
         Me.Entry_Background.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -191,27 +191,27 @@ Partial Class AppSettings
         Me.Save_Settings.Text = "Save"
         Me.Save_Settings.UseVisualStyleBackColor = True
         '
-        'About
+        'About_link
         '
-        Me.About.AutoSize = True
-        Me.About.LinkColor = System.Drawing.Color.White
-        Me.About.Location = New System.Drawing.Point(744, 424)
-        Me.About.Name = "About"
-        Me.About.Size = New System.Drawing.Size(35, 13)
-        Me.About.TabIndex = 5
-        Me.About.TabStop = True
-        Me.About.Text = "About"
+        Me.About_link.AutoSize = True
+        Me.About_link.LinkColor = System.Drawing.Color.White
+        Me.About_link.Location = New System.Drawing.Point(744, 424)
+        Me.About_link.Name = "About_link"
+        Me.About_link.Size = New System.Drawing.Size(35, 13)
+        Me.About_link.TabIndex = 5
+        Me.About_link.TabStop = True
+        Me.About_link.Text = "About"
         '
-        'Update
+        'Update_link
         '
-        Me.Update.AutoSize = True
-        Me.Update.LinkColor = System.Drawing.Color.White
-        Me.Update.Location = New System.Drawing.Point(16, 424)
-        Me.Update.Name = "Update"
-        Me.Update.Size = New System.Drawing.Size(42, 13)
-        Me.Update.TabIndex = 5
-        Me.Update.TabStop = True
-        Me.Update.Text = "Update"
+        Me.Update_link.AutoSize = True
+        Me.Update_link.LinkColor = System.Drawing.Color.White
+        Me.Update_link.Location = New System.Drawing.Point(16, 424)
+        Me.Update_link.Name = "Update_link"
+        Me.Update_link.Size = New System.Drawing.Size(42, 13)
+        Me.Update_link.TabIndex = 5
+        Me.Update_link.TabStop = True
+        Me.Update_link.Text = "Update"
         '
         'AppSettings
         '
@@ -219,8 +219,8 @@ Partial Class AppSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.Update)
-        Me.Controls.Add(Me.About)
+        Me.Controls.Add(Me.Update_link)
+        Me.Controls.Add(Me.About_link)
         Me.Controls.Add(Me.Save_Settings)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Entry_Background)
@@ -252,6 +252,6 @@ Partial Class AppSettings
     Friend WithEvents PickAColorButton1 As Button
     Friend WithEvents TheGameColorBackground As RadioButton
     Friend WithEvents PickAColorButton2 As Button
-    Friend WithEvents About As LinkLabel
-    Friend WithEvents Update As LinkLabel
+    Friend WithEvents About_link As LinkLabel
+    Friend WithEvents Update_link As LinkLabel
 End Class

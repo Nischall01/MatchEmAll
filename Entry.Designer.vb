@@ -281,6 +281,7 @@ Partial Class Entry
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(820, 500)
         Me.Name = "Entry"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Entry"
         Me.NumberOfPlayers.ResumeLayout(False)
         Me.NumberOfPlayers.PerformLayout()

@@ -50,7 +50,7 @@ Public Class TheGame
 
         SFXplayer = New SoundPlayer(sound_FilePath)
 
-        MsgBox("Welcome Every-nyan!!!")
+        'MsgBox("Welcome Every-nyan!!!")
 
         EmptyTable()
 
@@ -141,8 +141,6 @@ Public Class TheGame
             Next
             Dim remainingDeck As List(Of String) = deck.Except(playerHands).ToList()
             Writeremainingcardstojsonfile(remainingDeck, draw_deck_JSON_FilePath)
-
-
 
             ' Load player information
             LoadPlayers(noofplayers)
@@ -266,6 +264,7 @@ Public Class TheGame
     Private Sub EmptyTable()
         CenterDeck.Hide()
 
+        Player_1.Hide()
         Player1.Hide()
         Player1Card1.Hide()
         Player1Card2.Hide()
@@ -273,6 +272,7 @@ Public Class TheGame
         Player1Card4.Hide()
         Player1Card5.Hide()
 
+        Player_2.Hide()
         Player2.Hide()
         Player2Card1.Hide()
         Player2Card2.Hide()
@@ -280,6 +280,7 @@ Public Class TheGame
         Player2Card4.Hide()
         Player2Card5.Hide()
 
+        Player_3.Hide()
         Player3.Hide()
         Player3Card1.Hide()
         Player3Card2.Hide()
@@ -287,6 +288,7 @@ Public Class TheGame
         Player3Card4.Hide()
         Player3Card5.Hide()
 
+        Player_4.Hide()
         Player4.Hide()
         Player4Card1.Hide()
         Player4Card2.Hide()
@@ -306,7 +308,10 @@ Public Class TheGame
         Select Case noofplayers
             Case 2
                 Player1.Show()
+                Player_1.Show()
                 Player3.Show()
+                Player_3.Show()
+
 
                 Await DistributionAnimationAsync(Player1Card1)
                 Await DistributionAnimationAsync(Player3Card1)
@@ -325,8 +330,11 @@ Public Class TheGame
 
             Case 3
                 Player1.Show()
+                Player_1.Show()
                 Player2.Show()
+                Player_2.Show()
                 Player4.Show()
+                Player_4.Show()
 
                 Await DistributionAnimationAsync(Player1Card1)
                 Await DistributionAnimationAsync(Player2Card1)
@@ -350,9 +358,13 @@ Public Class TheGame
 
             Case 4
                 Player1.Show()
+                Player_1.Show()
                 Player2.Show()
+                Player_2.Show()
                 Player3.Show()
+                Player_3.Show()
                 Player4.Show()
+                Player_4.Show()
 
                 Await DistributionAnimationAsync(Player1Card1)
                 Await DistributionAnimationAsync(Player2Card1)

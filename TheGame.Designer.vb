@@ -411,11 +411,13 @@ Partial Class TheGame
         'Turn
         '
         Me.Turn.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Turn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Turn.Location = New System.Drawing.Point(192, 184)
         Me.Turn.Name = "Turn"
         Me.Turn.Size = New System.Drawing.Size(296, 296)
         Me.Turn.TabIndex = 51
         Me.Turn.TabStop = False
+        Me.Turn.Visible = False
         '
         'Draw
         '
@@ -516,6 +518,7 @@ Partial Class TheGame
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(700, 700)
         Me.Name = "TheGame"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "TheGame"
         Me.Player_4.ResumeLayout(False)
         CType(Me.Player4Card1, System.ComponentModel.ISupportInitialize).EndInit()
