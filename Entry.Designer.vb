@@ -144,11 +144,11 @@ Partial Class Entry
         'NumberOfPlayers
         '
         Me.NumberOfPlayers.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NumberOfPlayers.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.NumberOfPlayers.BackColor = System.Drawing.Color.Transparent
         Me.NumberOfPlayers.Controls.Add(Me.FourPlayers)
         Me.NumberOfPlayers.Controls.Add(Me.ThreePlayers)
         Me.NumberOfPlayers.Controls.Add(Me.TwoPlayers)
-        Me.NumberOfPlayers.ForeColor = System.Drawing.SystemColors.Control
+        Me.NumberOfPlayers.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.NumberOfPlayers.Location = New System.Drawing.Point(300, 72)
         Me.NumberOfPlayers.Name = "NumberOfPlayers"
         Me.NumberOfPlayers.Size = New System.Drawing.Size(200, 102)
@@ -278,11 +278,12 @@ Partial Class Entry
         Me.Controls.Add(Me.Player2_TextBox)
         Me.Controls.Add(Me.Player1_TextBox)
         Me.DoubleBuffered = True
+        Me.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(820, 500)
         Me.Name = "Entry"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Entry"
+        Me.Text = "MatchEmAll"
         Me.NumberOfPlayers.ResumeLayout(False)
         Me.NumberOfPlayers.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

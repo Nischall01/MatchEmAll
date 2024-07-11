@@ -57,60 +57,60 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property Entry_BackgroundImage() As String
+        Public Property Entry_BackgroundImagePath() As String
             Get
-                Return CType(Me("Entry_BackgroundImage"),String)
+                Return CType(Me("Entry_BackgroundImagePath"),String)
             End Get
             Set
-                Me("Entry_BackgroundImage") = value
+                Me("Entry_BackgroundImagePath") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property TheGame_BackgroundImage() As String
+        Public Property TheGame_BackgroundImagePath() As String
             Get
-                Return CType(Me("TheGame_BackgroundImage"),String)
+                Return CType(Me("TheGame_BackgroundImagePath"),String)
             End Get
             Set
-                Me("TheGame_BackgroundImage") = value
+                Me("TheGame_BackgroundImagePath") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property IsEntryBackgroundDefault() As Boolean
+        Public Property Entry_IsBackgroundDefault() As Boolean
             Get
-                Return CType(Me("IsEntryBackgroundDefault"),Boolean)
+                Return CType(Me("Entry_IsBackgroundDefault"),Boolean)
             End Get
             Set
-                Me("IsEntryBackgroundDefault") = value
+                Me("Entry_IsBackgroundDefault") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property IsTheGameBackgroundDefault() As Boolean
+        Public Property TheGame_IsBackgroundDefault() As Boolean
             Get
-                Return CType(Me("IsTheGameBackgroundDefault"),Boolean)
+                Return CType(Me("TheGame_IsBackgroundDefault"),Boolean)
             End Get
             Set
-                Me("IsTheGameBackgroundDefault") = value
+                Me("TheGame_IsBackgroundDefault") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property IsBackgroundAnImage_Entry() As Boolean
+        Public Property Entry_IsBackgroundAnImage() As Boolean
             Get
-                Return CType(Me("IsBackgroundAnImage_Entry"),Boolean)
+                Return CType(Me("Entry_IsBackgroundAnImage"),Boolean)
             End Get
             Set
-                Me("IsBackgroundAnImage_Entry") = value
+                Me("Entry_IsBackgroundAnImage") = value
             End Set
         End Property
         
@@ -139,12 +139,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property IsBackgroundAnImage_TheGame() As Boolean
+        Public Property TheGame_IsBackgroundAnImage() As Boolean
             Get
-                Return CType(Me("IsBackgroundAnImage_TheGame"),Boolean)
+                Return CType(Me("TheGame_IsBackgroundAnImage"),Boolean)
             End Get
             Set
-                Me("IsBackgroundAnImage_TheGame") = value
+                Me("TheGame_IsBackgroundAnImage") = value
             End Set
         End Property
     End Class

@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("TheGame")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyTitle("MatchEmAll")>
+<Assembly: AssemblyDescription("Card Matching Game")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("TheGame")>
+<Assembly: AssemblyProduct("MatchEmAll")>
 <Assembly: AssemblyCopyright("Copyright ©  2024")>
 <Assembly: AssemblyTrademark("N")>
 

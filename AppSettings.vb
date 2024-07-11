@@ -3,119 +3,164 @@ Imports System.Diagnostics
 Imports Microsoft.Win32
 
 Public Class AppSettings
+
+    Public change As Boolean
+    Public SaveClicked As Boolean
+
     Private Sub Settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        TextBox1.Text = My.Settings.Entry_BackgroundImagePath
+        TextBox2.Text = My.Settings.TheGame_BackgroundImagePath
 
-        If My.Settings.IsBackgroundAnImage_Entry = True Then
+        InitializeEntryBackgroundSettings()
+        InitializeTheGameBackgroundSettings()
 
-            If My.Settings.IsEntryBackgroundDefault = True Then
-                EntryDefaultBackground.Checked = True
+        change = False
+        SaveClicked = False
+    End Sub
 
+    Private Sub Settings_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If change = True Then
+            If SaveClicked = False Then
+                Dim result As DialogResult = MessageBox.Show("Save settings?", "Confirm Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+                Select Case result
+                    Case DialogResult.Yes
+                        If SaveAndApplySettings() = "Cancel" Then
+                            e.Cancel = True
+                        End If
+                    Case DialogResult.No
+                ' Do nothing and allow the form to close without saving
+                    Case DialogResult.Cancel
+                        e.Cancel = True ' Cancel the form close event
+                End Select
+            Else
+                If SaveAndApplySettings() = "Cancel" Then
+                    e.Cancel = True
+                    SaveClicked = False
+                End If
+            End If
+        End If
+    End Sub
+
+
+    Private Sub InitializeEntryBackgroundSettings()
+        If My.Settings.Entry_IsBackgroundAnImage Then
+            If My.Settings.Entry_IsBackgroundDefault Then
+                EntryDefaultBackgroundImage.Checked = True
                 BrowseButton1.Hide()
                 PickAColorButton1.Hide()
-
             Else
                 EntrySelectBackground.Checked = True
-
                 BrowseButton1.Show()
                 PickAColorButton1.Hide()
-
             End If
         Else
             EntryColorBackground.Checked = True
-
             PickAColorButton1.Show()
             BrowseButton1.Hide()
-
         End If
+    End Sub
 
-
-        If My.Settings.IsBackgroundAnImage_TheGame = True Then
+    Private Sub InitializeTheGameBackgroundSettings()
+        If My.Settings.TheGame_IsBackgroundAnImage Then
             TheGameSelectBackground.Checked = True
-
             BrowseButton2.Show()
             PickAColorButton2.Hide()
         Else
-            If My.Settings.IsTheGameBackgroundDefault = True Then
+            If My.Settings.TheGame_IsBackgroundDefault Then
                 TheGameDefaultBackground.Checked = True
-
                 BrowseButton2.Hide()
                 PickAColorButton2.Hide()
             Else
                 TheGameColorBackground.Checked = True
-
                 PickAColorButton2.Show()
                 BrowseButton2.Hide()
             End If
         End If
-
     End Sub
 
-    ' Handles Entry Default Background Checkbox CheckedChanged
-    Private Sub EntryBackground_CheckedChanged(sender As Object, e As EventArgs) Handles EntryDefaultBackground.CheckedChanged, EntrySelectBackground.CheckedChanged, EntryColorBackground.CheckedChanged
-        If EntryDefaultBackground.Checked Then
+    Private Sub EntryBackground_CheckedChanged(sender As Object, e As EventArgs) Handles EntryDefaultBackgroundImage.CheckedChanged, EntrySelectBackground.CheckedChanged, EntryColorBackground.CheckedChanged
+        change = True
+        HandleEntryBackgroundSelection()
+    End Sub
 
+    Private Sub HandleEntryBackgroundSelection()
+        If EntryDefaultBackgroundImage.Checked Then
             BrowseButton1.Hide()
             PickAColorButton1.Hide()
-
-            My.Settings.IsBackgroundAnImage_Entry = True
-            My.Settings.IsEntryBackgroundDefault = True
-
-        ElseIf EntrySelectBackground.Checked Then       ' Handles Entry Select Background Checkbox CheckedChanged
-
+            TextBox1.Enabled = False
+        ElseIf EntrySelectBackground.Checked Then
             BrowseButton1.Show()
             PickAColorButton1.Hide()
-
-            My.Settings.IsBackgroundAnImage_Entry = True
-            My.Settings.IsEntryBackgroundDefault = False
-
-        Else ' Handles Entry Color Background Checkbox CheckedChanged
-
+            TextBox1.Enabled = True
+            TextBox1.Text = My.Settings.Entry_BackgroundImagePath
+        Else
             BrowseButton1.Hide()
             PickAColorButton1.Show()
-
-
-            My.Settings.IsBackgroundAnImage_Entry = False
-            My.Settings.IsEntryBackgroundDefault = False
-
+            TextBox1.Enabled = False
         End If
     End Sub
 
-    ' Handles TheGame Default Background Checkbox CheckedChanged
     Private Sub TheGameDefaultBackground_CheckedChanged(sender As Object, e As EventArgs) Handles TheGameDefaultBackground.CheckedChanged, TheGameSelectBackground.CheckedChanged, TheGameColorBackground.CheckedChanged
-        If TheGameDefaultBackground.Checked Then
+        change = True
+        HandleTheGameBackgroundSelection()
+    End Sub
 
+    Private Sub HandleTheGameBackgroundSelection()
+        If TheGameDefaultBackground.Checked Then
             BrowseButton2.Hide()
             PickAColorButton2.Hide()
-
-            My.Settings.IsBackgroundAnImage_TheGame = False
-            My.Settings.IsTheGameBackgroundDefault = True
-
-        ElseIf TheGameSelectBackground.Checked Then         ' Handles TheGame Select Background Checkbox CheckedChanged
-
+            TextBox2.Enabled = False
+            TextBox2.Text = My.Settings.TheGame_BackgroundImagePath
+        ElseIf TheGameSelectBackground.Checked Then
             BrowseButton2.Show()
             PickAColorButton2.Hide()
-
-            My.Settings.IsBackgroundAnImage_TheGame = True
-            My.Settings.IsTheGameBackgroundDefault = False
-
-        Else                                                ' Handles Entry Color Background Checkbox CheckedChanged
-
+            TextBox2.Enabled = True
+        Else
             PickAColorButton2.Show()
             BrowseButton2.Hide()
-
-            My.Settings.IsBackgroundAnImage_TheGame = False
-            My.Settings.IsTheGameBackgroundDefault = False
-
+            TextBox2.Enabled = False
         End If
     End Sub
 
-    ' Saves settings and refreshes Entry form
     Private Sub Save_Settings_Click(sender As Object, e As EventArgs) Handles Save_Settings.Click
-        ' Save changes to settings
+        SaveClicked = True
+        Me.Close()
+    End Sub
+
+    Private Function SaveAndApplySettings() As String
+        ' Appky changes
+        My.Settings.Save()
+        If ApplyEntryBackgroundSettings() = "Invalid" Then
+            Return "Cancel"
+        End If
+
+        If ApplyTheGameBackgroundSettings() = "Invalid" Then
+            Return "Cancel"
+        End If
+        Return "Proceed"
+    End Function
+
+    Private Function ApplyEntryBackgroundSettings() As String
+        If EntryDefaultBackgroundImage.Checked Then
+            My.Settings.Entry_IsBackgroundAnImage = True
+            My.Settings.Entry_IsBackgroundDefault = True
+        ElseIf EntrySelectBackground.Checked Then
+            My.Settings.Entry_IsBackgroundAnImage = True
+            My.Settings.Entry_IsBackgroundDefault = False
+            If String.IsNullOrWhiteSpace(TextBox1.Text.Trim()) Then
+                MsgBox("Please select an image before saving.")
+                Return "Invalid"
+            End If
+        Else
+            My.Settings.Entry_IsBackgroundAnImage = False
+            My.Settings.Entry_IsBackgroundDefault = False
+        End If
+
         My.Settings.Save()
 
-        If My.Settings.IsBackgroundAnImage_Entry = True Then
-            If My.Settings.IsEntryBackgroundDefault = True Then
+        If My.Settings.Entry_IsBackgroundAnImage Then
+            If My.Settings.Entry_IsBackgroundDefault Then
                 Entry.SetBackgroundImage("Default")
             Else
                 Entry.SetBackgroundImage("Selected")
@@ -123,33 +168,42 @@ Public Class AppSettings
         Else
             Entry.SetBackgroundColor()
         End If
+        Return "Valid"
+    End Function
 
-        If My.Settings.IsBackgroundAnImage_TheGame = True Then
+    Private Function ApplyTheGameBackgroundSettings() As String
+        If TheGameDefaultBackground.Checked Then
+            My.Settings.TheGame_IsBackgroundAnImage = False
+            My.Settings.TheGame_IsBackgroundDefault = True
+        ElseIf TheGameSelectBackground.Checked Then
+            My.Settings.TheGame_IsBackgroundAnImage = True
+            My.Settings.TheGame_IsBackgroundDefault = False
+            If String.IsNullOrWhiteSpace(TextBox2.Text.Trim()) Then
+                MsgBox("Please select an image before saving.")
+                Return "Invalid"
+            End If
+        Else
+            My.Settings.TheGame_IsBackgroundAnImage = False
+            My.Settings.TheGame_IsBackgroundDefault = False
+        End If
+
+        My.Settings.Save()
+
+        If My.Settings.TheGame_IsBackgroundAnImage Then
             TheGame.SetBackgroundImage()
         Else
-            If My.Settings.IsTheGameBackgroundDefault = True Then
+            If My.Settings.TheGame_IsBackgroundDefault Then
                 TheGame.SetBackgroundColor("Default")
             Else
                 TheGame.SetBackgroundColor("Selected")
             End If
         End If
+        Return "Valid"
+    End Function
 
-        Me.Close()
-    End Sub
-
-
-    ' Updates background setting with default path
-    Private Sub UpdateBackgroundSetting(settingName As String, defaultPath As String)
-        Dim imagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultPath)
-        My.Settings(settingName) = imagePath
-    End Sub
-
-    ' Shows OpenFileDialog and updates setting
     Private Sub ShowOpenFileDialogAndUpdateSetting(settingName As String)
-
         If File.Exists(My.Settings(settingName)) Then
-            Dim FilePath As String = My.Settings(settingName)
-            OpenFileDialog.InitialDirectory = Path.GetDirectoryName(FilePath)
+            OpenFileDialog.InitialDirectory = Path.GetDirectoryName(My.Settings(settingName))
         Else
             OpenFileDialog.InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others")
         End If
@@ -161,23 +215,27 @@ Public Class AppSettings
         If OpenFileDialog.ShowDialog() = DialogResult.OK Then
             Dim selectedFilePath As String = OpenFileDialog.FileName
             My.Settings(settingName) = selectedFilePath
+
+            If settingName = "Entry_BackgroundImagePath" Then
+                TextBox1.Text = selectedFilePath
+            Else
+                TextBox2.Text = selectedFilePath
+            End If
         End If
     End Sub
 
     Private Sub ShowOpenColorDialogAndUpdateSetting(settingName As String)
         If ColorDialog.ShowDialog() = DialogResult.OK Then
-            Dim SelectedColor As Color = ColorDialog.Color
-            My.Settings(settingName) = SelectedColor
+            My.Settings(settingName) = ColorDialog.Color
         End If
     End Sub
 
-
     Private Sub BrowseButton1_Click(sender As Object, e As EventArgs) Handles BrowseButton1.Click
-        ShowOpenFileDialogAndUpdateSetting("Entry_BackgroundImage")
+        ShowOpenFileDialogAndUpdateSetting("Entry_BackgroundImagePath")
     End Sub
 
     Private Sub BrowseButton2_Click(sender As Object, e As EventArgs) Handles BrowseButton2.Click
-        ShowOpenFileDialogAndUpdateSetting("TheGame_BackgroundImage")
+        ShowOpenFileDialogAndUpdateSetting("TheGame_BackgroundImagePath")
     End Sub
 
     Private Sub PickAColorButton1_Click(sender As Object, e As EventArgs) Handles PickAColorButton1.Click
@@ -197,12 +255,10 @@ Public Class AppSettings
     End Sub
 
     Private Sub About_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles About_link.LinkClicked
-        Dim url As String = "https://github.com/Nischall01/DGame?tab=readme-ov-file#readme"
-        OpenLink(url)
+        OpenLink("https://github.com/Nischall01/DGame?tab=readme-ov-file#readme")
     End Sub
 
     Private Sub Update_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Update_link.LinkClicked
-        Dim url As String = "https://github.com/Nischall01/DGame/releases/"
-        OpenLink(url)
+        OpenLink("https://github.com/Nischall01/DGame/releases/")
     End Sub
 End Class

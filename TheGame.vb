@@ -27,8 +27,8 @@ Public Class TheGame
     Dim players_hands_JSON_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "TempGameData", "players_hands.json")
     Dim unmatched_Cards_JSON_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "TempGameData", "unmatched_cards.json")
 
-    Dim VerticalCardBack_ImagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Vertical_CardBack.jpg")
-    Dim HorizontalCardBack_ImagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Horizontal_CardBack.jpg")
+    Dim VerticalCardBack_ImagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Default_CardBack_Vrtl.jpg")
+    Dim HorizontalCardBack_ImagePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Default_CardBack_Hrtl.jpg")
     Dim Turn_rotate_ImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Turn_Rotate.png")
 
     Private SFXplayer As SoundPlayer
@@ -36,10 +36,10 @@ Public Class TheGame
 
     Private Async Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If My.Settings.IsBackgroundAnImage_TheGame = True Then
+        If My.Settings.TheGame_IsBackgroundAnImage = True Then
             SetBackgroundImage()
         Else
-            If My.Settings.IsTheGameBackgroundDefault = True Then
+            If My.Settings.TheGame_IsBackgroundDefault = True Then
                 SetBackgroundColor("Default")
             Else
                 SetBackgroundColor("Selected")
@@ -59,6 +59,12 @@ Public Class TheGame
         Initialize_Game()
     End Sub
 
+    Private Sub TheGame_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Entry.Clear.Enabled = True
+        Entry.Clear.Show()
+        Entry.Show()
+    End Sub
+
     ' For Changeable/dynamic app icon
 
     'Private Sub SetIcon()
@@ -72,13 +78,15 @@ Public Class TheGame
 
     ' For Changeable/dynamic background
     Public Sub SetBackgroundImage()
-        If File.Exists(My.Settings.TheGame_BackgroundImage) Then
-            Me.BackgroundImage = Image.FromFile(My.Settings.TheGame_BackgroundImage)
+        If File.Exists(My.Settings.TheGame_BackgroundImagePath) Then
+            Me.BackgroundImage = Image.FromFile(My.Settings.TheGame_BackgroundImagePath)
             Me.BackColor = SystemColors.Control
         Else
-            MsgBox($"TheGame_BackgroundImage Is Missing:{My.Settings.TheGame_BackgroundImage}")
-            Me.BackgroundImage = Nothing
-            Me.BackColor = Color.DarkGreen
+            MsgBox($"TheGame_BackgroundImage Is Missing:{My.Settings.TheGame_BackgroundImagePath}. Background changed to default")
+            My.Settings.TheGame_IsBackgroundDefault = True
+            My.Settings.TheGame_IsBackgroundAnImage = False
+            My.Settings.Save()
+            SetBackgroundColor("Default")
         End If
     End Sub
 
@@ -104,12 +112,6 @@ Public Class TheGame
             ' Handle exceptions, e.g., file not found
             MessageBox.Show("Error playing sound: " & ex.Message)
         End Try
-    End Sub
-
-    Private Sub TheGame_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Entry.Clear.Enabled = True
-        Entry.Clear.Show()
-        Entry.Show()
     End Sub
 
     Private Sub Initialize_Game()
@@ -265,7 +267,7 @@ Public Class TheGame
         CenterDeck.Hide()
 
         Player_1.Hide()
-        Player1.Hide()
+        Player1Name.Hide()
         Player1Card1.Hide()
         Player1Card2.Hide()
         Player1Card3.Hide()
@@ -273,7 +275,7 @@ Public Class TheGame
         Player1Card5.Hide()
 
         Player_2.Hide()
-        Player2.Hide()
+        Player2Name.Hide()
         Player2Card1.Hide()
         Player2Card2.Hide()
         Player2Card3.Hide()
@@ -281,7 +283,7 @@ Public Class TheGame
         Player2Card5.Hide()
 
         Player_3.Hide()
-        Player3.Hide()
+        Player3Name.Hide()
         Player3Card1.Hide()
         Player3Card2.Hide()
         Player3Card3.Hide()
@@ -289,7 +291,7 @@ Public Class TheGame
         Player3Card5.Hide()
 
         Player_4.Hide()
-        Player4.Hide()
+        Player4Name.Hide()
         Player4Card1.Hide()
         Player4Card2.Hide()
         Player4Card3.Hide()
@@ -307,89 +309,89 @@ Public Class TheGame
 
         Select Case noofplayers
             Case 2
-                Player1.Show()
+                Player1Name.Show()
                 Player_1.Show()
-                Player3.Show()
+                Player3Name.Show()
                 Player_3.Show()
 
 
-                Await DistributionAnimationAsync(Player1Card1)
-                Await DistributionAnimationAsync(Player3Card1)
+                Await DistributionAnimation(Player1Card1)
+                Await DistributionAnimation(Player3Card1)
 
-                Await DistributionAnimationAsync(Player1Card2)
-                Await DistributionAnimationAsync(Player3Card2)
+                Await DistributionAnimation(Player1Card2)
+                Await DistributionAnimation(Player3Card2)
 
-                Await DistributionAnimationAsync(Player1Card3)
-                Await DistributionAnimationAsync(Player3Card3)
+                Await DistributionAnimation(Player1Card3)
+                Await DistributionAnimation(Player3Card3)
 
-                Await DistributionAnimationAsync(Player1Card4)
-                Await DistributionAnimationAsync(Player3Card4)
+                Await DistributionAnimation(Player1Card4)
+                Await DistributionAnimation(Player3Card4)
 
-                Await DistributionAnimationAsync(Player1Card5)
-                Await DistributionAnimationAsync(Player3Card5)
+                Await DistributionAnimation(Player1Card5)
+                Await DistributionAnimation(Player3Card5)
 
             Case 3
-                Player1.Show()
+                Player1Name.Show()
                 Player_1.Show()
-                Player2.Show()
+                Player2Name.Show()
                 Player_2.Show()
-                Player4.Show()
+                Player4Name.Show()
                 Player_4.Show()
 
-                Await DistributionAnimationAsync(Player1Card1)
-                Await DistributionAnimationAsync(Player2Card1)
-                Await DistributionAnimationAsync(Player4Card1)
+                Await DistributionAnimation(Player1Card1)
+                Await DistributionAnimation(Player2Card1)
+                Await DistributionAnimation(Player4Card1)
 
-                Await DistributionAnimationAsync(Player1Card2)
-                Await DistributionAnimationAsync(Player2Card2)
-                Await DistributionAnimationAsync(Player4Card2)
+                Await DistributionAnimation(Player1Card2)
+                Await DistributionAnimation(Player2Card2)
+                Await DistributionAnimation(Player4Card2)
 
-                Await DistributionAnimationAsync(Player1Card3)
-                Await DistributionAnimationAsync(Player2Card3)
-                Await DistributionAnimationAsync(Player4Card3)
+                Await DistributionAnimation(Player1Card3)
+                Await DistributionAnimation(Player2Card3)
+                Await DistributionAnimation(Player4Card3)
 
-                Await DistributionAnimationAsync(Player1Card4)
-                Await DistributionAnimationAsync(Player2Card4)
-                Await DistributionAnimationAsync(Player4Card4)
+                Await DistributionAnimation(Player1Card4)
+                Await DistributionAnimation(Player2Card4)
+                Await DistributionAnimation(Player4Card4)
 
-                Await DistributionAnimationAsync(Player1Card5)
-                Await DistributionAnimationAsync(Player2Card5)
-                Await DistributionAnimationAsync(Player4Card5)
+                Await DistributionAnimation(Player1Card5)
+                Await DistributionAnimation(Player2Card5)
+                Await DistributionAnimation(Player4Card5)
 
             Case 4
-                Player1.Show()
+                Player1Name.Show()
                 Player_1.Show()
-                Player2.Show()
+                Player2Name.Show()
                 Player_2.Show()
-                Player3.Show()
+                Player3Name.Show()
                 Player_3.Show()
-                Player4.Show()
+                Player4Name.Show()
                 Player_4.Show()
 
-                Await DistributionAnimationAsync(Player1Card1)
-                Await DistributionAnimationAsync(Player2Card1)
-                Await DistributionAnimationAsync(Player3Card1)
-                Await DistributionAnimationAsync(Player4Card1)
+                Await DistributionAnimation(Player1Card1)
+                Await DistributionAnimation(Player2Card1)
+                Await DistributionAnimation(Player3Card1)
+                Await DistributionAnimation(Player4Card1)
 
-                Await DistributionAnimationAsync(Player1Card2)
-                Await DistributionAnimationAsync(Player2Card2)
-                Await DistributionAnimationAsync(Player3Card2)
-                Await DistributionAnimationAsync(Player4Card2)
+                Await DistributionAnimation(Player1Card2)
+                Await DistributionAnimation(Player2Card2)
+                Await DistributionAnimation(Player3Card2)
+                Await DistributionAnimation(Player4Card2)
 
-                Await DistributionAnimationAsync(Player1Card3)
-                Await DistributionAnimationAsync(Player2Card3)
-                Await DistributionAnimationAsync(Player3Card3)
-                Await DistributionAnimationAsync(Player4Card3)
+                Await DistributionAnimation(Player1Card3)
+                Await DistributionAnimation(Player2Card3)
+                Await DistributionAnimation(Player3Card3)
+                Await DistributionAnimation(Player4Card3)
 
-                Await DistributionAnimationAsync(Player1Card4)
-                Await DistributionAnimationAsync(Player2Card4)
-                Await DistributionAnimationAsync(Player3Card4)
-                Await DistributionAnimationAsync(Player4Card4)
+                Await DistributionAnimation(Player1Card4)
+                Await DistributionAnimation(Player2Card4)
+                Await DistributionAnimation(Player3Card4)
+                Await DistributionAnimation(Player4Card4)
 
-                Await DistributionAnimationAsync(Player1Card5)
-                Await DistributionAnimationAsync(Player2Card5)
-                Await DistributionAnimationAsync(Player3Card5)
-                Await DistributionAnimationAsync(Player4Card5)
+                Await DistributionAnimation(Player1Card5)
+                Await DistributionAnimation(Player2Card5)
+                Await DistributionAnimation(Player3Card5)
+                Await DistributionAnimation(Player4Card5)
         End Select
 
         Await Task.Delay(500)
@@ -397,7 +399,7 @@ Public Class TheGame
         Draw.Enabled = True
     End Sub
 
-    Private Async Function DistributionAnimationAsync(cardControl As Control) As Task
+    Private Async Function DistributionAnimation(cardControl As Control) As Task
         DeckCard4.Hide()
         DeckCard3.Hide()
         Await Task.Delay(150)
@@ -410,25 +412,25 @@ Public Class TheGame
     Private Sub LoadPlayers(noofplayers As Integer)
         If noofplayers = 2 Then
             LoadPlayer1CardsIntoPictureBoxes(1)
-            Player1.Invalidate()
+            Player1Name.Invalidate()
             LoadPlayer3CardsIntoPictureBoxes(2)
-            Player3.Invalidate()
+            Player3Name.Invalidate()
         ElseIf noofplayers = 3 Then
             LoadPlayer1CardsIntoPictureBoxes(1)
-            Player1.Invalidate()
+            Player1Name.Invalidate()
             LoadPlayer2CardsIntoPictureBoxes(2)
-            Player2.Invalidate()
+            Player2Name.Invalidate()
             LoadPlayer4CardsIntoPictureBoxes(3)
-            Player4.Invalidate()
+            Player4Name.Invalidate()
         ElseIf noofplayers = 4 Then
             LoadPlayer1CardsIntoPictureBoxes(1)
-            Player1.Invalidate()
+            Player1Name.Invalidate()
             LoadPlayer2CardsIntoPictureBoxes(2)
-            Player2.Invalidate()
+            Player2Name.Invalidate()
             LoadPlayer3CardsIntoPictureBoxes(3)
-            Player3.Invalidate()
+            Player3Name.Invalidate()
             LoadPlayer4CardsIntoPictureBoxes(4)
-            Player4.Invalidate()
+            Player4Name.Invalidate()
         Else
             MsgBox("Error in number of players")
         End If
@@ -505,6 +507,7 @@ Public Class TheGame
         Reshuffle.Hide()
         CardDrew.Hide()
         DeckVisible()
+        Draw.Show()
 
         Dim unmatched_cards As String = File.ReadAllText(unmatched_Cards_JSON_FilePath)
         Dim draw_deck As String = File.ReadAllText(draw_deck_JSON_FilePath)
@@ -965,10 +968,15 @@ Public Class TheGame
         Timer1.Start()
     End Sub
 
-    Private Sub CardDrew_Paint(sender As Object, e As PaintEventArgs) Handles Turn.Paint
+    Private Sub Turn_Paint(sender As Object, e As PaintEventArgs) Handles Turn.Paint
         If Turn.Image IsNot Nothing Then
             Dim g As Graphics = e.Graphics
-            g.Clear(Turn.BackColor)
+
+            If My.Settings.TheGame_BackgroundColor = Color.Black Then
+                g.Clear(Color.White)
+            Else
+                g.Clear(Turn.BackColor)
+            End If
             g.InterpolationMode = InterpolationMode.HighQualityBicubic
 
             ' Calculate the aspect ratio of the original image
@@ -1001,19 +1009,19 @@ Public Class TheGame
         End If
     End Sub
 
-    Private Sub Player1_Paint(sender As Object, e As PaintEventArgs) Handles Player1.Paint
+    Private Sub Player1_Paint(sender As Object, e As PaintEventArgs) Handles Player1Name.Paint
         If p1 IsNot Nothing Then
             Dim g As Graphics = e.Graphics
 
             Dim text As String = p1.Name
-            Dim font As Font = Player1.Font
-            Dim brush As Brush = New SolidBrush(Player1.ForeColor)
+            Dim font As Font = Player1Name.Font
+            Dim brush As Brush = New SolidBrush(Player1Name.ForeColor)
 
             Try
                 ' Measure the text size
                 Dim stringSize As SizeF = g.MeasureString(text, font)
                 ' Calculate the center point for vertical and horizontal alignment
-                Dim centerPoint As PointF = New PointF(Player1.Width / 2 - stringSize.Width / 2, Player1.Height / 2 - stringSize.Height / 2)
+                Dim centerPoint As PointF = New PointF(Player1Name.Width / 2 - stringSize.Width / 2, Player1Name.Height / 2 - stringSize.Height / 2)
 
                 g.DrawString(text, font, brush, centerPoint)
             Finally
@@ -1021,19 +1029,19 @@ Public Class TheGame
             End Try
         End If
     End Sub
-    Private Sub Player2_Paint(sender As Object, e As PaintEventArgs) Handles Player2.Paint
+    Private Sub Player2_Paint(sender As Object, e As PaintEventArgs) Handles Player2Name.Paint
         If p2 IsNot Nothing Then
             Dim g As Graphics = e.Graphics
 
             Dim text As String = p2.Name
-            Dim font As Font = Player2.Font
-            Dim brush As Brush = New SolidBrush(Player2.ForeColor)
+            Dim font As Font = Player2Name.Font
+            Dim brush As Brush = New SolidBrush(Player2Name.ForeColor)
             Try
                 ' Measure the text size
                 Dim stringSize As SizeF = g.MeasureString(text, font)
 
                 ' Calculate the center point for vertical and horizontal alignment
-                Dim centerPoint As PointF = New PointF(Player2.Width / 2 - stringSize.Width / 2, Player2.Height / 2 - stringSize.Height / 2)
+                Dim centerPoint As PointF = New PointF(Player2Name.Width / 2 - stringSize.Width / 2, Player2Name.Height / 2 - stringSize.Height / 2)
 
                 ' Draw the text vertically if p2 exists
                 g.TranslateTransform(centerPoint.X + stringSize.Width / 2, centerPoint.Y + stringSize.Height / 2)
@@ -1045,17 +1053,17 @@ Public Class TheGame
             End Try
         End If
     End Sub
-    Private Sub Player3_Paint(sender As Object, e As PaintEventArgs) Handles Player3.Paint
+    Private Sub Player3_Paint(sender As Object, e As PaintEventArgs) Handles Player3Name.Paint
         If p3 IsNot Nothing Then
             Dim g As Graphics = e.Graphics
 
             Dim text As String = p3.Name
-            Dim font As Font = Player3.Font
-            Dim brush As Brush = New SolidBrush(Player1.ForeColor)
+            Dim font As Font = Player3Name.Font
+            Dim brush As Brush = New SolidBrush(Player1Name.ForeColor)
             Try
                 ' For Player 3, flip upside down
                 Dim stringSize As SizeF = g.MeasureString(text, font)
-                Dim centerPoint As PointF = New PointF(Player1.Width / 2 - stringSize.Width / 2, Player1.Height / 2 - stringSize.Height / 2)
+                Dim centerPoint As PointF = New PointF(Player1Name.Width / 2 - stringSize.Width / 2, Player1Name.Height / 2 - stringSize.Height / 2)
 
                 g.TranslateTransform(centerPoint.X + stringSize.Width / 2, centerPoint.Y + stringSize.Height / 2)
                 g.RotateTransform(180) ' Rotate 180 degrees
@@ -1066,19 +1074,19 @@ Public Class TheGame
             End Try
         End If
     End Sub
-    Private Sub Player4_Paint(sender As Object, e As PaintEventArgs) Handles Player4.Paint
+    Private Sub Player4_Paint(sender As Object, e As PaintEventArgs) Handles Player4Name.Paint
         If p4 IsNot Nothing Then
             Dim g As Graphics = e.Graphics
 
             Dim text As String = p4.Name
-            Dim font As Font = Player4.Font
-            Dim brush As Brush = New SolidBrush(Player4.ForeColor)
+            Dim font As Font = Player4Name.Font
+            Dim brush As Brush = New SolidBrush(Player4Name.ForeColor)
             Try
                 ' Measure the text size
                 Dim stringSize As SizeF = g.MeasureString(text, font)
 
                 ' Calculate the center point for vertical and horizontal alignment
-                Dim centerPoint As PointF = New PointF(Player4.Width / 2 - stringSize.Width / 2, Player4.Height / 2 - stringSize.Height / 2)
+                Dim centerPoint As PointF = New PointF(Player4Name.Width / 2 - stringSize.Width / 2, Player4Name.Height / 2 - stringSize.Height / 2)
 
                 ' Draw the text vertically if p4 exists
                 g.TranslateTransform(centerPoint.X + stringSize.Width / 2, centerPoint.Y + stringSize.Height / 2)
@@ -1100,12 +1108,13 @@ Public Class TheGame
         End If
     End Function
 
-    Private Sub GameFinished(Winner As String)
+    Private Async Sub GameFinished(Winner As String)
         Entry.UpdateScore(Winner)
         MsgBox("Player " & Winner & " is the Winner. Big W !!!")
         If MessageBox.Show("Do you want to Play Again?", "Play Again or Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            EmptyTable()
+            Await Task.Delay(500)
             Initialize_Game()
-
         Else
             Me.Close()
         End If

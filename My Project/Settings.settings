@@ -2,19 +2,19 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="Entry_BackgroundImage" Type="System.String" Scope="User">
+    <Setting Name="Entry_BackgroundImagePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="TheGame_BackgroundImage" Type="System.String" Scope="User">
+    <Setting Name="TheGame_BackgroundImagePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IsEntryBackgroundDefault" Type="System.Boolean" Scope="User">
+    <Setting Name="Entry_IsBackgroundDefault" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="IsTheGameBackgroundDefault" Type="System.Boolean" Scope="User">
+    <Setting Name="TheGame_IsBackgroundDefault" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="IsBackgroundAnImage_Entry" Type="System.Boolean" Scope="User">
+    <Setting Name="Entry_IsBackgroundAnImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Entry_BackgroundColor" Type="System.Drawing.Color" Scope="User">
@@ -23,7 +23,7 @@
     <Setting Name="TheGame_BackgroundColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IsBackgroundAnImage_TheGame" Type="System.Boolean" Scope="User">
+    <Setting Name="TheGame_IsBackgroundAnImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

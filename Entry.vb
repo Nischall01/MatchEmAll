@@ -1,17 +1,18 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports MatchEmAll.My
 
 Public Class Entry
 
     ' Dim IconPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Icons", "Entry.ico")
 
-    Dim DefaultBackgroundImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Entry_BackgroundImage.png")
+    Dim DefaultBackgroundImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Default_Entry_BackgroundImage.png")
 
     Private ReadOnly connectionString As String = DatabaseHelper.GetConnectionString()
 
     Private Sub Entry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If My.Settings.IsBackgroundAnImage_Entry = True Then
-            If My.Settings.IsEntryBackgroundDefault = True Then
+        If My.Settings.Entry_IsBackgroundAnImage = True Then
+            If My.Settings.Entry_IsBackgroundDefault = True Then
                 SetBackgroundImage("Default")
             Else
                 SetBackgroundImage("Selected")
@@ -19,9 +20,11 @@ Public Class Entry
         Else
             SetBackgroundColor()
         End If
+
+
         LoadScoreBoard()
         AutoCompletePlayerNames()
-        Enable_DevMode() ' Enable test mode for development purposes
+        'Enable_DevMode() ' Enable test mode for development purposes
     End Sub
 
     Private Sub Enable_DevMode()
@@ -41,25 +44,28 @@ Public Class Entry
 
     ' For Changeable/dynamic background
     Public Sub SetBackgroundImage(Type As String)
+        NumberOfPlayers.ForeColor = Color.Black
         Select Case Type
             Case "Default"
+                My.Settings.Entry_BackgroundImagePath = DefaultBackgroundImagePath
                 If File.Exists(DefaultBackgroundImagePath) Then
                     Me.BackgroundImage = Image.FromFile(DefaultBackgroundImagePath)
                     Me.BackColor = SystemColors.Control
                 Else
-                    MsgBox($"DefaultBackgroundImage Is Missing:{DefaultBackgroundImagePath}")
+                    MsgBox($"DefaultBackgroundImage Is Missing:{DefaultBackgroundImagePath}.")
                     Me.BackgroundImage = Nothing
                     Me.BackColor = Color.DarkGreen
                 End If
 
             Case "Selected"
-                If File.Exists(My.Settings.Entry_BackgroundImage) Then
-                    Me.BackgroundImage = Image.FromFile(My.Settings.Entry_BackgroundImage)
+                If File.Exists(My.Settings.Entry_BackgroundImagePath) Then
+                    Me.BackgroundImage = Image.FromFile(My.Settings.Entry_BackgroundImagePath)
                     Me.BackColor = SystemColors.Control
                 Else
-                    MsgBox($"BackgroundImage is Missing:{My.Settings.Entry_BackgroundImage}")
-                    Me.BackgroundImage = Nothing
-                    Me.BackColor = Color.DarkGreen
+                    MsgBox($"BackgroundImage is Missing:{My.Settings.Entry_BackgroundImagePath}. Background changed to default.")
+                    My.Settings.Entry_IsBackgroundDefault = True
+                    My.Settings.Save()
+                    SetBackgroundImage("Default")
                 End If
             Case Else
                 MsgBox($"Invalid background type: {Type}. Please use 'Default' or 'Selected'.")
@@ -69,6 +75,12 @@ Public Class Entry
     Public Sub SetBackgroundColor()
         Me.BackgroundImage = Nothing
         Me.BackColor = My.Settings.Entry_BackgroundColor
+        If My.Settings.Entry_BackgroundColor = Color.Black Then
+            NumberOfPlayers.ForeColor = Color.White
+        Else
+            NumberOfPlayers.ForeColor = Color.Black
+        End If
+
     End Sub
 
     Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click

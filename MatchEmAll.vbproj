@@ -19,17 +19,18 @@
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
+    <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
+    <SupportUrl>https://github.com/Nischall01/MatchEmAll</SupportUrl>
     <TargetCulture>en-US</TargetCulture>
-    <ProductName>TheGame</ProductName>
+    <ProductName>MatchEmAll</ProductName>
     <PublisherName>Nischal</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -72,7 +73,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Entry.ico</ApplicationIcon>
+    <ApplicationIcon>MatchEmAll.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>02D7409BD724944A4107C7A7A28FE930EC50372F</ManifestCertificateThumbprint>
@@ -85,6 +86,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -175,13 +179,20 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MatchEmAll.ico" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <Content Include="Entry.ico" />
-    <Content Include="Resources\Others\Entry_BackgroundImage.png">
+    <Content Include="Resources\Others\Default_CardBack_Hrtl.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Others\Default_CardBack_Vrtl.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Others\Default_Entry_BackgroundImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\TempGameData\draw_deck.json">
@@ -546,13 +557,7 @@
     <Content Include="Resources\Deck_of_Cards\Vertical\Queen of Spades_Vrtl.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Others\Horizontal_CardBack.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Others\Turn_rotate.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Others\Vertical_CardBack.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\PlayersData\Players.mdf">
