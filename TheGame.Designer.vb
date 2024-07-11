@@ -98,6 +98,7 @@ Partial Class TheGame
         'Player_4
         '
         Me.Player_4.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Player_4.BackColor = System.Drawing.Color.Transparent
         Me.Player_4.Controls.Add(Me.Player4Card1)
         Me.Player_4.Controls.Add(Me.Player4Card3)
         Me.Player_4.Controls.Add(Me.Player4Card5)
@@ -161,6 +162,7 @@ Partial Class TheGame
         'Player_1
         '
         Me.Player_1.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Player_1.BackColor = System.Drawing.Color.Transparent
         Me.Player_1.Controls.Add(Me.Player1Card1)
         Me.Player_1.Controls.Add(Me.Player1Card5)
         Me.Player_1.Controls.Add(Me.Player1Card3)
@@ -229,6 +231,7 @@ Partial Class TheGame
         'Player_2
         '
         Me.Player_2.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Player_2.BackColor = System.Drawing.Color.Transparent
         Me.Player_2.Controls.Add(Me.Player2Card1)
         Me.Player_2.Controls.Add(Me.Player2Card5)
         Me.Player_2.Controls.Add(Me.Player2Card2)
@@ -292,6 +295,7 @@ Partial Class TheGame
         'Player_3
         '
         Me.Player_3.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Player_3.BackColor = System.Drawing.Color.Transparent
         Me.Player_3.Controls.Add(Me.Player3Card5)
         Me.Player_3.Controls.Add(Me.Player3Card1)
         Me.Player_3.Controls.Add(Me.Player3Card4)
@@ -402,6 +406,7 @@ Partial Class TheGame
         'CardDrew
         '
         Me.CardDrew.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.CardDrew.BackColor = System.Drawing.Color.Transparent
         Me.CardDrew.Location = New System.Drawing.Point(374, 390)
         Me.CardDrew.Name = "CardDrew"
         Me.CardDrew.Size = New System.Drawing.Size(60, 80)
@@ -411,6 +416,7 @@ Partial Class TheGame
         'Turn
         '
         Me.Turn.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Turn.BackColor = System.Drawing.Color.Transparent
         Me.Turn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.Turn.Location = New System.Drawing.Point(254, 182)
         Me.Turn.Name = "Turn"
@@ -487,6 +493,7 @@ Partial Class TheGame
         'CenterDeck
         '
         Me.CenterDeck.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.CenterDeck.BackColor = System.Drawing.Color.Transparent
         Me.CenterDeck.Controls.Add(Me.Reshuffle)
         Me.CenterDeck.Controls.Add(Me.DeckCard4)
         Me.CenterDeck.Controls.Add(Me.DeckCard3)

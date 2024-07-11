@@ -24,7 +24,7 @@ Public Class Entry
 
         LoadScoreBoard()
         AutoCompletePlayerNames()
-        'Enable_DevMode() ' Enable test mode for development purposes
+        ' Enable_DevMode() ' Enable test mode for development purposes
     End Sub
 
     Private Sub Enable_DevMode()
@@ -44,7 +44,19 @@ Public Class Entry
 
     ' For Changeable/dynamic background
     Public Sub SetBackgroundImage(Type As String)
+        NumberOfPlayers.BackColor = Color.Transparent
         NumberOfPlayers.ForeColor = Color.Black
+
+        Player1.BackColor = Color.Transparent
+        Player2.BackColor = Color.Transparent
+        Player3.BackColor = Color.Transparent
+        Player4.BackColor = Color.Transparent
+
+        Player1.ForeColor = Color.Black
+        Player2.ForeColor = Color.Black
+        Player3.ForeColor = Color.Black
+        Player4.ForeColor = Color.Black
+
         Select Case Type
             Case "Default"
                 My.Settings.Entry_BackgroundImagePath = DefaultBackgroundImagePath
@@ -75,12 +87,26 @@ Public Class Entry
     Public Sub SetBackgroundColor()
         Me.BackgroundImage = Nothing
         Me.BackColor = My.Settings.Entry_BackgroundColor
-        If My.Settings.Entry_BackgroundColor = Color.Black Then
-            NumberOfPlayers.ForeColor = Color.White
-        Else
-            NumberOfPlayers.ForeColor = Color.Black
-        End If
 
+        NumberOfPlayers.BackColor = Me.BackColor
+        NumberOfPlayers.ForeColor = Color.Black
+
+        Player1.BackColor = Me.BackColor
+        Player2.BackColor = Me.BackColor
+        Player3.BackColor = Me.BackColor
+        Player4.BackColor = Me.BackColor
+        Player1.ForeColor = Color.Black
+        Player2.ForeColor = Color.Black
+        Player3.ForeColor = Color.Black
+        Player4.ForeColor = Color.Black
+
+        If Me.BackColor = Color.Black Then
+            NumberOfPlayers.ForeColor = Color.White
+            Player1.ForeColor = Color.White
+            Player2.ForeColor = Color.White
+            Player3.ForeColor = Color.White
+            Player4.ForeColor = Color.White
+        End If
     End Sub
 
     Private Sub Test_Click(sender As Object, e As EventArgs) Handles Test.Click

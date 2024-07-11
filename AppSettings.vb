@@ -21,6 +21,7 @@ Public Class AppSettings
     Private Sub Settings_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If change = True Then
             If SaveClicked = False Then
+                SaveClicked = False
                 Dim result As DialogResult = MessageBox.Show("Save settings?", "Confirm Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
                 Select Case result
@@ -202,6 +203,7 @@ Public Class AppSettings
     End Function
 
     Private Sub ShowOpenFileDialogAndUpdateSetting(settingName As String)
+
         If File.Exists(My.Settings(settingName)) Then
             OpenFileDialog.InitialDirectory = Path.GetDirectoryName(My.Settings(settingName))
         Else
@@ -216,6 +218,8 @@ Public Class AppSettings
             Dim selectedFilePath As String = OpenFileDialog.FileName
             My.Settings(settingName) = selectedFilePath
 
+            change = True
+
             If settingName = "Entry_BackgroundImagePath" Then
                 TextBox1.Text = selectedFilePath
             Else
@@ -227,6 +231,9 @@ Public Class AppSettings
     Private Sub ShowOpenColorDialogAndUpdateSetting(settingName As String)
         If ColorDialog.ShowDialog() = DialogResult.OK Then
             My.Settings(settingName) = ColorDialog.Color
+
+            change = True
+
         End If
     End Sub
 

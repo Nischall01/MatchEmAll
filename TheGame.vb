@@ -5,6 +5,7 @@ Imports System.Windows.Forms.VisualStyles
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox
 Imports Newtonsoft.Json
 Imports System.Media
+Imports System.Drawing.Imaging
 
 Public Class TheGame
 
@@ -40,6 +41,7 @@ Public Class TheGame
             SetBackgroundImage()
         Else
             If My.Settings.TheGame_IsBackgroundDefault = True Then
+
                 SetBackgroundColor("Default")
             Else
                 SetBackgroundColor("Selected")
@@ -93,6 +95,7 @@ Public Class TheGame
     Public Sub SetBackgroundColor(Type As String)
         Select Case Type
             Case "Default"
+                My.Settings.TheGame_BackgroundColor = Color.DarkGreen
                 Me.BackgroundImage = Nothing
                 Me.BackColor = Color.DarkGreen
 
@@ -972,11 +975,8 @@ Public Class TheGame
         If Turn.Image IsNot Nothing Then
             Dim g As Graphics = e.Graphics
 
-            If My.Settings.TheGame_BackgroundColor = Color.Black Then
-                g.Clear(Color.White)
-            Else
-                g.Clear(Turn.BackColor)
-            End If
+            g.Clear(My.Settings.TheGame_BackgroundColor)
+
             g.InterpolationMode = InterpolationMode.HighQualityBicubic
 
             ' Calculate the aspect ratio of the original image
@@ -999,15 +999,36 @@ Public Class TheGame
 
             ' Set the rotation point to the center of the PictureBox
             g.TranslateTransform(Turn.Width / 2, Turn.Height / 2)
-            g.RotateTransform(-angle) '     - for anti-clockwise
+            g.RotateTransform(-angle) ' Negative angle for counter-clockwise rotation
 
-            ' Draw the scaled and rotated image
-            g.DrawImage(Turn.Image, New Rectangle(-drawWidth \ 2, -drawHeight \ 2, drawWidth, drawHeight))
+            If My.Settings.TheGame_BackgroundColor = Color.Black Then
+                ' Create a color matrix that applies a red tint
+                Dim matrixElements As Single()() = {
+                New Single() {1, 0, 0, 0, 0},    ' Red channel
+                New Single() {0, 1, 0, 0, 0},    ' Green channel
+                New Single() {0, 0, 1, 0, 0},    ' Blue channel
+                New Single() {0, 0, 0, 1, 0},    ' Alpha channel (transparency)
+                New Single() {0.5F, 0.5F, 0.5F, 0, 1} ' Adjusts RGB channels towards white
+}
 
+                Dim colorMatrix As New ColorMatrix(matrixElements)
+                Dim imageAttributes As New ImageAttributes()
+                imageAttributes.SetColorMatrix(colorMatrix)
+
+                ' Draw the scaled and rotated image 
+                g.DrawImage(Turn.Image,
+                    New Rectangle(-drawWidth \ 2, -drawHeight \ 2, drawWidth, drawHeight),
+                    0, 0, Turn.Image.Width, Turn.Image.Height,
+                    GraphicsUnit.Pixel, imageAttributes)
+            Else
+                g.DrawImage(Turn.Image, New Rectangle(-drawWidth \ 2, -drawHeight \ 2, drawWidth, drawHeight))
+            End If
             ' Reset transformations
             g.ResetTransform()
-        End If
+            End If
     End Sub
+
+
 
     Private Sub Player1_Paint(sender As Object, e As PaintEventArgs) Handles Player1Name.Paint
         If p1 IsNot Nothing Then

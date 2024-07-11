@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Entry
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Entry
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Entry))
         Me.Player1_TextBox = New System.Windows.Forms.TextBox()
@@ -85,7 +85,7 @@ Partial Class Entry
         '
         Me.Player1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player1.AutoSize = True
-        Me.Player1.BackColor = System.Drawing.Color.White
+        Me.Player1.BackColor = System.Drawing.Color.Snow
         Me.Player1.ForeColor = System.Drawing.Color.Black
         Me.Player1.Location = New System.Drawing.Point(299, 195)
         Me.Player1.Name = "Player1"
@@ -97,7 +97,7 @@ Partial Class Entry
         '
         Me.Player2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player2.AutoSize = True
-        Me.Player2.BackColor = System.Drawing.Color.White
+        Me.Player2.BackColor = System.Drawing.Color.Snow
         Me.Player2.ForeColor = System.Drawing.Color.Black
         Me.Player2.Location = New System.Drawing.Point(299, 234)
         Me.Player2.Name = "Player2"
@@ -109,7 +109,7 @@ Partial Class Entry
         '
         Me.Player3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player3.AutoSize = True
-        Me.Player3.BackColor = System.Drawing.Color.White
+        Me.Player3.BackColor = System.Drawing.Color.Snow
         Me.Player3.ForeColor = System.Drawing.Color.Black
         Me.Player3.Location = New System.Drawing.Point(299, 272)
         Me.Player3.Name = "Player3"
@@ -121,7 +121,7 @@ Partial Class Entry
         '
         Me.Player4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Player4.AutoSize = True
-        Me.Player4.BackColor = System.Drawing.Color.White
+        Me.Player4.BackColor = System.Drawing.Color.Snow
         Me.Player4.ForeColor = System.Drawing.Color.Black
         Me.Player4.Location = New System.Drawing.Point(299, 308)
         Me.Player4.Name = "Player4"
@@ -134,7 +134,7 @@ Partial Class Entry
         Me.EnterTheGame.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.EnterTheGame.BackColor = System.Drawing.Color.Black
         Me.EnterTheGame.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.EnterTheGame.Location = New System.Drawing.Point(360, 342)
+        Me.EnterTheGame.Location = New System.Drawing.Point(360, 358)
         Me.EnterTheGame.Name = "EnterTheGame"
         Me.EnterTheGame.Size = New System.Drawing.Size(75, 23)
         Me.EnterTheGame.TabIndex = 15
@@ -144,11 +144,11 @@ Partial Class Entry
         'NumberOfPlayers
         '
         Me.NumberOfPlayers.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NumberOfPlayers.BackColor = System.Drawing.Color.Transparent
+        Me.NumberOfPlayers.BackColor = System.Drawing.Color.Snow
         Me.NumberOfPlayers.Controls.Add(Me.FourPlayers)
         Me.NumberOfPlayers.Controls.Add(Me.ThreePlayers)
         Me.NumberOfPlayers.Controls.Add(Me.TwoPlayers)
-        Me.NumberOfPlayers.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.NumberOfPlayers.ForeColor = System.Drawing.Color.Black
         Me.NumberOfPlayers.Location = New System.Drawing.Point(300, 72)
         Me.NumberOfPlayers.Name = "NumberOfPlayers"
         Me.NumberOfPlayers.Size = New System.Drawing.Size(200, 102)
@@ -215,8 +215,8 @@ Partial Class Entry
         '
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label1.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label1.BackColor = System.Drawing.Color.Snow
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label1.Location = New System.Drawing.Point(620, 37)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(66, 13)
@@ -226,12 +226,13 @@ Partial Class Entry
         'Clear
         '
         Me.Clear.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Clear.BackColor = System.Drawing.Color.Snow
         Me.Clear.Location = New System.Drawing.Point(620, 421)
         Me.Clear.Name = "Clear"
         Me.Clear.Size = New System.Drawing.Size(75, 23)
         Me.Clear.TabIndex = 20
         Me.Clear.Text = "Clear"
-        Me.Clear.UseVisualStyleBackColor = True
+        Me.Clear.UseVisualStyleBackColor = False
         '
         'Test
         '
@@ -239,7 +240,7 @@ Partial Class Entry
         Me.Test.BackColor = System.Drawing.Color.Black
         Me.Test.Enabled = False
         Me.Test.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Test.Location = New System.Drawing.Point(360, 376)
+        Me.Test.Location = New System.Drawing.Point(360, 392)
         Me.Test.Name = "Test"
         Me.Test.Size = New System.Drawing.Size(75, 23)
         Me.Test.TabIndex = 21
