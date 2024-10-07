@@ -33,7 +33,7 @@ Public Class TheGame
     Dim Turn_rotate_ImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Others", "Turn_Rotate.png")
 
     Private SFXplayer As SoundPlayer
-    Dim sound_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Sfx", "Explosion_FX.wav")
+    Private ReadOnly sound_FilePath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Sfx", "Explosion_FX.wav")
 
     Private Async Sub TheGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -242,7 +242,7 @@ Public Class TheGame
             For Each card In currentPlayerCards
 
                 If drawnCard.Substring(0, 1) = card.Substring(0, 1) Then
-                    ' PlaySound()                                                                       Enable later
+                    PlaySound()                                                                       'Enable later
                     MsgBox("Hit!!")
                     RemoveCardFromFile(draw_deck_JSON_FilePath, drawnCard)
                     RemoveCardFromFile(players_hands_JSON_FilePath, card)

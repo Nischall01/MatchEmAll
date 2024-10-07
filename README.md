@@ -1,6 +1,6 @@
-## MatchEmAll:  A Simple Card Matching Game
+# About📖
 
-This game is a multiplayer card matching game.
+MatchEmAll is a simple multiplayer, RNG-based card matching game.
 
 ### Objective:
 
